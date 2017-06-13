@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="antlr-runtime-4.7">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Library Files/antlr-runtime-4.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/Library Files/antlr4-4.7.zip!/antlr4-4.7/antlr4-maven-plugin/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/Library Files/antlr4-4.7.zip!/antlr4-4.7/antlr4-maven-plugin/src/test/java" />
+      <root url="jar://$PROJECT_DIR$/Library Files/antlr4-4.7.zip!/antlr4-4.7/runtime-testsuite/annotations/src" />
+      <root url="jar://$PROJECT_DIR$/Library Files/antlr4-4.7.zip!/antlr4-4.7/runtime-testsuite/processors/src" />
+      <root url="jar://$PROJECT_DIR$/Library Files/antlr4-4.7.zip!/antlr4-4.7/runtime-testsuite/test" />
+      <root url="jar://$PROJECT_DIR$/Library Files/antlr4-4.7.zip!/antlr4-4.7/runtime/Java/src" />
+      <root url="jar://$PROJECT_DIR$/Library Files/antlr4-4.7.zip!/antlr4-4.7/tool-testsuite/test" />
+      <root url="jar://$PROJECT_DIR$/Library Files/antlr4-4.7.zip!/antlr4-4.7/tool/playground" />
+      <root url="jar://$PROJECT_DIR$/Library Files/antlr4-4.7.zip!/antlr4-4.7/tool/src" />
+    </SOURCES>
+  </library>
+</component>
