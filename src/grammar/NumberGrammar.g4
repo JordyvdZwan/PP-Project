@@ -1,92 +1,88 @@
 grammar NumberGrammar;
 
-program : ;
+ngNumber : ngWrittenNumber | NGNumericNumber;
+NGNumericNumber: [0-9]+;
+ngWrittenNumber: (ngbillion (NGAnd)?)? (ngmillion (NGAnd)?)? (ngthousand (NGAnd)?)? ngsingle
+             | (ngbillion (NGAnd)?)? (ngmillion (NGAnd)?)? ngthousand (NGAnd)? (ngsingle)?
+             | (ngbillion (NGAnd)?)? ngmillion (NGAnd)? (ngthousand (NGAnd)?)? (ngsingle)?
+             | ngbillion (NGAnd)? (ngmillion(NGAnd)?)? (ngthousand (NGAnd)?)? (ngsingle)?
+             | NGZero;
 
+nghundred : NGHundred;
+ngthousand: (ngsingle)? NGThousand; //Fix this maybe?
+ngmillion : (ngsingle)? NGMillion;
+ngbillion : (ngsingle)? NGBillion;
 
+ngsingle  : (nghprefix)? nghundred (NGAnd)? ngonly | (nghprefix)? nghundred | ngonly ;
+ngonly    : ngmain1 | ngmain2 | ngsingles;
+ngsingles : NGOne | NGTwo | NGThree | NGFour | NGFive | NGSix | NGSeven | NGEight | NGNine | NGTen;
+ngmain1   : NGEleven | NGTwelve | NGEighteen | ngfirst NGTeen;
+ngmain2   : ngdoubles (('-')? ngseconds)?;
+nghprefix : ngonly;
 
-number : writtenNumber | NumericNumber;
-NumericNumber: [0-9]+;
-writtenNumber: (billion)? (million)? (thousand)? single
-             | (billion)? (million)? thousand (single)?
-             | (billion)? million (thousand)? (single)?
-             | billion (million)? (thousand)? (single)?
-             | Zero;
+ngseconds : NGOne | NGTwo | NGThree | NGFour | NGFive | NGSix | NGSeven | NGEight | NGNine;
+ngfirst   : NGThir | NGFour | NGFif | NGSix | NGSeven | NGNine;
+ngdoubles : NGTwenty | NGThirty | NGForty | NGFifty | NGSixty | NGSeventy | NGEighty | NGNinety;
 
-hundred : Hundred;
-thousand: (single)? Thousand; //Fix this maybe?
-million : (single)? Million;
-billion : (single)? Billion;
+NGHundred: NGH NGU NGN NGD NGR NGE NGD;
+NGThousand: NGT NGH NGO NGU NGS NGA NGN NGD;
+NGMillion: NGM NGI NGL NGL NGI NGO NGN;
+NGBillion: NGB NGI NGL NGL NGI NGO NGN;
 
-single  : (hprefix)? hundred (And)? only | (hprefix)? hundred | only ;
-only    : main1 | main2 | singles;
-singles : One | Two | Three | Four | Five | Six | Seven | Eight | Nine | Ten;
-main1   : Eleven | Twelve | Eighteen | first Teen;
-main2   : doubles (('-')? seconds)?;
-hprefix : only;
+NGZero   : NGZ NGE NGR NGO;
+NGOne    : NGO NGN NGE;
+NGTwo    : NGT NGW NGO;
+NGThree  : NGT NGH NGR NGE NGE;
+NGFour   : NGF NGO NGU NGR;
+NGFive   : NGF NGI NGV NGE;
+NGSix    : NGS NGI NGX;
+NGSeven  : NGS NGE NGV NGE NGN;
+NGEight  : NGE NGI NGG NGH NGT;
+NGNine   : NGN NGI NGN NGE;
 
-seconds : One | Two | Three | Four | Five | Six | Seven | Eight | Nine;
-first   : Thir | Four | Fif | Six | Seven | Nine;
-doubles : Twenty | Thirty | Forty | Fifty | Sixty | Seventy | Eighty | Ninety;
+NGTen      : NGT NGE NGN;
+NGEleven   : NGE NGL NGE NGV NGE NGN;
+NGTwelve   : NGT NGW NGE NGL NGV NGE;
+NGEighteen : NGE NGI NGG NGH NGT NGE NGE NGN;
+NGThir     : NGT NGH NGI NGR;
+NGFif      : NGF NGI NGF;
 
-Hundred: H U N D R E D;
-Thousand: T H O U S A N D;
-Million: M I L L I O N;
-Billion: B I L L I O N;
+NGTeen   : NGT NGE NGE NGN;
+NGTwenty : NGT NGW NGE NGN NGT NGY;
+NGThirty : NGT NGH NGI NGR NGT NGY;
+NGForty : NGF NGO NGR NGT NGY;
+NGFifty  : NGF NGI NGF NGT NGY;
+NGSixty  : NGS NGI NGX NGT NGY;
+NGSeventy: NGS NGE NGV NGE NGN NGT NGY;
+NGEighty : NGE NGI NGG NGH NGT NGY;
+NGNinety : NGN NGI NGN NGE NGT NGY;
 
-Zero   : Z E R O;
-One    : O N E;
-Two    : T W O;
-Three  : T H R E E;
-Four   : F O U R;
-Five   : F I V E;
-Six    : S I X;
-Seven  : S E V E N;
-Eight  : E I G H T;
-Nine   : N I N E;
+NGAnd : NGA NGN NGD;
 
-Ten      : T E N;
-Eleven   : E L E V E N;
-Twelve   : T W E L V E;
-Eighteen : E I G H T E E N;
-Thir     : T H I R;
-Fif      : F I F;
-
-Teen   : T E E N;
-Twenty : T W E N T Y;
-Thirty : T H I R T Y;
-Forty : F O R T Y;
-Fifty  : F I F T Y;
-Sixty  : S I X T Y;
-Seventy: S E V E N T Y;
-Eighty : E I G H T Y;
-Ninety : N I N E T Y;
-
-And : A N D;
-
-A: 'A' | 'a';
-B: 'B' | 'b';
-C: 'C' | 'c';
-D: 'D' | 'd';
-E: 'E' | 'e';
-F: 'F' | 'f';
-G: 'G' | 'g';
-H: 'H' | 'h';
-I: 'I' | 'i';
-J: 'J' | 'j';
-K: 'K' | 'k';
-L: 'L' | 'l';
-M: 'M' | 'm';
-N: 'N' | 'n';
-O: 'O' | 'o';
-P: 'P' | 'p';
-Q: 'Q' | 'q';
-R: 'R' | 'r';
-S: 'S' | 's';
-T: 'T' | 't';
-U: 'U' | 'u';
-V: 'V' | 'v';
-W: 'W' | 'w';
-X: 'X' | 'x';
-Y: 'Y' | 'y';
-Z: 'Z' | 'z';
+NGA: 'A' | 'a';
+NGB: 'B' | 'b';
+NGC: 'C' | 'c';
+NGD: 'D' | 'd';
+NGE: 'E' | 'e';
+NGF: 'F' | 'f';
+NGG: 'G' | 'g';
+NGH: 'H' | 'h';
+NGI: 'I' | 'i';
+NGJ: 'J' | 'j';
+NGK: 'K' | 'k';
+NGL: 'L' | 'l';
+NGM: 'M' | 'm';
+NGN: 'N' | 'n';
+NGO: 'O' | 'o';
+NGP: 'P' | 'p';
+NGQ: 'Q' | 'q';
+NGR: 'R' | 'r';
+NGS: 'S' | 's';
+NGT: 'T' | 't';
+NGU: 'U' | 'u';
+NGV: 'V' | 'v';
+NGW: 'W' | 'w';
+NGX: 'X' | 'x';
+NGY: 'Y' | 'y';
+NGZ: 'Z' | 'z';
 
