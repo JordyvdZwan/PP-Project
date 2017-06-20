@@ -1,15 +1,25 @@
 package checker;
 
-import grammar.MainGrammarBaseVisitor;
 import grammar.MainGrammarParser;
+import grammar.NumberGrammarBaseVisitor;
+import grammar.NumberGrammarParser;
 
 /**
  * Created by Jordy van der Zwan on 14-Jun-17.
+ * <p>
+ * The NumberTestVisitor was build as a proof of concept of an written number to int conversion.
+ * Though it returns a Long it is safe to cast the value to an integer as it makes sure no overflow can occur.
+ * If an overflow is detected the visitWrittenNumber will return -1 which is an errorcode
+ * <p>
+ * NOTE: Only correct use is by accessing the value of visitNumber and adding the following code around it.
+ * <p>
+ * Luckily it was successful and has the following features:
+ * - Using the grammar defined in maingrammar this class generates an Long given an correct written number *
  */
-public class NumberTestVisitor extends MainGrammarBaseVisitor<Long> {
+public class NumberTestVisitor extends NumberGrammarBaseVisitor<Long> {
 
     @Override
-    public Long visitNumber(MainGrammarParser.NumberContext ctx) {
+    public Long visitNumber(NumberGrammarParser.NumberContext ctx) {
         if (ctx.NumericNumber() != null) {
             return Long.parseLong(ctx.NumericNumber().getText());
         } else {
@@ -18,10 +28,10 @@ public class NumberTestVisitor extends MainGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitWrittenNumber(MainGrammarParser.WrittenNumberContext ctx) {
-        Long result = new Long(0);
+    public Long visitWrittenNumber(NumberGrammarParser.WrittenNumberContext ctx) {
+        Long result = 0L;
         if (ctx.Zero() != null) {
-            return new Long(0);
+            return 0L;
         }
         if (ctx.billion() != null) {
             result += visit(ctx.billion());
@@ -42,28 +52,28 @@ public class NumberTestVisitor extends MainGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitSingle(MainGrammarParser.SingleContext ctx) {
+    public Long visitSingle(NumberGrammarParser.SingleContext ctx) {
         if (ctx.hundred() != null) {
-            if (ctx.only() != null) {
-                if (ctx.only(1) != null) {
-                    return (visit(ctx.only(0)) * 100) + visit(ctx.only(1));
+            if (ctx.hprefix() != null) {
+                if (ctx.only() != null) {
+                    return (visit(ctx.hprefix()) * 100) + visit(ctx.only());
                 } else {
-                    return 100 * visit(ctx.only(0));
+                    return (visit(ctx.hprefix()) * 100);
                 }
             } else {
-                if (ctx.only(0) != null) {
-                    return visit(ctx.only(0)) * 100;
+                if (ctx.only() != null) {
+                    return 100 + visit(ctx.only());
                 } else {
                     return 100L;
                 }
             }
         } else {
-            return visit(ctx.only(0));
+            return visit(ctx.only());
         }
     }
 
     @Override
-    public Long visitOnly(MainGrammarParser.OnlyContext ctx) {
+    public Long visitOnly(NumberGrammarParser.OnlyContext ctx) {
         if (ctx.singles() != null) {
             return visit(ctx.singles());
         } else if (ctx.main2() != null) {
@@ -75,8 +85,10 @@ public class NumberTestVisitor extends MainGrammarBaseVisitor<Long> {
 
     @SuppressWarnings("Duplicates")
     @Override
-    public Long visitSingles(MainGrammarParser.SinglesContext ctx) {
-        if (ctx.Two() != null) {
+    public Long visitSingles(NumberGrammarParser.SinglesContext ctx) {
+        if (ctx.One() != null) {
+            return 1L;
+        } else if(ctx.Two() != null) {
             return 2L;
         } else if (ctx.Three() != null) {
             return 3L;
@@ -98,18 +110,20 @@ public class NumberTestVisitor extends MainGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitMain1(MainGrammarParser.Main1Context ctx) {
+    public Long visitMain1(NumberGrammarParser.Main1Context ctx) {
         if (ctx.Eleven() != null) {
             return 11L;
         } else if (ctx.Twelve() != null) {
             return 12L;
+        } else if (ctx.Eighteen() != null) {
+            return 18L;
         } else {
             return 10 + visit(ctx.first());
         }
     }
 
     @Override
-    public Long visitMain2(MainGrammarParser.Main2Context ctx) {
+    public Long visitMain2(NumberGrammarParser.Main2Context ctx) {
         Long result = 0L;
         result += visit(ctx.doubles());
         if (ctx.seconds() != null) {
@@ -120,29 +134,13 @@ public class NumberTestVisitor extends MainGrammarBaseVisitor<Long> {
 
     @SuppressWarnings("Duplicates")
     @Override
-    public Long visitHprefix(MainGrammarParser.HprefixContext ctx) {
-        if (ctx.Two() != null) {
-            return 2L;
-        } else if (ctx.Three() != null) {
-            return 3L;
-        } else if (ctx.Four() != null) {
-            return 4L;
-        } else if (ctx.Five() != null) {
-            return 5L;
-        } else if (ctx.Six() != null) {
-            return 6L;
-        } else if (ctx.Seven() != null) {
-            return 7L;
-        } else if (ctx.Eight() != null) {
-            return 8L;
-        } else {
-            return 9L;
-        }
+    public Long visitHprefix(NumberGrammarParser.HprefixContext ctx) {
+        return visit(ctx.only());
     }
 
     @SuppressWarnings("Duplicates")
     @Override
-    public Long visitSeconds(MainGrammarParser.SecondsContext ctx) {
+    public Long visitSeconds(NumberGrammarParser.SecondsContext ctx) {
         if (ctx.One() != null) {
             return 1L;
         } else if (ctx.Two() != null) {
@@ -165,7 +163,7 @@ public class NumberTestVisitor extends MainGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitFirst(MainGrammarParser.FirstContext ctx) {
+    public Long visitFirst(NumberGrammarParser.FirstContext ctx) {
         if (ctx.Thir() != null) {
             return 3L;
         } else if (ctx.Four() != null) {
@@ -176,58 +174,56 @@ public class NumberTestVisitor extends MainGrammarBaseVisitor<Long> {
             return 6L;
         } else if (ctx.Seven() != null) {
             return 7L;
-        } else if (ctx.Eigh() != null) {
-            return 8L;
         } else {
             return 9L;
         }
     }
 
     @Override
-    public Long visitDoubles(MainGrammarParser.DoublesContext ctx) {
+    public Long visitDoubles(NumberGrammarParser.DoublesContext ctx) {
         if (ctx.Twenty() != null) {
-            return new Long(20);
+            return 20L;
         } else if (ctx.Thirty() != null) {
-            return new Long(30);
+            return 30L;
         } else if (ctx.Forty() != null) {
-            return new Long(40);
+            return 40L;
         } else if (ctx.Fifty() != null) {
-            return new Long(50);
+            return 50L;
         } else if (ctx.Sixty() != null) {
-            return new Long(60);
+            return 60L;
         } else if (ctx.Seventy() != null) {
-            return new Long(70);
+            return 70L;
         } else if (ctx.Eighty() != null) {
-            return new Long(80);
+            return 80L;
         } else {
-            return new Long(90);
+            return 90L;
         }
     }
 
     @Override
-    public Long visitThousand(MainGrammarParser.ThousandContext ctx) {
+    public Long visitThousand(NumberGrammarParser.ThousandContext ctx) {
         if (ctx.single() != null) {
             return visit(ctx.single()) * 1000;
         } else {
-            return new Long(1000);
+            return 1000L;
         }
     }
 
     @Override
-    public Long visitMillion(MainGrammarParser.MillionContext ctx) {
+    public Long visitMillion(NumberGrammarParser.MillionContext ctx) {
         if (ctx.single() != null) {
             return visit(ctx.single()) * 1000000;
         } else {
-            return new Long(1000000);
+            return 1000000L;
         }
     }
 
     @Override
-    public Long visitBillion(MainGrammarParser.BillionContext ctx) {
+    public Long visitBillion(NumberGrammarParser.BillionContext ctx) {
         if (ctx.single() != null) {
             return visit(ctx.single()) * 1000000000;
         } else {
-            return new Long(1000000000);
+            return 1000000000L;
         }
     }
 }

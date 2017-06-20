@@ -1,4 +1,4 @@
-grammar MainGrammar;
+grammar NumberGrammar;
 
 program : ;
 
@@ -6,23 +6,16 @@ program : ;
 
 number : writtenNumber | NumericNumber;
 NumericNumber: [0-9]+;
-writtenNumber: billion million thousand single
-             | billion million thousand
-             | billion million single
-             | million thousand single
-             | billion thousand single
-             | billion million
-             | billion thousand
-             | thousand single
-             | million thousand
-             | million single
-             | billion single
-             | million
-             | billion
-             | million
-             | thousand
-             | single
+writtenNumber: (billion)? (million)? (thousand)? single
+             | (billion)? (million)? thousand (single)?
+             | (billion)? million (thousand)? (single)?
+             | billion (million)? (thousand)? (single)?
              | Zero;
+
+hundred : Hundred;
+thousand: (single)? Thousand; //Fix this maybe?
+million : (single)? Million;
+billion : (single)? Billion;
 
 single  : (hprefix)? hundred (And)? only | (hprefix)? hundred | only ;
 only    : main1 | main2 | singles;
@@ -35,10 +28,10 @@ seconds : One | Two | Three | Four | Five | Six | Seven | Eight | Nine;
 first   : Thir | Four | Fif | Six | Seven | Nine;
 doubles : Twenty | Thirty | Forty | Fifty | Sixty | Seventy | Eighty | Ninety;
 
-hundred : H U N D R E D;
-thousand: (single)? T H O U S And; //Fix this maybe?
-million : (single)? M I L L I O N;
-billion : (single)? B I L L I O N;
+Hundred: H U N D R E D;
+Thousand: T H O U S A N D;
+Million: M I L L I O N;
+Billion: B I L L I O N;
 
 Zero   : Z E R O;
 One    : O N E;
