@@ -6,9 +6,6 @@ import utils.iloc.model.Program;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Jordy van der Zwan on 13-Jun-17.
- */
 public class SprocklGenerator {
 
     private Map<String, Integer> registers = new HashMap<>();
@@ -33,6 +30,34 @@ public class SprocklGenerator {
 
                 case "sub":
                     result = result + " " + sub(line);
+                    break;
+
+                case "mult":
+                    result = result + " " + mult(line);
+                    break;
+
+                case "cmp_EQ":
+                    result = result + " " + equal(line);
+                    break;
+
+                case "cmp_NE":
+                    result = result + " " + notEqual(line);
+                    break;
+
+                case "cmp_GT":
+                    result = result + " " + greater(line);
+                    break;
+
+                case "cmp_LT":
+                    result = result + " " + less(line);
+                    break;
+
+                case "cmp_GE":
+                    result = result + " " + greaterEqual(line);
+                    break;
+
+                case "cmp_LE":
+                    result = result + " " + lessEqual(line);
                     break;
             }
         }
@@ -66,6 +91,55 @@ public class SprocklGenerator {
         addRegister(input[2]);
         addRegister(input[4]);
         return "Compute Sub " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+    }
+
+    private String mult(String[] input) {
+        addRegister(input[1]);
+        addRegister(input[2]);
+        addRegister(input[4]);
+        return "Compute Mul " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+    }
+
+    private String equal(String[] input) {
+        addRegister(input[1]);
+        addRegister(input[2]);
+        addRegister(input[4]);
+        return "Compute Equal " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+    }
+
+    private String notEqual(String[] input) {
+        addRegister(input[1]);
+        addRegister(input[2]);
+        addRegister(input[4]);
+        return "Compute NEq " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+    }
+
+    private String greater(String[] input) {
+        addRegister(input[1]);
+        addRegister(input[2]);
+        addRegister(input[4]);
+        return "Compute Gt " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+    }
+
+    private String less(String[] input) {
+        addRegister(input[1]);
+        addRegister(input[2]);
+        addRegister(input[4]);
+        return "Compute Lt " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+    }
+
+    private String greaterEqual(String[] input) {
+        addRegister(input[1]);
+        addRegister(input[2]);
+        addRegister(input[4]);
+        return "Compute GtE " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+    }
+
+    private String lessEqual(String[] input) {
+        addRegister(input[1]);
+        addRegister(input[2]);
+        addRegister(input[4]);
+        return "Compute LtE " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
     }
 
 }
