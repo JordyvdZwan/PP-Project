@@ -11,99 +11,87 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface NumberGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#program}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#ngWrittenNumber}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProgram(NumberGrammarParser.ProgramContext ctx);
+	T visitNgWrittenNumber(NumberGrammarParser.NgWrittenNumberContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#number}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#nghundred}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNumber(NumberGrammarParser.NumberContext ctx);
+	T visitNghundred(NumberGrammarParser.NghundredContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#writtenNumber}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#ngthousand}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitWrittenNumber(NumberGrammarParser.WrittenNumberContext ctx);
+	T visitNgthousand(NumberGrammarParser.NgthousandContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#hundred}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#ngmillion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitHundred(NumberGrammarParser.HundredContext ctx);
+	T visitNgmillion(NumberGrammarParser.NgmillionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#thousand}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#ngbillion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitThousand(NumberGrammarParser.ThousandContext ctx);
+	T visitNgbillion(NumberGrammarParser.NgbillionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#million}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#ngsingle}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMillion(NumberGrammarParser.MillionContext ctx);
+	T visitNgsingle(NumberGrammarParser.NgsingleContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#billion}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#ngonly}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBillion(NumberGrammarParser.BillionContext ctx);
+	T visitNgonly(NumberGrammarParser.NgonlyContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#single}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#ngsingles}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSingle(NumberGrammarParser.SingleContext ctx);
+	T visitNgsingles(NumberGrammarParser.NgsinglesContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#only}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#ngmain1}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOnly(NumberGrammarParser.OnlyContext ctx);
+	T visitNgmain1(NumberGrammarParser.Ngmain1Context ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#singles}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#ngmain2}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSingles(NumberGrammarParser.SinglesContext ctx);
+	T visitNgmain2(NumberGrammarParser.Ngmain2Context ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#main1}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#nghprefix}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMain1(NumberGrammarParser.Main1Context ctx);
+	T visitNghprefix(NumberGrammarParser.NghprefixContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#main2}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#ngseconds}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMain2(NumberGrammarParser.Main2Context ctx);
+	T visitNgseconds(NumberGrammarParser.NgsecondsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#hprefix}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#ngfirst}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitHprefix(NumberGrammarParser.HprefixContext ctx);
+	T visitNgfirst(NumberGrammarParser.NgfirstContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#seconds}.
+	 * Visit a parse tree produced by {@link NumberGrammarParser#ngdoubles}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSeconds(NumberGrammarParser.SecondsContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#first}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFirst(NumberGrammarParser.FirstContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link NumberGrammarParser#doubles}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDoubles(NumberGrammarParser.DoublesContext ctx);
+	T visitNgdoubles(NumberGrammarParser.NgdoublesContext ctx);
 }

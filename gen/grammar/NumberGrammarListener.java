@@ -8,163 +8,143 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface NumberGrammarListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#program}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#ngWrittenNumber}.
 	 * @param ctx the parse tree
 	 */
-	void enterProgram(NumberGrammarParser.ProgramContext ctx);
+	void enterNgWrittenNumber(NumberGrammarParser.NgWrittenNumberContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#program}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#ngWrittenNumber}.
 	 * @param ctx the parse tree
 	 */
-	void exitProgram(NumberGrammarParser.ProgramContext ctx);
+	void exitNgWrittenNumber(NumberGrammarParser.NgWrittenNumberContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#number}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#nghundred}.
 	 * @param ctx the parse tree
 	 */
-	void enterNumber(NumberGrammarParser.NumberContext ctx);
+	void enterNghundred(NumberGrammarParser.NghundredContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#number}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#nghundred}.
 	 * @param ctx the parse tree
 	 */
-	void exitNumber(NumberGrammarParser.NumberContext ctx);
+	void exitNghundred(NumberGrammarParser.NghundredContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#writtenNumber}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#ngthousand}.
 	 * @param ctx the parse tree
 	 */
-	void enterWrittenNumber(NumberGrammarParser.WrittenNumberContext ctx);
+	void enterNgthousand(NumberGrammarParser.NgthousandContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#writtenNumber}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#ngthousand}.
 	 * @param ctx the parse tree
 	 */
-	void exitWrittenNumber(NumberGrammarParser.WrittenNumberContext ctx);
+	void exitNgthousand(NumberGrammarParser.NgthousandContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#hundred}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#ngmillion}.
 	 * @param ctx the parse tree
 	 */
-	void enterHundred(NumberGrammarParser.HundredContext ctx);
+	void enterNgmillion(NumberGrammarParser.NgmillionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#hundred}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#ngmillion}.
 	 * @param ctx the parse tree
 	 */
-	void exitHundred(NumberGrammarParser.HundredContext ctx);
+	void exitNgmillion(NumberGrammarParser.NgmillionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#thousand}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#ngbillion}.
 	 * @param ctx the parse tree
 	 */
-	void enterThousand(NumberGrammarParser.ThousandContext ctx);
+	void enterNgbillion(NumberGrammarParser.NgbillionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#thousand}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#ngbillion}.
 	 * @param ctx the parse tree
 	 */
-	void exitThousand(NumberGrammarParser.ThousandContext ctx);
+	void exitNgbillion(NumberGrammarParser.NgbillionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#million}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#ngsingle}.
 	 * @param ctx the parse tree
 	 */
-	void enterMillion(NumberGrammarParser.MillionContext ctx);
+	void enterNgsingle(NumberGrammarParser.NgsingleContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#million}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#ngsingle}.
 	 * @param ctx the parse tree
 	 */
-	void exitMillion(NumberGrammarParser.MillionContext ctx);
+	void exitNgsingle(NumberGrammarParser.NgsingleContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#billion}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#ngonly}.
 	 * @param ctx the parse tree
 	 */
-	void enterBillion(NumberGrammarParser.BillionContext ctx);
+	void enterNgonly(NumberGrammarParser.NgonlyContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#billion}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#ngonly}.
 	 * @param ctx the parse tree
 	 */
-	void exitBillion(NumberGrammarParser.BillionContext ctx);
+	void exitNgonly(NumberGrammarParser.NgonlyContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#single}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#ngsingles}.
 	 * @param ctx the parse tree
 	 */
-	void enterSingle(NumberGrammarParser.SingleContext ctx);
+	void enterNgsingles(NumberGrammarParser.NgsinglesContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#single}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#ngsingles}.
 	 * @param ctx the parse tree
 	 */
-	void exitSingle(NumberGrammarParser.SingleContext ctx);
+	void exitNgsingles(NumberGrammarParser.NgsinglesContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#only}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#ngmain1}.
 	 * @param ctx the parse tree
 	 */
-	void enterOnly(NumberGrammarParser.OnlyContext ctx);
+	void enterNgmain1(NumberGrammarParser.Ngmain1Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#only}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#ngmain1}.
 	 * @param ctx the parse tree
 	 */
-	void exitOnly(NumberGrammarParser.OnlyContext ctx);
+	void exitNgmain1(NumberGrammarParser.Ngmain1Context ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#singles}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#ngmain2}.
 	 * @param ctx the parse tree
 	 */
-	void enterSingles(NumberGrammarParser.SinglesContext ctx);
+	void enterNgmain2(NumberGrammarParser.Ngmain2Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#singles}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#ngmain2}.
 	 * @param ctx the parse tree
 	 */
-	void exitSingles(NumberGrammarParser.SinglesContext ctx);
+	void exitNgmain2(NumberGrammarParser.Ngmain2Context ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#main1}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#nghprefix}.
 	 * @param ctx the parse tree
 	 */
-	void enterMain1(NumberGrammarParser.Main1Context ctx);
+	void enterNghprefix(NumberGrammarParser.NghprefixContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#main1}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#nghprefix}.
 	 * @param ctx the parse tree
 	 */
-	void exitMain1(NumberGrammarParser.Main1Context ctx);
+	void exitNghprefix(NumberGrammarParser.NghprefixContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#main2}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#ngseconds}.
 	 * @param ctx the parse tree
 	 */
-	void enterMain2(NumberGrammarParser.Main2Context ctx);
+	void enterNgseconds(NumberGrammarParser.NgsecondsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#main2}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#ngseconds}.
 	 * @param ctx the parse tree
 	 */
-	void exitMain2(NumberGrammarParser.Main2Context ctx);
+	void exitNgseconds(NumberGrammarParser.NgsecondsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#hprefix}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#ngfirst}.
 	 * @param ctx the parse tree
 	 */
-	void enterHprefix(NumberGrammarParser.HprefixContext ctx);
+	void enterNgfirst(NumberGrammarParser.NgfirstContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#hprefix}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#ngfirst}.
 	 * @param ctx the parse tree
 	 */
-	void exitHprefix(NumberGrammarParser.HprefixContext ctx);
+	void exitNgfirst(NumberGrammarParser.NgfirstContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#seconds}.
+	 * Enter a parse tree produced by {@link NumberGrammarParser#ngdoubles}.
 	 * @param ctx the parse tree
 	 */
-	void enterSeconds(NumberGrammarParser.SecondsContext ctx);
+	void enterNgdoubles(NumberGrammarParser.NgdoublesContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#seconds}.
+	 * Exit a parse tree produced by {@link NumberGrammarParser#ngdoubles}.
 	 * @param ctx the parse tree
 	 */
-	void exitSeconds(NumberGrammarParser.SecondsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#first}.
-	 * @param ctx the parse tree
-	 */
-	void enterFirst(NumberGrammarParser.FirstContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#first}.
-	 * @param ctx the parse tree
-	 */
-	void exitFirst(NumberGrammarParser.FirstContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link NumberGrammarParser#doubles}.
-	 * @param ctx the parse tree
-	 */
-	void enterDoubles(NumberGrammarParser.DoublesContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link NumberGrammarParser#doubles}.
-	 * @param ctx the parse tree
-	 */
-	void exitDoubles(NumberGrammarParser.DoublesContext ctx);
+	void exitNgdoubles(NumberGrammarParser.NgdoublesContext ctx);
 }

@@ -16,193 +16,169 @@ public class NumberGrammarBaseListener implements NumberGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(NumberGrammarParser.ProgramContext ctx) { }
+	@Override public void enterNgWrittenNumber(NumberGrammarParser.NgWrittenNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProgram(NumberGrammarParser.ProgramContext ctx) { }
+	@Override public void exitNgWrittenNumber(NumberGrammarParser.NgWrittenNumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumber(NumberGrammarParser.NumberContext ctx) { }
+	@Override public void enterNghundred(NumberGrammarParser.NghundredContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNumber(NumberGrammarParser.NumberContext ctx) { }
+	@Override public void exitNghundred(NumberGrammarParser.NghundredContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWrittenNumber(NumberGrammarParser.WrittenNumberContext ctx) { }
+	@Override public void enterNgthousand(NumberGrammarParser.NgthousandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWrittenNumber(NumberGrammarParser.WrittenNumberContext ctx) { }
+	@Override public void exitNgthousand(NumberGrammarParser.NgthousandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHundred(NumberGrammarParser.HundredContext ctx) { }
+	@Override public void enterNgmillion(NumberGrammarParser.NgmillionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHundred(NumberGrammarParser.HundredContext ctx) { }
+	@Override public void exitNgmillion(NumberGrammarParser.NgmillionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterThousand(NumberGrammarParser.ThousandContext ctx) { }
+	@Override public void enterNgbillion(NumberGrammarParser.NgbillionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitThousand(NumberGrammarParser.ThousandContext ctx) { }
+	@Override public void exitNgbillion(NumberGrammarParser.NgbillionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMillion(NumberGrammarParser.MillionContext ctx) { }
+	@Override public void enterNgsingle(NumberGrammarParser.NgsingleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMillion(NumberGrammarParser.MillionContext ctx) { }
+	@Override public void exitNgsingle(NumberGrammarParser.NgsingleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBillion(NumberGrammarParser.BillionContext ctx) { }
+	@Override public void enterNgonly(NumberGrammarParser.NgonlyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBillion(NumberGrammarParser.BillionContext ctx) { }
+	@Override public void exitNgonly(NumberGrammarParser.NgonlyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSingle(NumberGrammarParser.SingleContext ctx) { }
+	@Override public void enterNgsingles(NumberGrammarParser.NgsinglesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSingle(NumberGrammarParser.SingleContext ctx) { }
+	@Override public void exitNgsingles(NumberGrammarParser.NgsinglesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOnly(NumberGrammarParser.OnlyContext ctx) { }
+	@Override public void enterNgmain1(NumberGrammarParser.Ngmain1Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOnly(NumberGrammarParser.OnlyContext ctx) { }
+	@Override public void exitNgmain1(NumberGrammarParser.Ngmain1Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSingles(NumberGrammarParser.SinglesContext ctx) { }
+	@Override public void enterNgmain2(NumberGrammarParser.Ngmain2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSingles(NumberGrammarParser.SinglesContext ctx) { }
+	@Override public void exitNgmain2(NumberGrammarParser.Ngmain2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMain1(NumberGrammarParser.Main1Context ctx) { }
+	@Override public void enterNghprefix(NumberGrammarParser.NghprefixContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMain1(NumberGrammarParser.Main1Context ctx) { }
+	@Override public void exitNghprefix(NumberGrammarParser.NghprefixContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMain2(NumberGrammarParser.Main2Context ctx) { }
+	@Override public void enterNgseconds(NumberGrammarParser.NgsecondsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMain2(NumberGrammarParser.Main2Context ctx) { }
+	@Override public void exitNgseconds(NumberGrammarParser.NgsecondsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHprefix(NumberGrammarParser.HprefixContext ctx) { }
+	@Override public void enterNgfirst(NumberGrammarParser.NgfirstContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHprefix(NumberGrammarParser.HprefixContext ctx) { }
+	@Override public void exitNgfirst(NumberGrammarParser.NgfirstContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSeconds(NumberGrammarParser.SecondsContext ctx) { }
+	@Override public void enterNgdoubles(NumberGrammarParser.NgdoublesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSeconds(NumberGrammarParser.SecondsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFirst(NumberGrammarParser.FirstContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFirst(NumberGrammarParser.FirstContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDoubles(NumberGrammarParser.DoublesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDoubles(NumberGrammarParser.DoublesContext ctx) { }
+	@Override public void exitNgdoubles(NumberGrammarParser.NgdoublesContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

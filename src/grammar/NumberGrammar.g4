@@ -1,7 +1,5 @@
 grammar NumberGrammar;
 
-ngNumber : ngWrittenNumber | NGNumericNumber;
-NGNumericNumber: [0-9]+;
 ngWrittenNumber: (ngbillion (NGAnd)?)? (ngmillion (NGAnd)?)? (ngthousand (NGAnd)?)? ngsingle
              | (ngbillion (NGAnd)?)? (ngmillion (NGAnd)?)? ngthousand (NGAnd)? (ngsingle)?
              | (ngbillion (NGAnd)?)? ngmillion (NGAnd)? (ngthousand (NGAnd)?)? (ngsingle)?
@@ -9,7 +7,7 @@ ngWrittenNumber: (ngbillion (NGAnd)?)? (ngmillion (NGAnd)?)? (ngthousand (NGAnd)
              | NGZero;
 
 nghundred : NGHundred;
-ngthousand: (ngsingle)? NGThousand; //Fix this maybe?
+ngthousand: (ngsingle)? NGThousand;
 ngmillion : (ngsingle)? NGMillion;
 ngbillion : (ngsingle)? NGBillion;
 

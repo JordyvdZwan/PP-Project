@@ -8,6 +8,16 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface MainGrammarListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#id}.
+	 * @param ctx the parse tree
+	 */
+	void enterId(MainGrammarParser.IdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#id}.
+	 * @param ctx the parse tree
+	 */
+	void exitId(MainGrammarParser.IdContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MainGrammarParser#program}.
 	 * @param ctx the parse tree
 	 */
@@ -18,153 +28,419 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 */
 	void exitProgram(MainGrammarParser.ProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#number}.
+	 * Enter a parse tree produced by the {@code declStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterNumber(MainGrammarParser.NumberContext ctx);
+	void enterDeclStat(MainGrammarParser.DeclStatContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#number}.
+	 * Exit a parse tree produced by the {@code declStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitNumber(MainGrammarParser.NumberContext ctx);
+	void exitDeclStat(MainGrammarParser.DeclStatContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#writtenNumber}.
+	 * Enter a parse tree produced by the {@code assStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterWrittenNumber(MainGrammarParser.WrittenNumberContext ctx);
+	void enterAssStat(MainGrammarParser.AssStatContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#writtenNumber}.
+	 * Exit a parse tree produced by the {@code assStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitWrittenNumber(MainGrammarParser.WrittenNumberContext ctx);
+	void exitAssStat(MainGrammarParser.AssStatContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#single}.
+	 * Enter a parse tree produced by the {@code ifStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterSingle(MainGrammarParser.SingleContext ctx);
+	void enterIfStat(MainGrammarParser.IfStatContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#single}.
+	 * Exit a parse tree produced by the {@code ifStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitSingle(MainGrammarParser.SingleContext ctx);
+	void exitIfStat(MainGrammarParser.IfStatContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#only}.
+	 * Enter a parse tree produced by the {@code whileStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterOnly(MainGrammarParser.OnlyContext ctx);
+	void enterWhileStat(MainGrammarParser.WhileStatContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#only}.
+	 * Exit a parse tree produced by the {@code whileStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitOnly(MainGrammarParser.OnlyContext ctx);
+	void exitWhileStat(MainGrammarParser.WhileStatContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#singles}.
+	 * Enter a parse tree produced by the {@code blockStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterSingles(MainGrammarParser.SinglesContext ctx);
+	void enterBlockStat(MainGrammarParser.BlockStatContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#singles}.
+	 * Exit a parse tree produced by the {@code blockStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitSingles(MainGrammarParser.SinglesContext ctx);
+	void exitBlockStat(MainGrammarParser.BlockStatContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#main1}.
+	 * Enter a parse tree produced by {@link MainGrammarParser#type}.
 	 * @param ctx the parse tree
 	 */
-	void enterMain1(MainGrammarParser.Main1Context ctx);
+	void enterType(MainGrammarParser.TypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#main1}.
+	 * Exit a parse tree produced by {@link MainGrammarParser#type}.
 	 * @param ctx the parse tree
 	 */
-	void exitMain1(MainGrammarParser.Main1Context ctx);
+	void exitType(MainGrammarParser.TypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#main2}.
+	 * Enter a parse tree produced by {@link MainGrammarParser#primitiveType}.
 	 * @param ctx the parse tree
 	 */
-	void enterMain2(MainGrammarParser.Main2Context ctx);
+	void enterPrimitiveType(MainGrammarParser.PrimitiveTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#main2}.
+	 * Exit a parse tree produced by {@link MainGrammarParser#primitiveType}.
 	 * @param ctx the parse tree
 	 */
-	void exitMain2(MainGrammarParser.Main2Context ctx);
+	void exitPrimitiveType(MainGrammarParser.PrimitiveTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#hprefix}.
+	 * Enter a parse tree produced by {@link MainGrammarParser#array}.
 	 * @param ctx the parse tree
 	 */
-	void enterHprefix(MainGrammarParser.HprefixContext ctx);
+	void enterArray(MainGrammarParser.ArrayContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#hprefix}.
+	 * Exit a parse tree produced by {@link MainGrammarParser#array}.
 	 * @param ctx the parse tree
 	 */
-	void exitHprefix(MainGrammarParser.HprefixContext ctx);
+	void exitArray(MainGrammarParser.ArrayContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#seconds}.
+	 * Enter a parse tree produced by {@link MainGrammarParser#block}.
 	 * @param ctx the parse tree
 	 */
-	void enterSeconds(MainGrammarParser.SecondsContext ctx);
+	void enterBlock(MainGrammarParser.BlockContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#seconds}.
+	 * Exit a parse tree produced by {@link MainGrammarParser#block}.
 	 * @param ctx the parse tree
 	 */
-	void exitSeconds(MainGrammarParser.SecondsContext ctx);
+	void exitBlock(MainGrammarParser.BlockContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#first}.
+	 * Enter a parse tree produced by the {@code parExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterFirst(MainGrammarParser.FirstContext ctx);
+	void enterParExpr(MainGrammarParser.ParExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#first}.
+	 * Exit a parse tree produced by the {@code parExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitFirst(MainGrammarParser.FirstContext ctx);
+	void exitParExpr(MainGrammarParser.ParExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#doubles}.
+	 * Enter a parse tree produced by the {@code binExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterDoubles(MainGrammarParser.DoublesContext ctx);
+	void enterBinExpr(MainGrammarParser.BinExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#doubles}.
+	 * Exit a parse tree produced by the {@code binExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitDoubles(MainGrammarParser.DoublesContext ctx);
+	void exitBinExpr(MainGrammarParser.BinExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#hundred}.
+	 * Enter a parse tree produced by the {@code arrayExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterHundred(MainGrammarParser.HundredContext ctx);
+	void enterArrayExpr(MainGrammarParser.ArrayExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#hundred}.
+	 * Exit a parse tree produced by the {@code arrayExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitHundred(MainGrammarParser.HundredContext ctx);
+	void exitArrayExpr(MainGrammarParser.ArrayExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#thousand}.
+	 * Enter a parse tree produced by the {@code trueExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterThousand(MainGrammarParser.ThousandContext ctx);
+	void enterTrueExpr(MainGrammarParser.TrueExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#thousand}.
+	 * Exit a parse tree produced by the {@code trueExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitThousand(MainGrammarParser.ThousandContext ctx);
+	void exitTrueExpr(MainGrammarParser.TrueExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#million}.
+	 * Enter a parse tree produced by the {@code prfExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterMillion(MainGrammarParser.MillionContext ctx);
+	void enterPrfExpr(MainGrammarParser.PrfExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#million}.
+	 * Exit a parse tree produced by the {@code prfExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitMillion(MainGrammarParser.MillionContext ctx);
+	void exitPrfExpr(MainGrammarParser.PrfExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#billion}.
+	 * Enter a parse tree produced by the {@code falseExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterBillion(MainGrammarParser.BillionContext ctx);
+	void enterFalseExpr(MainGrammarParser.FalseExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#billion}.
+	 * Exit a parse tree produced by the {@code falseExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitBillion(MainGrammarParser.BillionContext ctx);
+	void exitFalseExpr(MainGrammarParser.FalseExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code numExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumExpr(MainGrammarParser.NumExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code numExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumExpr(MainGrammarParser.NumExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code idExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdExpr(MainGrammarParser.IdExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code idExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdExpr(MainGrammarParser.IdExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#num}.
+	 * @param ctx the parse tree
+	 */
+	void enterNum(MainGrammarParser.NumContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#num}.
+	 * @param ctx the parse tree
+	 */
+	void exitNum(MainGrammarParser.NumContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#target}.
+	 * @param ctx the parse tree
+	 */
+	void enterTarget(MainGrammarParser.TargetContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#target}.
+	 * @param ctx the parse tree
+	 */
+	void exitTarget(MainGrammarParser.TargetContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#prfOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrfOp(MainGrammarParser.PrfOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#prfOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrfOp(MainGrammarParser.PrfOpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#binOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterBinOp(MainGrammarParser.BinOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#binOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitBinOp(MainGrammarParser.BinOpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#multOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultOp(MainGrammarParser.MultOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#multOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultOp(MainGrammarParser.MultOpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#plusOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterPlusOp(MainGrammarParser.PlusOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#plusOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitPlusOp(MainGrammarParser.PlusOpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#boolOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolOp(MainGrammarParser.BoolOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#boolOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolOp(MainGrammarParser.BoolOpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#compOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompOp(MainGrammarParser.CompOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#compOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompOp(MainGrammarParser.CompOpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#ngWrittenNumber}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgWrittenNumber(MainGrammarParser.NgWrittenNumberContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#ngWrittenNumber}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgWrittenNumber(MainGrammarParser.NgWrittenNumberContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#nghundred}.
+	 * @param ctx the parse tree
+	 */
+	void enterNghundred(MainGrammarParser.NghundredContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#nghundred}.
+	 * @param ctx the parse tree
+	 */
+	void exitNghundred(MainGrammarParser.NghundredContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#ngthousand}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgthousand(MainGrammarParser.NgthousandContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#ngthousand}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgthousand(MainGrammarParser.NgthousandContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#ngmillion}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgmillion(MainGrammarParser.NgmillionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#ngmillion}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgmillion(MainGrammarParser.NgmillionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#ngbillion}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgbillion(MainGrammarParser.NgbillionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#ngbillion}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgbillion(MainGrammarParser.NgbillionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#ngsingle}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgsingle(MainGrammarParser.NgsingleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#ngsingle}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgsingle(MainGrammarParser.NgsingleContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#ngonly}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgonly(MainGrammarParser.NgonlyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#ngonly}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgonly(MainGrammarParser.NgonlyContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#ngsingles}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgsingles(MainGrammarParser.NgsinglesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#ngsingles}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgsingles(MainGrammarParser.NgsinglesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#ngmain1}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgmain1(MainGrammarParser.Ngmain1Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#ngmain1}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgmain1(MainGrammarParser.Ngmain1Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#ngmain2}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgmain2(MainGrammarParser.Ngmain2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#ngmain2}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgmain2(MainGrammarParser.Ngmain2Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#nghprefix}.
+	 * @param ctx the parse tree
+	 */
+	void enterNghprefix(MainGrammarParser.NghprefixContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#nghprefix}.
+	 * @param ctx the parse tree
+	 */
+	void exitNghprefix(MainGrammarParser.NghprefixContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#ngseconds}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgseconds(MainGrammarParser.NgsecondsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#ngseconds}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgseconds(MainGrammarParser.NgsecondsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#ngfirst}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgfirst(MainGrammarParser.NgfirstContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#ngfirst}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgfirst(MainGrammarParser.NgfirstContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#ngdoubles}.
+	 * @param ctx the parse tree
+	 */
+	void enterNgdoubles(MainGrammarParser.NgdoublesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#ngdoubles}.
+	 * @param ctx the parse tree
+	 */
+	void exitNgdoubles(MainGrammarParser.NgdoublesContext ctx);
 }

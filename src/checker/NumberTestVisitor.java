@@ -1,6 +1,5 @@
 package checker;
 
-import grammar.MainGrammarParser;
 import grammar.NumberGrammarBaseVisitor;
 import grammar.NumberGrammarParser;
 
@@ -19,31 +18,22 @@ import grammar.NumberGrammarParser;
 public class NumberTestVisitor extends NumberGrammarBaseVisitor<Long> {
 
     @Override
-    public Long visitNumber(NumberGrammarParser.NumberContext ctx) {
-        if (ctx.NumericNumber() != null) {
-            return Long.parseLong(ctx.NumericNumber().getText());
-        } else {
-            return visit(ctx.writtenNumber());
-        }
-    }
-
-    @Override
-    public Long visitWrittenNumber(NumberGrammarParser.WrittenNumberContext ctx) {
+    public Long visitNgWrittenNumber(NumberGrammarParser.NgWrittenNumberContext ctx) {
         Long result = 0L;
-        if (ctx.Zero() != null) {
+        if (ctx.NGZero() != null) {
             return 0L;
         }
-        if (ctx.billion() != null) {
-            result += visit(ctx.billion());
+        if (ctx.ngbillion() != null) {
+            result += visit(ctx.ngbillion());
         }
-        if (ctx.million() != null) {
-            result += visit(ctx.million());
+        if (ctx.ngmillion() != null) {
+            result += visit(ctx.ngmillion());
         }
-        if (ctx.thousand() != null) {
-            result += visit(ctx.thousand());
+        if (ctx.ngthousand() != null) {
+            result += visit(ctx.ngthousand());
         }
-        if (ctx.single() != null) {
-            result += visit(ctx.single());
+        if (ctx.ngsingle() != null) {
+            result += visit(ctx.ngsingle());
         }
         if (result > Integer.MAX_VALUE) {
             result = -1L;
@@ -52,57 +42,57 @@ public class NumberTestVisitor extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitSingle(NumberGrammarParser.SingleContext ctx) {
-        if (ctx.hundred() != null) {
-            if (ctx.hprefix() != null) {
-                if (ctx.only() != null) {
-                    return (visit(ctx.hprefix()) * 100) + visit(ctx.only());
+    public Long visitNgsingle(NumberGrammarParser.NgsingleContext ctx) {
+        if (ctx.nghundred() != null) {
+            if (ctx.nghprefix() != null) {
+                if (ctx.ngonly() != null) {
+                    return (visit(ctx.nghprefix()) * 100) + visit(ctx.ngonly());
                 } else {
-                    return (visit(ctx.hprefix()) * 100);
+                    return (visit(ctx.nghprefix()) * 100);
                 }
             } else {
-                if (ctx.only() != null) {
-                    return 100 + visit(ctx.only());
+                if (ctx.ngonly() != null) {
+                    return 100 + visit(ctx.ngonly());
                 } else {
                     return 100L;
                 }
             }
         } else {
-            return visit(ctx.only());
+            return visit(ctx.ngonly());
         }
     }
 
     @Override
-    public Long visitOnly(NumberGrammarParser.OnlyContext ctx) {
-        if (ctx.singles() != null) {
-            return visit(ctx.singles());
-        } else if (ctx.main2() != null) {
-            return visit(ctx.main2());
+    public Long visitNgonly(NumberGrammarParser.NgonlyContext ctx) {
+        if (ctx.ngsingles() != null) {
+            return visit(ctx.ngsingles());
+        } else if (ctx.ngmain2() != null) {
+            return visit(ctx.ngmain2());
         } else {
-            return visit(ctx.main1());
+            return visit(ctx.ngmain1());
         }
     }
 
     @SuppressWarnings("Duplicates")
     @Override
-    public Long visitSingles(NumberGrammarParser.SinglesContext ctx) {
-        if (ctx.One() != null) {
+    public Long visitNgsingles(NumberGrammarParser.NgsinglesContext ctx) {
+        if (ctx.NGOne() != null) {
             return 1L;
-        } else if(ctx.Two() != null) {
+        } else if(ctx.NGTwo() != null) {
             return 2L;
-        } else if (ctx.Three() != null) {
+        } else if (ctx.NGThree() != null) {
             return 3L;
-        } else if (ctx.Four() != null) {
+        } else if (ctx.NGFour() != null) {
             return 4L;
-        } else if (ctx.Five() != null) {
+        } else if (ctx.NGFive() != null) {
             return 5L;
-        } else if (ctx.Six() != null) {
+        } else if (ctx.NGSix() != null) {
             return 6L;
-        } else if (ctx.Seven() != null) {
+        } else if (ctx.NGSeven() != null) {
             return 7L;
-        } else if (ctx.Eight() != null) {
+        } else if (ctx.NGEight() != null) {
             return 8L;
-        } else if (ctx.Nine() != null) {
+        } else if (ctx.NGNine() != null) {
             return 9L;
         } else {
             return 10L;
@@ -110,52 +100,52 @@ public class NumberTestVisitor extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitMain1(NumberGrammarParser.Main1Context ctx) {
-        if (ctx.Eleven() != null) {
+    public Long visitNgmain1(NumberGrammarParser.Ngmain1Context ctx) {
+        if (ctx.NGEleven() != null) {
             return 11L;
-        } else if (ctx.Twelve() != null) {
+        } else if (ctx.NGTwelve() != null) {
             return 12L;
-        } else if (ctx.Eighteen() != null) {
+        } else if (ctx.NGEighteen() != null) {
             return 18L;
         } else {
-            return 10 + visit(ctx.first());
+            return 10 + visit(ctx.ngfirst());
         }
     }
 
     @Override
-    public Long visitMain2(NumberGrammarParser.Main2Context ctx) {
+    public Long visitNgmain2(NumberGrammarParser.Ngmain2Context ctx) {
         Long result = 0L;
-        result += visit(ctx.doubles());
-        if (ctx.seconds() != null) {
-            result += visit(ctx.seconds());
+        result += visit(ctx.ngdoubles());
+        if (ctx.ngseconds() != null) {
+            result += visit(ctx.ngseconds());
         }
         return result;
     }
 
     @SuppressWarnings("Duplicates")
     @Override
-    public Long visitHprefix(NumberGrammarParser.HprefixContext ctx) {
-        return visit(ctx.only());
+    public Long visitNghprefix(NumberGrammarParser.NghprefixContext ctx) {
+        return visit(ctx.ngonly());
     }
 
     @SuppressWarnings("Duplicates")
     @Override
-    public Long visitSeconds(NumberGrammarParser.SecondsContext ctx) {
-        if (ctx.One() != null) {
+    public Long visitNgseconds(NumberGrammarParser.NgsecondsContext ctx) {
+        if (ctx.NGOne() != null) {
             return 1L;
-        } else if (ctx.Two() != null) {
+        } else if (ctx.NGTwo() != null) {
             return 2L;
-        } else if (ctx.Three() != null) {
+        } else if (ctx.NGThree() != null) {
             return 3L;
-        } else if (ctx.Four() != null) {
+        } else if (ctx.NGFour() != null) {
             return 4L;
-        } else if (ctx.Five() != null) {
+        } else if (ctx.NGFive() != null) {
             return 5L;
-        } else if (ctx.Six() != null) {
+        } else if (ctx.NGSix() != null) {
             return 6L;
-        } else if (ctx.Seven() != null) {
+        } else if (ctx.NGSeven() != null) {
             return 7L;
-        } else if (ctx.Eight() != null) {
+        } else if (ctx.NGEight() != null) {
             return 8L;
         } else {
             return 9L;
@@ -163,16 +153,16 @@ public class NumberTestVisitor extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitFirst(NumberGrammarParser.FirstContext ctx) {
-        if (ctx.Thir() != null) {
+    public Long visitNgfirst(NumberGrammarParser.NgfirstContext ctx) {
+        if (ctx.NGThir() != null) {
             return 3L;
-        } else if (ctx.Four() != null) {
+        } else if (ctx.NGFour() != null) {
             return 4L;
-        } else if (ctx.Fif() != null) {
+        } else if (ctx.NGFif() != null) {
             return 5L;
-        } else if (ctx.Six() != null) {
+        } else if (ctx.NGSix() != null) {
             return 6L;
-        } else if (ctx.Seven() != null) {
+        } else if (ctx.NGSeven() != null) {
             return 7L;
         } else {
             return 9L;
@@ -180,20 +170,20 @@ public class NumberTestVisitor extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitDoubles(NumberGrammarParser.DoublesContext ctx) {
-        if (ctx.Twenty() != null) {
+    public Long visitNgdoubles(NumberGrammarParser.NgdoublesContext ctx) {
+        if (ctx.NGTwenty() != null) {
             return 20L;
-        } else if (ctx.Thirty() != null) {
+        } else if (ctx.NGThirty() != null) {
             return 30L;
-        } else if (ctx.Forty() != null) {
+        } else if (ctx.NGForty() != null) {
             return 40L;
-        } else if (ctx.Fifty() != null) {
+        } else if (ctx.NGFifty() != null) {
             return 50L;
-        } else if (ctx.Sixty() != null) {
+        } else if (ctx.NGSixty() != null) {
             return 60L;
-        } else if (ctx.Seventy() != null) {
+        } else if (ctx.NGSeventy() != null) {
             return 70L;
-        } else if (ctx.Eighty() != null) {
+        } else if (ctx.NGEighty() != null) {
             return 80L;
         } else {
             return 90L;
@@ -201,27 +191,27 @@ public class NumberTestVisitor extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitThousand(NumberGrammarParser.ThousandContext ctx) {
-        if (ctx.single() != null) {
-            return visit(ctx.single()) * 1000;
+    public Long visitNgthousand(NumberGrammarParser.NgthousandContext ctx) {
+        if (ctx.ngsingle() != null) {
+            return visit(ctx.ngsingle()) * 1000;
         } else {
             return 1000L;
         }
     }
 
     @Override
-    public Long visitMillion(NumberGrammarParser.MillionContext ctx) {
-        if (ctx.single() != null) {
-            return visit(ctx.single()) * 1000000;
+    public Long visitNgmillion(NumberGrammarParser.NgmillionContext ctx) {
+        if (ctx.ngsingle() != null) {
+            return visit(ctx.ngsingle()) * 1000000;
         } else {
             return 1000000L;
         }
     }
 
     @Override
-    public Long visitBillion(NumberGrammarParser.BillionContext ctx) {
-        if (ctx.single() != null) {
-            return visit(ctx.single()) * 1000000000;
+    public Long visitNgbillion(NumberGrammarParser.NgbillionContext ctx) {
+        if (ctx.ngsingle() != null) {
+            return visit(ctx.ngsingle()) * 1000000000;
         } else {
             return 1000000000L;
         }

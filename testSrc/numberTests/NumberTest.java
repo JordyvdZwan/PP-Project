@@ -90,6 +90,8 @@ public class NumberTest {
     public void thousandTest() {
         for (String key : allNumbers.keySet()) {
             check(key + "Thousand", allNumbers.get(key) * 1000);
+            check("ThousandAnd" + key, allNumbers.get(key) + 1000);
+            check("Thousand" + key, allNumbers.get(key) + 1000);
         }
     }
 
@@ -125,7 +127,7 @@ public class NumberTest {
         }
     }
 
-    public int getNumber(String text) {
+    int getNumber(String text) {
         return visitor.visit(parse(CharStreams.fromString(text))).intValue();
     }
 
@@ -133,7 +135,7 @@ public class NumberTest {
         Lexer lexer = new NumberGrammarLexer(chars);
         TokenStream tokens = new CommonTokenStream(lexer);
         NumberGrammarParser parser = new NumberGrammarParser(tokens);
-        return parser.number();
+        return parser.ngWrittenNumber();
     }
 
     //Code to quickly test written values

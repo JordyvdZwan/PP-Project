@@ -17,110 +17,96 @@ public class NumberGrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitProgram(NumberGrammarParser.ProgramContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNgWrittenNumber(NumberGrammarParser.NgWrittenNumberContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNumber(NumberGrammarParser.NumberContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNghundred(NumberGrammarParser.NghundredContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitWrittenNumber(NumberGrammarParser.WrittenNumberContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNgthousand(NumberGrammarParser.NgthousandContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitHundred(NumberGrammarParser.HundredContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNgmillion(NumberGrammarParser.NgmillionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitThousand(NumberGrammarParser.ThousandContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNgbillion(NumberGrammarParser.NgbillionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMillion(NumberGrammarParser.MillionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNgsingle(NumberGrammarParser.NgsingleContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBillion(NumberGrammarParser.BillionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNgonly(NumberGrammarParser.NgonlyContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSingle(NumberGrammarParser.SingleContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNgsingles(NumberGrammarParser.NgsinglesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOnly(NumberGrammarParser.OnlyContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNgmain1(NumberGrammarParser.Ngmain1Context ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSingles(NumberGrammarParser.SinglesContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNgmain2(NumberGrammarParser.Ngmain2Context ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMain1(NumberGrammarParser.Main1Context ctx) { return visitChildren(ctx); }
+	@Override public T visitNghprefix(NumberGrammarParser.NghprefixContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMain2(NumberGrammarParser.Main2Context ctx) { return visitChildren(ctx); }
+	@Override public T visitNgseconds(NumberGrammarParser.NgsecondsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitHprefix(NumberGrammarParser.HprefixContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNgfirst(NumberGrammarParser.NgfirstContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSeconds(NumberGrammarParser.SecondsContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitFirst(NumberGrammarParser.FirstContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitDoubles(NumberGrammarParser.DoublesContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNgdoubles(NumberGrammarParser.NgdoublesContext ctx) { return visitChildren(ctx); }
 }

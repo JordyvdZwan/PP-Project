@@ -1,0 +1,10 @@
+Var Integer i;
+i = 1;
+while (i < 5) Do {
+    i = i + 1;
+}
+if (i == 5) then {
+    i = 6;
+} else {
+    i = 5;
+}
