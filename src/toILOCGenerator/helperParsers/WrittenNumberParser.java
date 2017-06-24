@@ -1,4 +1,4 @@
-package checker;
+package toILOCGenerator.helperParsers;
 
 import grammar.NumberGrammarBaseVisitor;
 import grammar.NumberGrammarParser;
@@ -6,7 +6,7 @@ import grammar.NumberGrammarParser;
 /**
  * Created by Jordy van der Zwan on 14-Jun-17.
  * <p>
- * The NumberTestVisitor was build as a proof of concept of an written number to int conversion.
+ * The WrittenNumberParser was build as a proof of concept of an written number to int conversion.
  * Though it returns a Long it is safe to cast the value to an integer as it makes sure no overflow can occur.
  * If an overflow is detected the visitWrittenNumber will return -1 which is an errorcode
  * <p>
@@ -15,7 +15,7 @@ import grammar.NumberGrammarParser;
  * Luckily it was successful and has the following features:
  * - Using the grammar defined in maingrammar this class generates an Long given an correct written number *
  */
-public class NumberTestVisitor extends NumberGrammarBaseVisitor<Long> {
+public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
 
     @Override
     public Long visitNgWrittenNumber(NumberGrammarParser.NgWrittenNumberContext ctx) {

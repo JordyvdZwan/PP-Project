@@ -1,6 +1,6 @@
 package numberTests;
 
-import checker.NumberTestVisitor;
+import toILOCGenerator.helperParsers.WrittenNumberParser;
 import grammar.NumberGrammarLexer;
 import grammar.NumberGrammarParser;
 import org.antlr.v4.runtime.*;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class NumberTest {
 
-    private static NumberTestVisitor visitor = new NumberTestVisitor();
+    private static WrittenNumberParser visitor = new WrittenNumberParser();
 
     private static Map<String, Integer> billionSafeNumbers = new HashMap<>();
     private static Map<String, Integer> onlyNumbers = new HashMap<>();

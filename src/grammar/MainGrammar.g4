@@ -54,12 +54,12 @@ Plus: '+' | P L U S;
 And: '&' | '&&' | A N D;
 Or:  '|' | '||' | O R;
 
-EQ: '==' | E Q U A L S;
-GT: '>' | G R E A T E R (WS)? T H A N;
-GE: '>=' | G R E A T E R (WS)? T H A N (WS)? O R (WS)? E Q U A L S;
-LT: '<' | L O W E R (WS)? T H A N;
-LE: '<=';
-NE: '!=';
+EQ: '==' | E Q U A L S | E Q U A L (WS)? T O;
+GT: '>' | (I S (WS)?)? G R E A T E R (WS)? T H A N;
+GE: '>=' | (I S (WS)?)? G R E A T E R (WS)? T H A N (WS)? O R (WS)? E Q U A L S;
+LT: '<' | (I S (WS)?)? L O W E R (WS)? T H A N;
+LE: '<=' | (I S (WS)?)? L O W E R (WS)? T H A N (WS)? O R (WS)? E Q U A L S;
+NE: '!=' | N O T (WS)? E Q U A L (WS)? T O;
 
 IF: I F;
 THEN: T H E N;
