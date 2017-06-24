@@ -1,5 +1,6 @@
 package fromILOCtoSprocklGenerator;
 
+import exceptions.UnsupportedInstructionException;
 import utils.iloc.model.Instr;
 import utils.iloc.model.Program;
 
@@ -9,8 +10,13 @@ import java.util.Map;
 public class SprocklGenerator {
 
     private Map<String, Integer> registers = new HashMap<>();
+    private Program program;
 
     public void Generator(Program program) {
+        this.program = program;
+    }
+
+    public String generate() throws UnsupportedInstructionException {
         String result = "";
         for (Instr anInstr : program.getInstr()) {
             String[] line = anInstr.toString().split(" ");
@@ -67,8 +73,12 @@ public class SprocklGenerator {
                 case "loadI":
                     result = result + " " + loadI(line);
                     break;
+
+                default:
+                    throw new UnsupportedInstructionException();
             }
         }
+        return result;
     }
 
     private void addRegister(String register) {
