@@ -59,6 +59,14 @@ public class SprocklGenerator {
                 case "cmp_LE":
                     result = result + " " + lessEqual(line);
                     break;
+
+                case "load":
+                    result = result + " " + load(line);
+                    break;
+
+                case "loadI":
+                    result = result + " " + loadI(line);
+                    break;
             }
         }
     }
@@ -140,6 +148,17 @@ public class SprocklGenerator {
         addRegister(input[2]);
         addRegister(input[4]);
         return "Compute LtE " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+    }
+
+    private String load(String[] input) {
+        addRegister(input[1]);
+        addRegister(input[3]);
+        return  "Load IndAddr " + registers.get(input[1]) + " " + registers.get(input[3]);
+    }
+
+    private String loadI(String[] input) {
+        addRegister(input[3]);
+        return "Load ImmValue " + input[1] + " " + registers.get(input[3]);
     }
 
 }
