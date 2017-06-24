@@ -1,5 +1,6 @@
 // Generated from C:/Projects/Project - Programming Paradigms Compiler Project/PP-Compiler-Project/src/grammar\MainGrammar.g4 by ANTLR 4.7
 package grammar;
+import exceptions.CheckerException;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -86,7 +87,7 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitBlockStat(MainGrammarParser.BlockStatContext ctx);
+	void exitBlockStat(MainGrammarParser.BlockStatContext ctx) throws CheckerException;
 	/**
 	 * Enter a parse tree produced by {@link MainGrammarParser#type}.
 	 * @param ctx the parse tree
@@ -117,16 +118,6 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitArray(MainGrammarParser.ArrayContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#block}.
-	 * @param ctx the parse tree
-	 */
-	void enterBlock(MainGrammarParser.BlockContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#block}.
-	 * @param ctx the parse tree
-	 */
-	void exitBlock(MainGrammarParser.BlockContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code parExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.

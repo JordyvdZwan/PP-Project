@@ -1,6 +1,7 @@
 // Generated from C:/Projects/Project - Programming Paradigms Compiler Project/PP-Compiler-Project/src/grammar\MainGrammar.g4 by ANTLR 4.7
 package grammar;
 
+import exceptions.CheckerException;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -94,7 +95,7 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlockStat(MainGrammarParser.BlockStatContext ctx) { }
+	@Override public void exitBlockStat(MainGrammarParser.BlockStatContext ctx) throws CheckerException { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -131,18 +132,6 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitArray(MainGrammarParser.ArrayContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBlock(MainGrammarParser.BlockContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBlock(MainGrammarParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

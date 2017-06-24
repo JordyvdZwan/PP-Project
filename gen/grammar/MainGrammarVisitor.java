@@ -76,12 +76,6 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArray(MainGrammarParser.ArrayContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MainGrammarParser#block}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBlock(MainGrammarParser.BlockContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code parExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
