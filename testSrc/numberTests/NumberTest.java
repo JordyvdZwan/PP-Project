@@ -1,6 +1,6 @@
 package numberTests;
 
-import toILOCGenerator.helperParsers.WrittenNumberParser;
+import ilocGenerator.helperParsers.WrittenNumberParser;
 import grammar.NumberGrammarLexer;
 import grammar.NumberGrammarParser;
 import org.antlr.v4.runtime.*;

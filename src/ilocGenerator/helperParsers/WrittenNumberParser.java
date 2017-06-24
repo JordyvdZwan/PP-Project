@@ -1,4 +1,4 @@
-package toILOCGenerator.helperParsers;
+package ilocGenerator.helperParsers;
 
 import grammar.NumberGrammarBaseVisitor;
 import grammar.NumberGrammarParser;

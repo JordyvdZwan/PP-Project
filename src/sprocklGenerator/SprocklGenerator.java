@@ -1,4 +1,4 @@
-package fromILOCtoSprocklGenerator;
+package sprocklGenerator;
 
 import exceptions.UnsupportedInstructionException;
 import utils.iloc.model.Instr;
@@ -12,7 +12,7 @@ public class SprocklGenerator {
     private Map<String, Integer> registers = new HashMap<>();
     private Program program;
 
-    public void Generator(Program program) {
+    public SprocklGenerator(Program program) {
         this.program = program;
     }
 
