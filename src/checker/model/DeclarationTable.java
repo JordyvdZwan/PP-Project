@@ -52,6 +52,11 @@ public class DeclarationTable {
         root.resetScopeCounters();
     }
 
+    @Override
+    public String toString() {
+        return "" + root;
+    }
+
     private class Scope {
 
         private List<Scope> children = new ArrayList<>();
@@ -120,6 +125,16 @@ public class DeclarationTable {
             for (Scope scope: children) {
                 scope.resetScopeCounters();
             }
+        }
+
+        @Override
+        public String toString() {
+            String res = "";
+            res += variables + "\n";
+            for (Scope child : children) {
+                res += "    " + child;
+            }
+            return res;
         }
     }
 }

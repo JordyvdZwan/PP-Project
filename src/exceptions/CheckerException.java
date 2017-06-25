@@ -1,5 +1,7 @@
 package exceptions;
 
+import java.util.List;
+
 /**
  * Created by Jordy van der Zwan on 24-Jun-17.
  *
@@ -10,6 +12,12 @@ public class CheckerException extends Exception {
 
     public CheckerException(String message) {
         this.message = message;
+    }
+
+    public CheckerException(List<String> errors) {
+        for (String error : errors) {
+            message += error;
+        }
     }
 
     @Override

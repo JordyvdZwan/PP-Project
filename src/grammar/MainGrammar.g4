@@ -1,7 +1,9 @@
 grammar MainGrammar;
 import NumberGrammar;
 
-id: Letter (Letter | IDNum)*;
+Letter: A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z;
+
+id: Letter (Letter | NUMBER)*;
 
 program : (statement)+ EOF;
 
@@ -20,7 +22,10 @@ Boolean: B O O L E A N | B O O L;
 array: primitiveType OpenArray CloseArray;
 
 expression: prfOp (WS)? expression                                  #prfExpr
-          | expression (WS)? binOp (WS)? expression                 #binExpr
+          | expression (WS)? multOp (WS)? expression                 #multExpr
+          | expression (WS)? plusOp (WS)? expression                 #plusExpr
+          | expression (WS)? boolOp (WS)? expression                 #boolExpr
+          | expression (WS)? compOp (WS)? expression                 #compExpr
           | LPAR (WS)? expression (WS)? RPAR                        #parExpr
           | id                                                      #idExpr
           | num                                                     #numExpr
@@ -36,9 +41,6 @@ target: id;
 prfOp: Minus | Not;
 Minus:  '-' | M I N U S;
 Not:    '!' | N O T;
-
-
-binOp: multOp | plusOp | boolOp | compOp;
 
 multOp: Mult | Div;
 plusOp: Plus | Minus;
@@ -82,9 +84,6 @@ CloseArray  : ']';
 
 EndStatement: ';';
 
-Letter: A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z;
-
-IDNum: ([0-9])+;
 
 WS : ([ \t\r\n])+;
 

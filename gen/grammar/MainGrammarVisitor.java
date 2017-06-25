@@ -83,13 +83,6 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParExpr(MainGrammarParser.ParExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code binExpr}
-	 * labeled alternative in {@link MainGrammarParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBinExpr(MainGrammarParser.BinExprContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code arrayExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
@@ -103,6 +96,13 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTrueExpr(MainGrammarParser.TrueExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code compExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompExpr(MainGrammarParser.CompExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code prfExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
@@ -118,12 +118,33 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFalseExpr(MainGrammarParser.FalseExprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code boolExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolExpr(MainGrammarParser.BoolExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code multExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultExpr(MainGrammarParser.MultExprContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code numExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitNumExpr(MainGrammarParser.NumExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code plusExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlusExpr(MainGrammarParser.PlusExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code idExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
@@ -149,12 +170,6 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPrfOp(MainGrammarParser.PrfOpContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MainGrammarParser#binOp}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBinOp(MainGrammarParser.BinOpContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MainGrammarParser#multOp}.
 	 * @param ctx the parse tree

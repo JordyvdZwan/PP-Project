@@ -1,6 +1,5 @@
 // Generated from C:/Projects/Project - Programming Paradigms Compiler Project/PP-Compiler-Project/src/grammar\MainGrammar.g4 by ANTLR 4.7
 package grammar;
-import exceptions.CheckerException;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -87,7 +86,7 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitBlockStat(MainGrammarParser.BlockStatContext ctx) throws CheckerException;
+	void exitBlockStat(MainGrammarParser.BlockStatContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MainGrammarParser#type}.
 	 * @param ctx the parse tree
@@ -131,18 +130,6 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 */
 	void exitParExpr(MainGrammarParser.ParExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code binExpr}
-	 * labeled alternative in {@link MainGrammarParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterBinExpr(MainGrammarParser.BinExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code binExpr}
-	 * labeled alternative in {@link MainGrammarParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitBinExpr(MainGrammarParser.BinExprContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code arrayExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
@@ -166,6 +153,18 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTrueExpr(MainGrammarParser.TrueExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code compExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompExpr(MainGrammarParser.CompExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code compExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompExpr(MainGrammarParser.CompExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code prfExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
@@ -191,6 +190,30 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 */
 	void exitFalseExpr(MainGrammarParser.FalseExprContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code boolExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolExpr(MainGrammarParser.BoolExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code boolExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolExpr(MainGrammarParser.BoolExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code multExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultExpr(MainGrammarParser.MultExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code multExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultExpr(MainGrammarParser.MultExprContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code numExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree
@@ -202,6 +225,18 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNumExpr(MainGrammarParser.NumExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code plusExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPlusExpr(MainGrammarParser.PlusExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code plusExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPlusExpr(MainGrammarParser.PlusExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code idExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
@@ -244,16 +279,6 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPrfOp(MainGrammarParser.PrfOpContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#binOp}.
-	 * @param ctx the parse tree
-	 */
-	void enterBinOp(MainGrammarParser.BinOpContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#binOp}.
-	 * @param ctx the parse tree
-	 */
-	void exitBinOp(MainGrammarParser.BinOpContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MainGrammarParser#multOp}.
 	 * @param ctx the parse tree

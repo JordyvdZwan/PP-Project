@@ -1,7 +1,10 @@
 package controller;
 
+import checker.Checker;
+import exceptions.CheckerException;
 import exceptions.SyntaxErrorException;
 import exceptions.UnsupportedInstructionException;
+import org.antlr.v4.runtime.tree.ParseTree;
 import sprocklGenerator.SprocklGenerator;
 import grammar.MainGrammarLexer;
 import grammar.MainGrammarParser;
@@ -19,6 +22,26 @@ import utils.parsing.CompilerErrorListener;
  */
 public class Compiler {
 
+    public static void main(String[] args) {
+        Compiler compiler = new Compiler();
+        try {
+            compiler.compile("Var Integer i;\n" +
+                    "i = 1;\n" +
+                    "while (i < 5) Do {\n" +
+                    "    i = i + 1;\n" +
+                    "}\n" +
+                    "if (i == 5) then {\n" +
+                    "    Boolean bool = false;\n" +
+                    "    bool = true;\n" +
+                    "    i = 6;\n" +
+                    "} else {\n" +
+                    "    i = 5;\n" +
+                    "}\n" +
+                    "Boolean five;");
+        } catch (SyntaxErrorException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String compile(String source) throws SyntaxErrorException {
 
@@ -40,7 +63,7 @@ public class Compiler {
         MainGrammarParser parser = new MainGrammarParser(tokens);
         parser.removeErrorListeners();
         parser.addErrorListener(errorListener);
-        parser.program();
+        ParseTree parseTree = parser.program();
 
         //Error handling of the Early parsing stage
         if (errorListener.getErrorMessages().size() > 0) {
@@ -58,8 +81,17 @@ public class Compiler {
          *   Type and declaration checking stage of the checking process.
          */
 
+        // Stage 1
+        Checker checker = new Checker();
 
+        try {
+            checker.getStage1().execute(parseTree);
+        } catch (CheckerException e) {
+            e.printStackTrace();
+        }
 
+        System.out.println(checker.getDeclarationTable());
+        return null; //TODO remove
         /*
          * ILOC Pre-processing
          *
@@ -75,23 +107,23 @@ public class Compiler {
          * In this stage the source code will be turned into ILOC 'code'.
          */
 
-        Program ilocProgram = null;
-
-        /*
-         * Generation of Sprockl Code
-         *
-         * In this stage the ILOC code will be turned into Sprockl code.
-         */
-
-        String sprocklResult = null;
-        SprocklGenerator generator = new SprocklGenerator(ilocProgram);
-        try {
-            sprocklResult = generator.generate();
-        } catch (UnsupportedInstructionException e) {
-            e.printStackTrace();
-        }
-
-        return sprocklResult;
+//        Program ilocProgram = null;
+//
+//        /*
+//         * Generation of Sprockl Code
+//         *
+//         * In this stage the ILOC code will be turned into Sprockl code.
+//         */
+//
+//        String sprocklResult = null;
+//        SprocklGenerator generator = new SprocklGenerator(ilocProgram);
+//        try {
+//            sprocklResult = generator.generate();
+//        } catch (UnsupportedInstructionException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return sprocklResult;
     }
 
 

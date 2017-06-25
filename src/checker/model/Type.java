@@ -27,4 +27,9 @@ public class Type {
     public PrimitiveType getPrimitiveType() {
         return primitiveType;
     }
+
+    @Override
+    public String toString() {
+        return "" + primitiveType + (construct != null ? construct : "");
+    }
 }

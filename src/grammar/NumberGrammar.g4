@@ -1,10 +1,12 @@
 grammar NumberGrammar;
 
-ngWrittenNumber: (ngbillion (NGAnd)?)? (ngmillion (NGAnd)?)? (ngthousand (NGAnd)?)? ngsingle
-             | (ngbillion (NGAnd)?)? (ngmillion (NGAnd)?)? ngthousand (NGAnd)? (ngsingle)?
-             | (ngbillion (NGAnd)?)? ngmillion (NGAnd)? (ngthousand (NGAnd)?)? (ngsingle)?
-             | ngbillion (NGAnd)? (ngmillion(NGAnd)?)? (ngthousand (NGAnd)?)? (ngsingle)?
-             | NGZero;
+ngWrittenNumber: NGUnderscore (ngbillion (NGAnd)?)? (ngmillion (NGAnd)?)? (ngthousand (NGAnd)?)? ngsingle
+             | NGUnderscore (ngbillion (NGAnd)?)? (ngmillion (NGAnd)?)? ngthousand (NGAnd)? (ngsingle)?
+             | NGUnderscore (ngbillion (NGAnd)?)? ngmillion (NGAnd)? (ngthousand (NGAnd)?)? (ngsingle)?
+             | NGUnderscore ngbillion (NGAnd)? (ngmillion(NGAnd)?)? (ngthousand (NGAnd)?)? (ngsingle)?
+             | NGUnderscore NGZero;
+
+NGUnderscore: '_';
 
 nghundred : NGHundred;
 ngthousand: (ngsingle)? NGThousand;
@@ -57,30 +59,30 @@ NGNinety : NGN NGI NGN NGE NGT NGY;
 
 NGAnd : NGA NGN NGD;
 
-NGA: 'A' | 'a';
-NGB: 'B' | 'b';
-NGC: 'C' | 'c';
-NGD: 'D' | 'd';
-NGE: 'E' | 'e';
-NGF: 'F' | 'f';
-NGG: 'G' | 'g';
-NGH: 'H' | 'h';
-NGI: 'I' | 'i';
-NGJ: 'J' | 'j';
-NGK: 'K' | 'k';
-NGL: 'L' | 'l';
-NGM: 'M' | 'm';
-NGN: 'N' | 'n';
-NGO: 'O' | 'o';
-NGP: 'P' | 'p';
-NGQ: 'Q' | 'q';
-NGR: 'R' | 'r';
-NGS: 'S' | 's';
-NGT: 'T' | 't';
-NGU: 'U' | 'u';
-NGV: 'V' | 'v';
-NGW: 'W' | 'w';
-NGX: 'X' | 'x';
-NGY: 'Y' | 'y';
-NGZ: 'Z' | 'z';
+NGA: /*'A' |*/ 'a';
+NGB: /*'B' |*/ 'b';
+NGC: /*'C' |*/ 'c';
+NGD: /*'D' |*/ 'd';
+NGE: /*'E' |*/ 'e';
+NGF: /*'F' |*/ 'f';
+NGG: /*'G' |*/ 'g';
+NGH: /*'H' |*/ 'h';
+NGI: /*'I' |*/ 'i';
+NGJ: /*'J' |*/ 'j';
+NGK: /*'K' |*/ 'k';
+NGL: /*'L' |*/ 'l';
+NGM: /*'M' |*/ 'm';
+NGN: /*'N' |*/ 'n';
+NGO: /*'O' |*/ 'o';
+NGP: /*'P' |*/ 'p';
+NGQ: /*'Q' |*/ 'q';
+NGR: /*'R' |*/ 'r';
+NGS: /*'S' |*/ 's';
+NGT: /*'T' |*/ 't';
+NGU: /*'U' |*/ 'u';
+NGV: /*'V' |*/ 'v';
+NGW: /*'W' |*/ 'w';
+NGX: /*'X' |*/ 'x';
+NGY: /*'Y' |*/ 'y';
+NGZ: /*'Z' |*/ 'z';
 

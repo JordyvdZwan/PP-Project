@@ -1,7 +1,6 @@
 // Generated from C:/Projects/Project - Programming Paradigms Compiler Project/PP-Compiler-Project/src/grammar\MainGrammar.g4 by ANTLR 4.7
 package grammar;
 
-import exceptions.CheckerException;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -95,7 +94,7 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlockStat(MainGrammarParser.BlockStatContext ctx) throws CheckerException { }
+	@Override public void exitBlockStat(MainGrammarParser.BlockStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -149,18 +148,6 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBinExpr(MainGrammarParser.BinExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBinExpr(MainGrammarParser.BinExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterArrayExpr(MainGrammarParser.ArrayExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -180,6 +167,18 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTrueExpr(MainGrammarParser.TrueExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompExpr(MainGrammarParser.CompExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompExpr(MainGrammarParser.CompExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -209,6 +208,30 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBoolExpr(MainGrammarParser.BoolExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBoolExpr(MainGrammarParser.BoolExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMultExpr(MainGrammarParser.MultExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMultExpr(MainGrammarParser.MultExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNumExpr(MainGrammarParser.NumExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -216,6 +239,18 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNumExpr(MainGrammarParser.NumExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlusExpr(MainGrammarParser.PlusExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlusExpr(MainGrammarParser.PlusExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -264,18 +299,6 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPrfOp(MainGrammarParser.PrfOpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBinOp(MainGrammarParser.BinOpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBinOp(MainGrammarParser.BinOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

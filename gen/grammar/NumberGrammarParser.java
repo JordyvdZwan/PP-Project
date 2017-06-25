@@ -17,14 +17,14 @@ public class NumberGrammarParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, NGHundred=2, NGThousand=3, NGMillion=4, NGBillion=5, NGZero=6, 
-		NGOne=7, NGTwo=8, NGThree=9, NGFour=10, NGFive=11, NGSix=12, NGSeven=13, 
-		NGEight=14, NGNine=15, NGTen=16, NGEleven=17, NGTwelve=18, NGEighteen=19, 
-		NGThir=20, NGFif=21, NGTeen=22, NGTwenty=23, NGThirty=24, NGForty=25, 
-		NGFifty=26, NGSixty=27, NGSeventy=28, NGEighty=29, NGNinety=30, NGAnd=31, 
-		NGA=32, NGB=33, NGC=34, NGD=35, NGE=36, NGF=37, NGG=38, NGH=39, NGI=40, 
-		NGJ=41, NGK=42, NGL=43, NGM=44, NGN=45, NGO=46, NGP=47, NGQ=48, NGR=49, 
-		NGS=50, NGT=51, NGU=52, NGV=53, NGW=54, NGX=55, NGY=56, NGZ=57;
+		T__0=1, T__1=2, NGHundred=3, NGThousand=4, NGMillion=5, NGBillion=6, NGZero=7, 
+		NGOne=8, NGTwo=9, NGThree=10, NGFour=11, NGFive=12, NGSix=13, NGSeven=14, 
+		NGEight=15, NGNine=16, NGTen=17, NGEleven=18, NGTwelve=19, NGEighteen=20, 
+		NGThir=21, NGFif=22, NGTeen=23, NGTwenty=24, NGThirty=25, NGForty=26, 
+		NGFifty=27, NGSixty=28, NGSeventy=29, NGEighty=30, NGNinety=31, NGAnd=32, 
+		NGA=33, NGB=34, NGC=35, NGD=36, NGE=37, NGF=38, NGG=39, NGH=40, NGI=41, 
+		NGJ=42, NGK=43, NGL=44, NGM=45, NGN=46, NGO=47, NGP=48, NGQ=49, NGR=50, 
+		NGS=51, NGT=52, NGU=53, NGV=54, NGW=55, NGX=56, NGY=57, NGZ=58;
 	public static final int
 		RULE_ngWrittenNumber = 0, RULE_nghundred = 1, RULE_ngthousand = 2, RULE_ngmillion = 3, 
 		RULE_ngbillion = 4, RULE_ngsingle = 5, RULE_ngonly = 6, RULE_ngsingles = 7, 
@@ -37,16 +37,22 @@ public class NumberGrammarParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'-'"
+		null, "'_'", "'-'", null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, "'a'", "'b'", "'c'", 
+		"'d'", "'e'", "'f'", "'g'", "'h'", "'i'", "'j'", "'k'", "'l'", "'m'", 
+		"'n'", "'o'", "'p'", "'q'", "'r'", "'s'", "'t'", "'u'", "'v'", "'w'", 
+		"'x'", "'y'", "'z'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, "NGHundred", "NGThousand", "NGMillion", "NGBillion", "NGZero", 
-		"NGOne", "NGTwo", "NGThree", "NGFour", "NGFive", "NGSix", "NGSeven", "NGEight", 
-		"NGNine", "NGTen", "NGEleven", "NGTwelve", "NGEighteen", "NGThir", "NGFif", 
-		"NGTeen", "NGTwenty", "NGThirty", "NGForty", "NGFifty", "NGSixty", "NGSeventy", 
-		"NGEighty", "NGNinety", "NGAnd", "NGA", "NGB", "NGC", "NGD", "NGE", "NGF", 
-		"NGG", "NGH", "NGI", "NGJ", "NGK", "NGL", "NGM", "NGN", "NGO", "NGP", 
-		"NGQ", "NGR", "NGS", "NGT", "NGU", "NGV", "NGW", "NGX", "NGY", "NGZ"
+		null, null, null, "NGHundred", "NGThousand", "NGMillion", "NGBillion", 
+		"NGZero", "NGOne", "NGTwo", "NGThree", "NGFour", "NGFive", "NGSix", "NGSeven", 
+		"NGEight", "NGNine", "NGTen", "NGEleven", "NGTwelve", "NGEighteen", "NGThir", 
+		"NGFif", "NGTeen", "NGTwenty", "NGThirty", "NGForty", "NGFifty", "NGSixty", 
+		"NGSeventy", "NGEighty", "NGNinety", "NGAnd", "NGA", "NGB", "NGC", "NGD", 
+		"NGE", "NGF", "NGG", "NGH", "NGI", "NGJ", "NGK", "NGL", "NGM", "NGN", 
+		"NGO", "NGP", "NGQ", "NGR", "NGS", "NGT", "NGU", "NGV", "NGW", "NGX", 
+		"NGY", "NGZ"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -139,25 +145,27 @@ public class NumberGrammarParser extends Parser {
 		enterRule(_localctx, 0, RULE_ngWrittenNumber);
 		int _la;
 		try {
-			setState(105);
+			setState(110);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,24,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(32);
+				setState(28);
+				match(T__0);
+				setState(33);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 				case 1:
 					{
-					setState(28);
+					setState(29);
 					ngbillion();
-					setState(30);
+					setState(31);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					if (_la==NGAnd) {
 						{
-						setState(29);
+						setState(30);
 						match(NGAnd);
 						}
 					}
@@ -165,19 +173,19 @@ public class NumberGrammarParser extends Parser {
 					}
 					break;
 				}
-				setState(38);
+				setState(39);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 				case 1:
 					{
-					setState(34);
+					setState(35);
 					ngmillion();
-					setState(36);
+					setState(37);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					if (_la==NGAnd) {
 						{
-						setState(35);
+						setState(36);
 						match(NGAnd);
 						}
 					}
@@ -185,19 +193,19 @@ public class NumberGrammarParser extends Parser {
 					}
 					break;
 				}
-				setState(44);
+				setState(45);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 				case 1:
 					{
-					setState(40);
+					setState(41);
 					ngthousand();
-					setState(42);
+					setState(43);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					if (_la==NGAnd) {
 						{
-						setState(41);
+						setState(42);
 						match(NGAnd);
 						}
 					}
@@ -205,46 +213,28 @@ public class NumberGrammarParser extends Parser {
 					}
 					break;
 				}
-				setState(46);
+				setState(47);
 				ngsingle();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(51);
+				setState(48);
+				match(T__0);
+				setState(53);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 				case 1:
 					{
-					setState(47);
-					ngbillion();
 					setState(49);
+					ngbillion();
+					setState(51);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					if (_la==NGAnd) {
 						{
-						setState(48);
-						match(NGAnd);
-						}
-					}
-
-					}
-					break;
-				}
-				setState(57);
-				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
-				case 1:
-					{
-					setState(53);
-					ngmillion();
-					setState(55);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-					if (_la==NGAnd) {
-						{
-						setState(54);
+						setState(50);
 						match(NGAnd);
 						}
 					}
@@ -253,23 +243,43 @@ public class NumberGrammarParser extends Parser {
 					break;
 				}
 				setState(59);
-				ngthousand();
+				_errHandler.sync(this);
+				switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
+				case 1:
+					{
+					setState(55);
+					ngmillion();
+					setState(57);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+					if (_la==NGAnd) {
+						{
+						setState(56);
+						match(NGAnd);
+						}
+					}
+
+					}
+					break;
+				}
 				setState(61);
+				ngthousand();
+				setState(63);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==NGAnd) {
 					{
-					setState(60);
+					setState(62);
 					match(NGAnd);
 					}
 				}
 
-				setState(64);
+				setState(66);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NGHundred) | (1L << NGOne) | (1L << NGTwo) | (1L << NGThree) | (1L << NGFour) | (1L << NGFive) | (1L << NGSix) | (1L << NGSeven) | (1L << NGEight) | (1L << NGNine) | (1L << NGTen) | (1L << NGEleven) | (1L << NGTwelve) | (1L << NGEighteen) | (1L << NGThir) | (1L << NGFif) | (1L << NGTwenty) | (1L << NGThirty) | (1L << NGForty) | (1L << NGFifty) | (1L << NGSixty) | (1L << NGSeventy) | (1L << NGEighty) | (1L << NGNinety))) != 0)) {
 					{
-					setState(63);
+					setState(65);
 					ngsingle();
 					}
 				}
@@ -279,19 +289,21 @@ public class NumberGrammarParser extends Parser {
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(70);
+				setState(68);
+				match(T__0);
+				setState(73);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 				case 1:
 					{
-					setState(66);
+					setState(69);
 					ngbillion();
-					setState(68);
+					setState(71);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					if (_la==NGAnd) {
 						{
-						setState(67);
+						setState(70);
 						match(NGAnd);
 						}
 					}
@@ -299,31 +311,31 @@ public class NumberGrammarParser extends Parser {
 					}
 					break;
 				}
-				setState(72);
+				setState(75);
 				ngmillion();
-				setState(74);
+				setState(77);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==NGAnd) {
 					{
-					setState(73);
+					setState(76);
 					match(NGAnd);
 					}
 				}
 
-				setState(80);
+				setState(83);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,16,_ctx) ) {
 				case 1:
 					{
-					setState(76);
+					setState(79);
 					ngthousand();
-					setState(78);
+					setState(81);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					if (_la==NGAnd) {
 						{
-						setState(77);
+						setState(80);
 						match(NGAnd);
 						}
 					}
@@ -331,12 +343,12 @@ public class NumberGrammarParser extends Parser {
 					}
 					break;
 				}
-				setState(83);
+				setState(86);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NGHundred) | (1L << NGOne) | (1L << NGTwo) | (1L << NGThree) | (1L << NGFour) | (1L << NGFive) | (1L << NGSix) | (1L << NGSeven) | (1L << NGEight) | (1L << NGNine) | (1L << NGTen) | (1L << NGEleven) | (1L << NGTwelve) | (1L << NGEighteen) | (1L << NGThir) | (1L << NGFif) | (1L << NGTwenty) | (1L << NGThirty) | (1L << NGForty) | (1L << NGFifty) | (1L << NGSixty) | (1L << NGSeventy) | (1L << NGEighty) | (1L << NGNinety))) != 0)) {
 					{
-					setState(82);
+					setState(85);
 					ngsingle();
 					}
 				}
@@ -346,31 +358,33 @@ public class NumberGrammarParser extends Parser {
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(85);
+				setState(88);
+				match(T__0);
+				setState(89);
 				ngbillion();
-				setState(87);
+				setState(91);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==NGAnd) {
 					{
-					setState(86);
+					setState(90);
 					match(NGAnd);
 					}
 				}
 
-				setState(93);
+				setState(97);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
 				case 1:
 					{
-					setState(89);
+					setState(93);
 					ngmillion();
-					setState(91);
+					setState(95);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					if (_la==NGAnd) {
 						{
-						setState(90);
+						setState(94);
 						match(NGAnd);
 						}
 					}
@@ -378,19 +392,19 @@ public class NumberGrammarParser extends Parser {
 					}
 					break;
 				}
-				setState(99);
+				setState(103);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
 				case 1:
 					{
-					setState(95);
+					setState(99);
 					ngthousand();
-					setState(97);
+					setState(101);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					if (_la==NGAnd) {
 						{
-						setState(96);
+						setState(100);
 						match(NGAnd);
 						}
 					}
@@ -398,12 +412,12 @@ public class NumberGrammarParser extends Parser {
 					}
 					break;
 				}
-				setState(102);
+				setState(106);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NGHundred) | (1L << NGOne) | (1L << NGTwo) | (1L << NGThree) | (1L << NGFour) | (1L << NGFive) | (1L << NGSix) | (1L << NGSeven) | (1L << NGEight) | (1L << NGNine) | (1L << NGTen) | (1L << NGEleven) | (1L << NGTwelve) | (1L << NGEighteen) | (1L << NGThir) | (1L << NGFif) | (1L << NGTwenty) | (1L << NGThirty) | (1L << NGForty) | (1L << NGFifty) | (1L << NGSixty) | (1L << NGSeventy) | (1L << NGEighty) | (1L << NGNinety))) != 0)) {
 					{
-					setState(101);
+					setState(105);
 					ngsingle();
 					}
 				}
@@ -413,7 +427,9 @@ public class NumberGrammarParser extends Parser {
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(104);
+				setState(108);
+				match(T__0);
+				setState(109);
 				match(NGZero);
 				}
 				break;
@@ -457,7 +473,7 @@ public class NumberGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(107);
+			setState(112);
 			match(NGHundred);
 			}
 		}
@@ -503,17 +519,17 @@ public class NumberGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(110);
+			setState(115);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NGHundred) | (1L << NGOne) | (1L << NGTwo) | (1L << NGThree) | (1L << NGFour) | (1L << NGFive) | (1L << NGSix) | (1L << NGSeven) | (1L << NGEight) | (1L << NGNine) | (1L << NGTen) | (1L << NGEleven) | (1L << NGTwelve) | (1L << NGEighteen) | (1L << NGThir) | (1L << NGFif) | (1L << NGTwenty) | (1L << NGThirty) | (1L << NGForty) | (1L << NGFifty) | (1L << NGSixty) | (1L << NGSeventy) | (1L << NGEighty) | (1L << NGNinety))) != 0)) {
 				{
-				setState(109);
+				setState(114);
 				ngsingle();
 				}
 			}
 
-			setState(112);
+			setState(117);
 			match(NGThousand);
 			}
 		}
@@ -559,17 +575,17 @@ public class NumberGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(115);
+			setState(120);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NGHundred) | (1L << NGOne) | (1L << NGTwo) | (1L << NGThree) | (1L << NGFour) | (1L << NGFive) | (1L << NGSix) | (1L << NGSeven) | (1L << NGEight) | (1L << NGNine) | (1L << NGTen) | (1L << NGEleven) | (1L << NGTwelve) | (1L << NGEighteen) | (1L << NGThir) | (1L << NGFif) | (1L << NGTwenty) | (1L << NGThirty) | (1L << NGForty) | (1L << NGFifty) | (1L << NGSixty) | (1L << NGSeventy) | (1L << NGEighty) | (1L << NGNinety))) != 0)) {
 				{
-				setState(114);
+				setState(119);
 				ngsingle();
 				}
 			}
 
-			setState(117);
+			setState(122);
 			match(NGMillion);
 			}
 		}
@@ -615,17 +631,17 @@ public class NumberGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(120);
+			setState(125);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NGHundred) | (1L << NGOne) | (1L << NGTwo) | (1L << NGThree) | (1L << NGFour) | (1L << NGFive) | (1L << NGSix) | (1L << NGSeven) | (1L << NGEight) | (1L << NGNine) | (1L << NGTen) | (1L << NGEleven) | (1L << NGTwelve) | (1L << NGEighteen) | (1L << NGThir) | (1L << NGFif) | (1L << NGTwenty) | (1L << NGThirty) | (1L << NGForty) | (1L << NGFifty) | (1L << NGSixty) | (1L << NGSeventy) | (1L << NGEighty) | (1L << NGNinety))) != 0)) {
 				{
-				setState(119);
+				setState(124);
 				ngsingle();
 				}
 			}
 
-			setState(122);
+			setState(127);
 			match(NGBillion);
 			}
 		}
@@ -675,59 +691,59 @@ public class NumberGrammarParser extends Parser {
 		enterRule(_localctx, 10, RULE_ngsingle);
 		int _la;
 		try {
-			setState(138);
+			setState(143);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,31,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(125);
+				setState(130);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NGOne) | (1L << NGTwo) | (1L << NGThree) | (1L << NGFour) | (1L << NGFive) | (1L << NGSix) | (1L << NGSeven) | (1L << NGEight) | (1L << NGNine) | (1L << NGTen) | (1L << NGEleven) | (1L << NGTwelve) | (1L << NGEighteen) | (1L << NGThir) | (1L << NGFif) | (1L << NGTwenty) | (1L << NGThirty) | (1L << NGForty) | (1L << NGFifty) | (1L << NGSixty) | (1L << NGSeventy) | (1L << NGEighty) | (1L << NGNinety))) != 0)) {
 					{
-					setState(124);
+					setState(129);
 					nghprefix();
 					}
 				}
 
-				setState(127);
+				setState(132);
 				nghundred();
-				setState(129);
+				setState(134);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==NGAnd) {
 					{
-					setState(128);
+					setState(133);
 					match(NGAnd);
 					}
 				}
 
-				setState(131);
+				setState(136);
 				ngonly();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(134);
+				setState(139);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NGOne) | (1L << NGTwo) | (1L << NGThree) | (1L << NGFour) | (1L << NGFive) | (1L << NGSix) | (1L << NGSeven) | (1L << NGEight) | (1L << NGNine) | (1L << NGTen) | (1L << NGEleven) | (1L << NGTwelve) | (1L << NGEighteen) | (1L << NGThir) | (1L << NGFif) | (1L << NGTwenty) | (1L << NGThirty) | (1L << NGForty) | (1L << NGFifty) | (1L << NGSixty) | (1L << NGSeventy) | (1L << NGEighty) | (1L << NGNinety))) != 0)) {
 					{
-					setState(133);
+					setState(138);
 					nghprefix();
 					}
 				}
 
-				setState(136);
+				setState(141);
 				nghundred();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(137);
+				setState(142);
 				ngonly();
 				}
 				break;
@@ -777,27 +793,27 @@ public class NumberGrammarParser extends Parser {
 		NgonlyContext _localctx = new NgonlyContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_ngonly);
 		try {
-			setState(143);
+			setState(148);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,32,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(140);
+				setState(145);
 				ngmain1();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(141);
+				setState(146);
 				ngmain2();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(142);
+				setState(147);
 				ngsingles();
 				}
 				break;
@@ -851,7 +867,7 @@ public class NumberGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(145);
+			setState(150);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NGOne) | (1L << NGTwo) | (1L << NGThree) | (1L << NGFour) | (1L << NGFive) | (1L << NGSix) | (1L << NGSeven) | (1L << NGEight) | (1L << NGNine) | (1L << NGTen))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -905,27 +921,27 @@ public class NumberGrammarParser extends Parser {
 		Ngmain1Context _localctx = new Ngmain1Context(_ctx, getState());
 		enterRule(_localctx, 16, RULE_ngmain1);
 		try {
-			setState(153);
+			setState(158);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NGEleven:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(147);
+				setState(152);
 				match(NGEleven);
 				}
 				break;
 			case NGTwelve:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(148);
+				setState(153);
 				match(NGTwelve);
 				}
 				break;
 			case NGEighteen:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(149);
+				setState(154);
 				match(NGEighteen);
 				}
 				break;
@@ -937,9 +953,9 @@ public class NumberGrammarParser extends Parser {
 			case NGFif:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(150);
+				setState(155);
 				ngfirst();
-				setState(151);
+				setState(156);
 				match(NGTeen);
 				}
 				break;
@@ -991,24 +1007,24 @@ public class NumberGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(155);
-			ngdoubles();
 			setState(160);
+			ngdoubles();
+			setState(165);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << NGOne) | (1L << NGTwo) | (1L << NGThree) | (1L << NGFour) | (1L << NGFive) | (1L << NGSix) | (1L << NGSeven) | (1L << NGEight) | (1L << NGNine))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << NGOne) | (1L << NGTwo) | (1L << NGThree) | (1L << NGFour) | (1L << NGFive) | (1L << NGSix) | (1L << NGSeven) | (1L << NGEight) | (1L << NGNine))) != 0)) {
 				{
-				setState(157);
+				setState(162);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (_la==T__0) {
+				if (_la==T__1) {
 					{
-					setState(156);
-					match(T__0);
+					setState(161);
+					match(T__1);
 					}
 				}
 
-				setState(159);
+				setState(164);
 				ngseconds();
 				}
 			}
@@ -1055,7 +1071,7 @@ public class NumberGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(162);
+			setState(167);
 			ngonly();
 			}
 		}
@@ -1106,7 +1122,7 @@ public class NumberGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(164);
+			setState(169);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NGOne) | (1L << NGTwo) | (1L << NGThree) | (1L << NGFour) | (1L << NGFive) | (1L << NGSix) | (1L << NGSeven) | (1L << NGEight) | (1L << NGNine))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1162,7 +1178,7 @@ public class NumberGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(166);
+			setState(171);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NGFour) | (1L << NGSix) | (1L << NGSeven) | (1L << NGNine) | (1L << NGThir) | (1L << NGFif))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1220,7 +1236,7 @@ public class NumberGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(168);
+			setState(173);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NGTwenty) | (1L << NGThirty) | (1L << NGForty) | (1L << NGFifty) | (1L << NGSixty) | (1L << NGSeventy) | (1L << NGEighty) | (1L << NGNinety))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1244,59 +1260,61 @@ public class NumberGrammarParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3;\u00ad\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3<\u00b2\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
-		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\3\2\3\2\5\2!\n\2\5\2#\n\2\3\2"+
-		"\3\2\5\2\'\n\2\5\2)\n\2\3\2\3\2\5\2-\n\2\5\2/\n\2\3\2\3\2\3\2\5\2\64\n"+
-		"\2\5\2\66\n\2\3\2\3\2\5\2:\n\2\5\2<\n\2\3\2\3\2\5\2@\n\2\3\2\5\2C\n\2"+
-		"\3\2\3\2\5\2G\n\2\5\2I\n\2\3\2\3\2\5\2M\n\2\3\2\3\2\5\2Q\n\2\5\2S\n\2"+
-		"\3\2\5\2V\n\2\3\2\3\2\5\2Z\n\2\3\2\3\2\5\2^\n\2\5\2`\n\2\3\2\3\2\5\2d"+
-		"\n\2\5\2f\n\2\3\2\5\2i\n\2\3\2\5\2l\n\2\3\3\3\3\3\4\5\4q\n\4\3\4\3\4\3"+
-		"\5\5\5v\n\5\3\5\3\5\3\6\5\6{\n\6\3\6\3\6\3\7\5\7\u0080\n\7\3\7\3\7\5\7"+
-		"\u0084\n\7\3\7\3\7\3\7\5\7\u0089\n\7\3\7\3\7\5\7\u008d\n\7\3\b\3\b\3\b"+
-		"\5\b\u0092\n\b\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n\5\n\u009c\n\n\3\13\3\13"+
-		"\5\13\u00a0\n\13\3\13\5\13\u00a3\n\13\3\f\3\f\3\r\3\r\3\16\3\16\3\17\3"+
-		"\17\3\17\2\2\20\2\4\6\b\n\f\16\20\22\24\26\30\32\34\2\6\3\2\t\22\3\2\t"+
-		"\21\6\2\f\f\16\17\21\21\26\27\3\2\31 \2\u00c9\2k\3\2\2\2\4m\3\2\2\2\6"+
-		"p\3\2\2\2\bu\3\2\2\2\nz\3\2\2\2\f\u008c\3\2\2\2\16\u0091\3\2\2\2\20\u0093"+
-		"\3\2\2\2\22\u009b\3\2\2\2\24\u009d\3\2\2\2\26\u00a4\3\2\2\2\30\u00a6\3"+
-		"\2\2\2\32\u00a8\3\2\2\2\34\u00aa\3\2\2\2\36 \5\n\6\2\37!\7!\2\2 \37\3"+
-		"\2\2\2 !\3\2\2\2!#\3\2\2\2\"\36\3\2\2\2\"#\3\2\2\2#(\3\2\2\2$&\5\b\5\2"+
-		"%\'\7!\2\2&%\3\2\2\2&\'\3\2\2\2\')\3\2\2\2($\3\2\2\2()\3\2\2\2).\3\2\2"+
-		"\2*,\5\6\4\2+-\7!\2\2,+\3\2\2\2,-\3\2\2\2-/\3\2\2\2.*\3\2\2\2./\3\2\2"+
-		"\2/\60\3\2\2\2\60l\5\f\7\2\61\63\5\n\6\2\62\64\7!\2\2\63\62\3\2\2\2\63"+
-		"\64\3\2\2\2\64\66\3\2\2\2\65\61\3\2\2\2\65\66\3\2\2\2\66;\3\2\2\2\679"+
-		"\5\b\5\28:\7!\2\298\3\2\2\29:\3\2\2\2:<\3\2\2\2;\67\3\2\2\2;<\3\2\2\2"+
-		"<=\3\2\2\2=?\5\6\4\2>@\7!\2\2?>\3\2\2\2?@\3\2\2\2@B\3\2\2\2AC\5\f\7\2"+
-		"BA\3\2\2\2BC\3\2\2\2Cl\3\2\2\2DF\5\n\6\2EG\7!\2\2FE\3\2\2\2FG\3\2\2\2"+
-		"GI\3\2\2\2HD\3\2\2\2HI\3\2\2\2IJ\3\2\2\2JL\5\b\5\2KM\7!\2\2LK\3\2\2\2"+
-		"LM\3\2\2\2MR\3\2\2\2NP\5\6\4\2OQ\7!\2\2PO\3\2\2\2PQ\3\2\2\2QS\3\2\2\2"+
-		"RN\3\2\2\2RS\3\2\2\2SU\3\2\2\2TV\5\f\7\2UT\3\2\2\2UV\3\2\2\2Vl\3\2\2\2"+
-		"WY\5\n\6\2XZ\7!\2\2YX\3\2\2\2YZ\3\2\2\2Z_\3\2\2\2[]\5\b\5\2\\^\7!\2\2"+
-		"]\\\3\2\2\2]^\3\2\2\2^`\3\2\2\2_[\3\2\2\2_`\3\2\2\2`e\3\2\2\2ac\5\6\4"+
-		"\2bd\7!\2\2cb\3\2\2\2cd\3\2\2\2df\3\2\2\2ea\3\2\2\2ef\3\2\2\2fh\3\2\2"+
-		"\2gi\5\f\7\2hg\3\2\2\2hi\3\2\2\2il\3\2\2\2jl\7\b\2\2k\"\3\2\2\2k\65\3"+
-		"\2\2\2kH\3\2\2\2kW\3\2\2\2kj\3\2\2\2l\3\3\2\2\2mn\7\4\2\2n\5\3\2\2\2o"+
-		"q\5\f\7\2po\3\2\2\2pq\3\2\2\2qr\3\2\2\2rs\7\5\2\2s\7\3\2\2\2tv\5\f\7\2"+
-		"ut\3\2\2\2uv\3\2\2\2vw\3\2\2\2wx\7\6\2\2x\t\3\2\2\2y{\5\f\7\2zy\3\2\2"+
-		"\2z{\3\2\2\2{|\3\2\2\2|}\7\7\2\2}\13\3\2\2\2~\u0080\5\26\f\2\177~\3\2"+
-		"\2\2\177\u0080\3\2\2\2\u0080\u0081\3\2\2\2\u0081\u0083\5\4\3\2\u0082\u0084"+
-		"\7!\2\2\u0083\u0082\3\2\2\2\u0083\u0084\3\2\2\2\u0084\u0085\3\2\2\2\u0085"+
-		"\u0086\5\16\b\2\u0086\u008d\3\2\2\2\u0087\u0089\5\26\f\2\u0088\u0087\3"+
-		"\2\2\2\u0088\u0089\3\2\2\2\u0089\u008a\3\2\2\2\u008a\u008d\5\4\3\2\u008b"+
-		"\u008d\5\16\b\2\u008c\177\3\2\2\2\u008c\u0088\3\2\2\2\u008c\u008b\3\2"+
-		"\2\2\u008d\r\3\2\2\2\u008e\u0092\5\22\n\2\u008f\u0092\5\24\13\2\u0090"+
-		"\u0092\5\20\t\2\u0091\u008e\3\2\2\2\u0091\u008f\3\2\2\2\u0091\u0090\3"+
-		"\2\2\2\u0092\17\3\2\2\2\u0093\u0094\t\2\2\2\u0094\21\3\2\2\2\u0095\u009c"+
-		"\7\23\2\2\u0096\u009c\7\24\2\2\u0097\u009c\7\25\2\2\u0098\u0099\5\32\16"+
-		"\2\u0099\u009a\7\30\2\2\u009a\u009c\3\2\2\2\u009b\u0095\3\2\2\2\u009b"+
-		"\u0096\3\2\2\2\u009b\u0097\3\2\2\2\u009b\u0098\3\2\2\2\u009c\23\3\2\2"+
-		"\2\u009d\u00a2\5\34\17\2\u009e\u00a0\7\3\2\2\u009f\u009e\3\2\2\2\u009f"+
-		"\u00a0\3\2\2\2\u00a0\u00a1\3\2\2\2\u00a1\u00a3\5\30\r\2\u00a2\u009f\3"+
-		"\2\2\2\u00a2\u00a3\3\2\2\2\u00a3\25\3\2\2\2\u00a4\u00a5\5\16\b\2\u00a5"+
-		"\27\3\2\2\2\u00a6\u00a7\t\3\2\2\u00a7\31\3\2\2\2\u00a8\u00a9\t\4\2\2\u00a9"+
-		"\33\3\2\2\2\u00aa\u00ab\t\5\2\2\u00ab\35\3\2\2\2& \"&(,.\63\659;?BFHL"+
-		"PRUY]_cehkpuz\177\u0083\u0088\u008c\u0091\u009b\u009f\u00a2";
+		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\3\2\3\2\3\2\5\2\"\n\2\5\2$\n\2"+
+		"\3\2\3\2\5\2(\n\2\5\2*\n\2\3\2\3\2\5\2.\n\2\5\2\60\n\2\3\2\3\2\3\2\3\2"+
+		"\5\2\66\n\2\5\28\n\2\3\2\3\2\5\2<\n\2\5\2>\n\2\3\2\3\2\5\2B\n\2\3\2\5"+
+		"\2E\n\2\3\2\3\2\3\2\5\2J\n\2\5\2L\n\2\3\2\3\2\5\2P\n\2\3\2\3\2\5\2T\n"+
+		"\2\5\2V\n\2\3\2\5\2Y\n\2\3\2\3\2\3\2\5\2^\n\2\3\2\3\2\5\2b\n\2\5\2d\n"+
+		"\2\3\2\3\2\5\2h\n\2\5\2j\n\2\3\2\5\2m\n\2\3\2\3\2\5\2q\n\2\3\3\3\3\3\4"+
+		"\5\4v\n\4\3\4\3\4\3\5\5\5{\n\5\3\5\3\5\3\6\5\6\u0080\n\6\3\6\3\6\3\7\5"+
+		"\7\u0085\n\7\3\7\3\7\5\7\u0089\n\7\3\7\3\7\3\7\5\7\u008e\n\7\3\7\3\7\5"+
+		"\7\u0092\n\7\3\b\3\b\3\b\5\b\u0097\n\b\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n"+
+		"\5\n\u00a1\n\n\3\13\3\13\5\13\u00a5\n\13\3\13\5\13\u00a8\n\13\3\f\3\f"+
+		"\3\r\3\r\3\16\3\16\3\17\3\17\3\17\2\2\20\2\4\6\b\n\f\16\20\22\24\26\30"+
+		"\32\34\2\6\3\2\n\23\3\2\n\22\6\2\r\r\17\20\22\22\27\30\3\2\32!\2\u00ce"+
+		"\2p\3\2\2\2\4r\3\2\2\2\6u\3\2\2\2\bz\3\2\2\2\n\177\3\2\2\2\f\u0091\3\2"+
+		"\2\2\16\u0096\3\2\2\2\20\u0098\3\2\2\2\22\u00a0\3\2\2\2\24\u00a2\3\2\2"+
+		"\2\26\u00a9\3\2\2\2\30\u00ab\3\2\2\2\32\u00ad\3\2\2\2\34\u00af\3\2\2\2"+
+		"\36#\7\3\2\2\37!\5\n\6\2 \"\7\"\2\2! \3\2\2\2!\"\3\2\2\2\"$\3\2\2\2#\37"+
+		"\3\2\2\2#$\3\2\2\2$)\3\2\2\2%\'\5\b\5\2&(\7\"\2\2\'&\3\2\2\2\'(\3\2\2"+
+		"\2(*\3\2\2\2)%\3\2\2\2)*\3\2\2\2*/\3\2\2\2+-\5\6\4\2,.\7\"\2\2-,\3\2\2"+
+		"\2-.\3\2\2\2.\60\3\2\2\2/+\3\2\2\2/\60\3\2\2\2\60\61\3\2\2\2\61q\5\f\7"+
+		"\2\62\67\7\3\2\2\63\65\5\n\6\2\64\66\7\"\2\2\65\64\3\2\2\2\65\66\3\2\2"+
+		"\2\668\3\2\2\2\67\63\3\2\2\2\678\3\2\2\28=\3\2\2\29;\5\b\5\2:<\7\"\2\2"+
+		";:\3\2\2\2;<\3\2\2\2<>\3\2\2\2=9\3\2\2\2=>\3\2\2\2>?\3\2\2\2?A\5\6\4\2"+
+		"@B\7\"\2\2A@\3\2\2\2AB\3\2\2\2BD\3\2\2\2CE\5\f\7\2DC\3\2\2\2DE\3\2\2\2"+
+		"Eq\3\2\2\2FK\7\3\2\2GI\5\n\6\2HJ\7\"\2\2IH\3\2\2\2IJ\3\2\2\2JL\3\2\2\2"+
+		"KG\3\2\2\2KL\3\2\2\2LM\3\2\2\2MO\5\b\5\2NP\7\"\2\2ON\3\2\2\2OP\3\2\2\2"+
+		"PU\3\2\2\2QS\5\6\4\2RT\7\"\2\2SR\3\2\2\2ST\3\2\2\2TV\3\2\2\2UQ\3\2\2\2"+
+		"UV\3\2\2\2VX\3\2\2\2WY\5\f\7\2XW\3\2\2\2XY\3\2\2\2Yq\3\2\2\2Z[\7\3\2\2"+
+		"[]\5\n\6\2\\^\7\"\2\2]\\\3\2\2\2]^\3\2\2\2^c\3\2\2\2_a\5\b\5\2`b\7\"\2"+
+		"\2a`\3\2\2\2ab\3\2\2\2bd\3\2\2\2c_\3\2\2\2cd\3\2\2\2di\3\2\2\2eg\5\6\4"+
+		"\2fh\7\"\2\2gf\3\2\2\2gh\3\2\2\2hj\3\2\2\2ie\3\2\2\2ij\3\2\2\2jl\3\2\2"+
+		"\2km\5\f\7\2lk\3\2\2\2lm\3\2\2\2mq\3\2\2\2no\7\3\2\2oq\7\t\2\2p\36\3\2"+
+		"\2\2p\62\3\2\2\2pF\3\2\2\2pZ\3\2\2\2pn\3\2\2\2q\3\3\2\2\2rs\7\5\2\2s\5"+
+		"\3\2\2\2tv\5\f\7\2ut\3\2\2\2uv\3\2\2\2vw\3\2\2\2wx\7\6\2\2x\7\3\2\2\2"+
+		"y{\5\f\7\2zy\3\2\2\2z{\3\2\2\2{|\3\2\2\2|}\7\7\2\2}\t\3\2\2\2~\u0080\5"+
+		"\f\7\2\177~\3\2\2\2\177\u0080\3\2\2\2\u0080\u0081\3\2\2\2\u0081\u0082"+
+		"\7\b\2\2\u0082\13\3\2\2\2\u0083\u0085\5\26\f\2\u0084\u0083\3\2\2\2\u0084"+
+		"\u0085\3\2\2\2\u0085\u0086\3\2\2\2\u0086\u0088\5\4\3\2\u0087\u0089\7\""+
+		"\2\2\u0088\u0087\3\2\2\2\u0088\u0089\3\2\2\2\u0089\u008a\3\2\2\2\u008a"+
+		"\u008b\5\16\b\2\u008b\u0092\3\2\2\2\u008c\u008e\5\26\f\2\u008d\u008c\3"+
+		"\2\2\2\u008d\u008e\3\2\2\2\u008e\u008f\3\2\2\2\u008f\u0092\5\4\3\2\u0090"+
+		"\u0092\5\16\b\2\u0091\u0084\3\2\2\2\u0091\u008d\3\2\2\2\u0091\u0090\3"+
+		"\2\2\2\u0092\r\3\2\2\2\u0093\u0097\5\22\n\2\u0094\u0097\5\24\13\2\u0095"+
+		"\u0097\5\20\t\2\u0096\u0093\3\2\2\2\u0096\u0094\3\2\2\2\u0096\u0095\3"+
+		"\2\2\2\u0097\17\3\2\2\2\u0098\u0099\t\2\2\2\u0099\21\3\2\2\2\u009a\u00a1"+
+		"\7\24\2\2\u009b\u00a1\7\25\2\2\u009c\u00a1\7\26\2\2\u009d\u009e\5\32\16"+
+		"\2\u009e\u009f\7\31\2\2\u009f\u00a1\3\2\2\2\u00a0\u009a\3\2\2\2\u00a0"+
+		"\u009b\3\2\2\2\u00a0\u009c\3\2\2\2\u00a0\u009d\3\2\2\2\u00a1\23\3\2\2"+
+		"\2\u00a2\u00a7\5\34\17\2\u00a3\u00a5\7\4\2\2\u00a4\u00a3\3\2\2\2\u00a4"+
+		"\u00a5\3\2\2\2\u00a5\u00a6\3\2\2\2\u00a6\u00a8\5\30\r\2\u00a7\u00a4\3"+
+		"\2\2\2\u00a7\u00a8\3\2\2\2\u00a8\25\3\2\2\2\u00a9\u00aa\5\16\b\2\u00aa"+
+		"\27\3\2\2\2\u00ab\u00ac\t\3\2\2\u00ac\31\3\2\2\2\u00ad\u00ae\t\4\2\2\u00ae"+
+		"\33\3\2\2\2\u00af\u00b0\t\5\2\2\u00b0\35\3\2\2\2&!#\')-/\65\67;=ADIKO"+
+		"SUX]acgilpuz\177\u0084\u0088\u008d\u0091\u0096\u00a0\u00a4\u00a7";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
