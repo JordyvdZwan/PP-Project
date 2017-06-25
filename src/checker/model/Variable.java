@@ -24,6 +24,6 @@ public class Variable {
 
     @Override
     public String toString() {
-        return "Variable" + type + " " + id;
+        return type + " " + id;
     }
 }
