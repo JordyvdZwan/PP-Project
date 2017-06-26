@@ -20,8 +20,8 @@ public class SprocklGenerator {
 
     public String generate() throws UnsupportedInstructionException, TooManyRegistersException{
         String result = "[";
-        for (Instr anInstr : program.getInstr()) {
-            String[] line = anInstr.toString().split(" ");
+        for (int i = 0; i < program.getInstr().size(); i++) {
+            String[] line = program.getInstr().get(i).toString().split(" ");
             switch (line[0]) {
 
                 case "pop":
@@ -88,12 +88,24 @@ public class SprocklGenerator {
                     result = result + loadI(line) + ", ";
                     break;
 
+                case "loadAI":
+                    result = result + loadAI(line) + ", ";
+                    break;
+
+                case "loadAO":
+                    result = result + loadAO(line) + ", ";
+                    break;
+
                 case "store":
                     result = result + store(line) + ", ";
                     break;
 
                 case "storeAI":
                     result = result + storeAI(line) + ", ";
+                    break;
+
+                case "storeAO":
+                    result = result + storeAO(line) + ", ";
                     break;
 
                 case "lshift":
@@ -134,6 +146,14 @@ public class SprocklGenerator {
 
                 case "xorI":
                     result = result + xorI(line) + ", ";
+                    break;
+
+                case "i2i":
+                    result = result + i2i(line) + ", ";
+                    break;
+
+                case "nop":
+                    result = result + nop(line) + ", ";
                     break;
 
                 default:
@@ -319,6 +339,24 @@ public class SprocklGenerator {
         return "Load (ImmValue " + input[1] + ") " + registers.get(input[3]);
     }
 
+    private String loadAI(String[] input) throws TooManyRegistersException {
+        String result;
+        String[] comma = input[3].split(",");
+        result = "Push " + comma[0];
+        result = result + ", " + addI(new String[]{"", comma[0], comma[1], "", comma[0]}) + ", " + load(new String[]{"", input[1], "", comma[0]});
+        result = result + ", " + "Pop " + comma[0];
+        return result;
+    }
+
+    private String loadAO(String[] input) throws TooManyRegistersException {
+        String result;
+        String[] comma = input[3].split(",");
+        result = "Push " + comma[0];
+        result = result + ", " + add(new String[]{"", comma[0], comma[1], "", comma[0]}) + ", " + load(new String[]{"", input[1], "", comma[0]});
+        result = result + ", " + "Pop " + comma[0];
+        return result;
+    }
+
     private String store(String[] input) throws TooManyRegistersException {
         addRegister(input[1]);
         addRegister(input[3]);
@@ -330,6 +368,15 @@ public class SprocklGenerator {
         String[] comma = input[3].split(",");
         result = "Push " + comma[0];
         result = result + ", " + addI(new String[]{"", comma[0], comma[1], "", comma[0]}) + ", " + store(new String[]{"", input[1], "", comma[0]});
+        result = result + ", " + "Pop " + comma[0];
+        return result;
+    }
+
+    private String storeAO(String[] input) throws TooManyRegistersException {
+        String result;
+        String[] comma = input[3].split(",");
+        result = "Push " + comma[0];
+        result = result + ", " + add(new String[]{"", comma[0], comma[1], "", comma[0]}) + ", " + store(new String[]{"", input[1], "", comma[0]});
         result = result + ", " + "Pop " + comma[0];
         return result;
     }
@@ -493,6 +540,10 @@ public class SprocklGenerator {
         addRegister(input[1]);
         addRegister(input[3]);
         return "Push " + input[1] + ", Pop " + input[3];
+    }
+
+    private String nop(String[] input) throws  TooManyRegistersException {
+        return "Nop";
     }
 
 }
