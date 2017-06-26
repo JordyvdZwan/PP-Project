@@ -13,6 +13,7 @@ public class DeclarationTable {
 
     private Scope root;
     private Scope scope;
+    private Integer nextOffset;
 
     public DeclarationTable() {
         root  = new Scope();
@@ -35,21 +36,31 @@ public class DeclarationTable {
         scope.addVariable(variable);
     }
 
-    public void getVariable(String name) {
-        scope.getVariable(name);
+    public Variable getVariable(String name) {
+        return scope.getVariable(name);
     }
 
-    public void isDeclared(String name) {
-        scope.isDeclared(name);
+    public boolean isDeclared(String name) {
+        return scope.isDeclared(name);
     }
 
-    public void isDeclaredInScope(String name) {
-        scope.isDeclaredInScope(name);
+    public boolean isDeclaredInScope(String name) {
+        return scope.isDeclaredInScope(name);
     }
 
     public void resetScope() {
         scope = root;
         root.resetScopeCounters();
+    }
+
+    public Integer getNextOffset(Type type) {
+        Integer res = nextOffset;
+        if (type.getConstruct().getcType() == Construct.CType.Array) {
+            nextOffset += type.getConstruct().getLength();
+        } else {
+            nextOffset += 4;
+        }
+        return res;
     }
 
     @Override

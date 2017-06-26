@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Jordy van der Zwan on 24-Jun-17.
  */
-public class CompilerErrorListener extends BaseErrorListener{
+public class CompilerErrorListener extends BaseErrorListener {
     private List<String> errorMessages;
 
     public CompilerErrorListener() {
@@ -26,5 +26,7 @@ public class CompilerErrorListener extends BaseErrorListener{
         return errorMessages;
     }
 
-
+    public void resetErrorMessages() {
+        errorMessages = new ArrayList<>();
+    }
 }

@@ -7,11 +7,12 @@ id: Letter (Letter | NUMBER)*;
 
 program : (statement)+ EOF;
 
-statement: (WS)? (Var WS)? type WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?                      #declStat
-         | (WS)? target WS ASS WS expression (WS)? EndStatement (WS)?                                       #assStat
-         | (WS)? IF (WS)? expression (WS)? (THEN)? (WS)? statement ((WS)? ELSE (WS)? statement)? (WS)?         #ifStat
-         | (WS)? WHILE (WS)? expression (WS)? (DO)? (WS)? statement (WS)?                                      #whileStat
-         | (WS)? BGN (WS)? (statement)+ (WS)? END (WS)?                                                     #blockStat
+statement: (WS)? (Var WS)? type WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?                                                  #declStat
+         | (WS)? (Var WS)? type OpenArray CloseArray WS id (WS)? OpenArray (WS)? expression (WS)? CloseArray (WS)? EndStatement (WS)?   #arrayDeclStat
+         | (WS)? target WS ASS WS expression (WS)? EndStatement (WS)?                                                                   #assStat
+         | (WS)? IF (WS)? expression (WS)? (THEN)? (WS)? statement ((WS)? ELSE (WS)? statement)? (WS)?                                  #ifStat
+         | (WS)? WHILE (WS)? expression (WS)? (DO)? (WS)? statement (WS)?                                                               #whileStat
+         | (WS)? BGN (WS)? (statement)+ (WS)? END (WS)?                                                                                 #blockStat
          ;
 
 Var : V A R;
@@ -21,17 +22,17 @@ Integer: I N T E G E R | I N T;
 Boolean: B O O L E A N | B O O L;
 array: primitiveType OpenArray CloseArray;
 
-expression: prfOp (WS)? expression                                  #prfExpr
+expression: prfOp (WS)? expression                                   #prfExpr
           | expression (WS)? multOp (WS)? expression                 #multExpr
           | expression (WS)? plusOp (WS)? expression                 #plusExpr
           | expression (WS)? boolOp (WS)? expression                 #boolExpr
           | expression (WS)? compOp (WS)? expression                 #compExpr
-          | LPAR (WS)? expression (WS)? RPAR                        #parExpr
-          | id                                                      #idExpr
-          | num                                                     #numExpr
-          | id (WS)? OpenArray (WS)? expression (WS)? CloseArray    #arrayExpr
-          | TRUE                                                    #trueExpr
-          | FALSE                                                   #falseExpr
+          | LPAR (WS)? expression (WS)? RPAR                         #parExpr
+          | id                                                       #idExpr
+          | num                                                      #numExpr
+          | id (WS)? OpenArray (WS)? expression (WS)? CloseArray     #arrayExpr
+          | TRUE                                                     #trueExpr
+          | FALSE                                                    #falseExpr
           ;
 
 num : ngWrittenNumber | NUMBER;

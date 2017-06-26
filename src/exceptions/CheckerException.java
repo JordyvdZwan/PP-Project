@@ -10,6 +10,8 @@ import java.util.List;
 public class CheckerException extends Exception {
     private String message = "";
 
+    public CheckerException() {}
+
     public CheckerException(String message) {
         this.message = message;
     }
