@@ -10,6 +10,7 @@ import java.util.Map;
 public class SprocklGenerator {
 
     private Map<String, Integer> registers = new HashMap<>();
+    private static final int REGISTERS = 6;
     private Program program;
 
     public SprocklGenerator(Program program) {
@@ -32,6 +33,10 @@ public class SprocklGenerator {
 
                 case "add":
                     result = result + " " + add(line);
+                    break;
+
+                case "addI":
+                    result = result + " " + addI(line);
                     break;
 
                 case "sub":
@@ -74,6 +79,30 @@ public class SprocklGenerator {
                     result = result + " " + loadI(line);
                     break;
 
+                case "store":
+                    result = result + " " + store(line);
+                    break;
+
+                case "storeAI":
+                    result = result + " " + storeAI(line);
+                    break;
+
+                case "lshift":
+                    result = result + " " + lshift(line);
+                    break;
+
+                case "lshiftI":
+                    result = result + " " + lshiftI(line);
+                    break;
+
+                case "rshift":
+                    result = result + " " + rshift(line);
+                    break;
+
+                case "rshiftI":
+                    result = result + " " + rshiftI(line);
+                    break;
+
                 default:
                     throw new UnsupportedInstructionException();
             }
@@ -85,6 +114,15 @@ public class SprocklGenerator {
         if (!registers.containsKey(register)) {
             registers.put(register, registers.size());
         }
+    }
+
+//    om een register te kiezen
+    private int ieneMieneMutte() {
+        int result = (int) (Math.random() * REGISTERS);
+        for (int i = 0; i < 22; i++) {
+            result = result < REGISTERS ? 0 : result + 1;
+        }
+        return result;
     }
 
     private String pop(String[] input) {
@@ -102,6 +140,30 @@ public class SprocklGenerator {
         addRegister(input[2]);
         addRegister(input[4]);
         return "Compute Add " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+    }
+
+    private String addI(String[] input) {
+        String result;
+        addRegister(input[1]);
+        addRegister(input[4]);
+        if (registers.size() < REGISTERS) {
+            registers.put("register", registers.size());
+            result = "Load (ImmValue " + input[2] + ") " + registers.get("register") +
+                    ", Compute Add " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            registers.remove("register");
+        } else {
+            String register = registers.keySet().iterator().next();
+            int registerNumber = registers.get(register);
+            registers.remove(register);
+            result = "Push " + register;
+            registers.put("register", registerNumber);
+            result = result + ", Load (ImmValue " + input[2] + ") " + registers.get("register") +
+                    ", Compute Add " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            registers.remove("register");
+            registers.put(register, registerNumber);
+            result = result + ", Pop " + register;
+        }
+        return result;
     }
 
     private String sub(String[] input) {
@@ -163,12 +225,85 @@ public class SprocklGenerator {
     private String load(String[] input) {
         addRegister(input[1]);
         addRegister(input[3]);
-        return  "Load IndAddr " + registers.get(input[1]) + " " + registers.get(input[3]);
+        return  "Load (IndAddr " + registers.get(input[1]) + ") " + registers.get(input[3]);
     }
 
     private String loadI(String[] input) {
         addRegister(input[3]);
-        return "Load ImmValue " + input[1] + " " + registers.get(input[3]);
+        return "Load (ImmValue " + input[1] + ") " + registers.get(input[3]);
+    }
+
+    private String store(String[] input) {
+        addRegister(input[1]);
+        addRegister(input[3]);
+        return "Store " + registers.get(input[1]) + " (IndAddr" + registers.get(input[3]) + ")";
+    }
+
+    private String storeAI(String[] input) {
+        String result;
+        return result;
+    }
+
+    private String lshift(String[] input) {
+        addRegister(input[1]);
+        addRegister(input[2]);
+        addRegister(input[4]);
+        return "Compute LShift " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+    }
+
+    private String lshiftI(String[] input) {
+        String result;
+        addRegister(input[1]);
+        addRegister(input[4]);
+        if (registers.size() < REGISTERS) {
+            registers.put("register", registers.size());
+            result = "Load (ImmValue " + input[2] + ") " + registers.get("register") +
+                     ", Compute LShift " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            registers.remove("register");
+        } else {
+            String register = registers.keySet().iterator().next();
+            int registerNumber = registers.get(register);
+            registers.remove(register);
+            result = "Push " + register;
+            registers.put("register", registerNumber);
+            result = result + ", Load (ImmValue " + input[2] + ") " + registers.get("register") +
+                    ", Compute LShift " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            registers.remove("register");
+            registers.put(register, registerNumber);
+            result = result + ", Pop " + register;
+        }
+        return result;
+    }
+
+    private String rshift(String[] input) {
+        addRegister(input[1]);
+        addRegister(input[2]);
+        addRegister(input[4]);
+        return "Compute RShift " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+    }
+
+    private String rshiftI(String[] input) {
+        String result;
+        addRegister(input[1]);
+        addRegister(input[4]);
+        if (registers.size() < REGISTERS) {
+            registers.put("register", registers.size());
+            result = "Load (ImmValue " + input[2] + ") " + registers.get("register") +
+                    ", Compute RShift " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            registers.remove("register");
+        } else {
+            String register = registers.keySet().iterator().next();
+            int registerNumber = registers.get(register);
+            registers.remove(register);
+            result = "Push " + register;
+            registers.put("register", registerNumber);
+            result = result + ", Load (ImmValue " + input[2] + ") " + registers.get("register") +
+                    ", Compute RShift " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            registers.remove("register");
+            registers.put(register, registerNumber);
+            result = result + ", Pop " + register;
+        }
+        return result;
     }
 
 }
