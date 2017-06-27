@@ -364,24 +364,26 @@ public class SprocklGenerator {
     private String store(String[] input) throws TooManyRegistersException {
         addRegister(input[1]);
         addRegister(input[3]);
-        return "Store " + registers.get(input[1]) + " (IndAddr" + registers.get(input[3]) + ")";
+        return "Store " + registers.get(input[1]) + " (IndAddr " + registers.get(input[3]) + ")";
     }
 
     private String storeAI(String[] input) throws TooManyRegistersException {
         String result;
         String[] comma = input[3].split(",");
-        result = "Push " + comma[0];
-        result = result + ", " + addI(new String[]{"", comma[0], comma[1], "", comma[0]}) + ", " + store(new String[]{"", input[1], "", comma[0]});
-        result = result + ", " + "Pop " + comma[0];
+        addRegister(comma[0]);
+        result = "Push " + registers.get(comma[0]);
+        result = result + ", " + addI(new String[]{"", comma[0] + "," + comma[1], "", comma[0]}) + ", " + store(new String[]{"", input[1], "", comma[0]});
+        result = result + ", " + "Pop " + registers.get(comma[0]);
         return result;
     }
 
     private String storeAO(String[] input) throws TooManyRegistersException {
         String result;
         String[] comma = input[3].split(",");
-        result = "Push " + comma[0];
-        result = result + ", " + add(new String[]{"", comma[0], comma[1], "", comma[0]}) + ", " + store(new String[]{"", input[1], "", comma[0]});
-        result = result + ", " + "Pop " + comma[0];
+        addRegister(comma[0]);
+        result = "Push " + registers.get(comma[0]);
+        result = result + ", " + add(new String[]{"", comma[0] + "," +  comma[1], "", comma[0]}) + ", " + store(new String[]{"", input[1], "", comma[0]});
+        result = result + ", " + "Pop " + registers.get(comma[0]);
         return result;
     }
 
