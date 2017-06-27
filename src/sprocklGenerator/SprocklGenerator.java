@@ -21,6 +21,7 @@ public class SprocklGenerator {
     public String generate() throws UnsupportedInstructionException, TooManyRegistersException{
         String result = "[";
         for (Instr anInstr : program.getInstr()) {
+//            System.out.println(anInstr.toString());
             String[] line = anInstr.toString().split(" ");
             switch (line[0]) {
 
@@ -165,11 +166,11 @@ public class SprocklGenerator {
     }
 
     private void addRegister(String register) throws TooManyRegistersException {
-        if (registers.size() >= REGISTERS) {
-            throw new TooManyRegistersException();
-        } else {
-            if (!registers.containsKey(register)) {
-                registers.put(register, registers.size());
+        if (!registers.containsKey(register)) {
+            if (registers.size() >= REGISTERS) {
+                throw new TooManyRegistersException();
+            } else {
+            registers.put(register, registers.size());
             }
         }
     }
@@ -202,24 +203,25 @@ public class SprocklGenerator {
 
     private String addI(String[] input) throws TooManyRegistersException {
         String result;
-        addRegister(input[1]);
-        addRegister(input[4]);
+        addRegister(input[3]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute Add " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute Add " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
             String register = registers.keySet().iterator().next();
             int registerNumber = registers.get(register);
             registers.remove(register);
-            result = "Push " + register;
+            result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute Add " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute Add " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
-            result = result + ", Pop " + register;
+            result = result + ", Pop " + registerNumber;
         }
         return result;
     }
@@ -233,24 +235,25 @@ public class SprocklGenerator {
 
     private String subI(String[] input) throws TooManyRegistersException {
         String result;
-        addRegister(input[1]);
-        addRegister(input[4]);
+        addRegister(input[3]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute Sub " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute Sub " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
             String register = registers.keySet().iterator().next();
             int registerNumber = registers.get(register);
             registers.remove(register);
-            result = "Push " + register;
+            result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute Sub " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute Sub " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
-            result = result + ", Pop " + register;
+            result = result + ", Pop " + registerNumber;
         }
         return result;
     }
@@ -264,24 +267,25 @@ public class SprocklGenerator {
 
     private String multI(String[] input) throws TooManyRegistersException {
         String result;
-        addRegister(input[1]);
-        addRegister(input[4]);
+        addRegister(input[3]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute Mul " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute Mult " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
             String register = registers.keySet().iterator().next();
             int registerNumber = registers.get(register);
             registers.remove(register);
-            result = "Push " + register;
+            result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute Mul " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute Mult " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
-            result = result + ", Pop " + register;
+            result = result + ", Pop " + registerNumber;
         }
         return result;
     }
@@ -390,24 +394,25 @@ public class SprocklGenerator {
 
     private String lshiftI(String[] input) throws TooManyRegistersException {
         String result;
-        addRegister(input[1]);
-        addRegister(input[4]);
+        addRegister(input[3]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                     ", Compute LShift " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute LShift " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
             String register = registers.keySet().iterator().next();
             int registerNumber = registers.get(register);
             registers.remove(register);
-            result = "Push " + register;
+            result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute LShift " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute LShift " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
-            result = result + ", Pop " + register;
+            result = result + ", Pop " + registerNumber;
         }
         return result;
     }
@@ -421,24 +426,25 @@ public class SprocklGenerator {
 
     private String rshiftI(String[] input) throws TooManyRegistersException {
         String result;
-        addRegister(input[1]);
-        addRegister(input[4]);
+        addRegister(input[3]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute RShift " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute RShift " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
             String register = registers.keySet().iterator().next();
             int registerNumber = registers.get(register);
             registers.remove(register);
-            result = "Push " + register;
+            result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute RShift " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute RShift " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
-            result = result + ", Pop " + register;
+            result = result + ", Pop " + registerNumber;
         }
         return result;
     }
@@ -452,24 +458,25 @@ public class SprocklGenerator {
 
     private String orI(String[] input) throws TooManyRegistersException {
         String result;
-        addRegister(input[1]);
-        addRegister(input[4]);
+        addRegister(input[3]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute Or " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute Or " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
             String register = registers.keySet().iterator().next();
             int registerNumber = registers.get(register);
             registers.remove(register);
-            result = "Push " + register;
+            result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute Or " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute Or " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
-            result = result + ", Pop " + register;
+            result = result + ", Pop " + registerNumber;
         }
         return result;
     }
@@ -483,24 +490,25 @@ public class SprocklGenerator {
 
     private String andI(String[] input) throws TooManyRegistersException {
         String result;
-        addRegister(input[1]);
-        addRegister(input[4]);
+        addRegister(input[3]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute And " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute And " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
             String register = registers.keySet().iterator().next();
             int registerNumber = registers.get(register);
             registers.remove(register);
-            result = "Push " + register;
+            result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute And " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute And " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
-            result = result + ", Pop " + register;
+            result = result + ", Pop " + registerNumber;
         }
         return result;
     }
@@ -514,24 +522,25 @@ public class SprocklGenerator {
 
     private String xorI(String[] input) throws TooManyRegistersException {
         String result;
-        addRegister(input[1]);
-        addRegister(input[4]);
+        addRegister(input[3]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute Xor " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute Xor " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
             String register = registers.keySet().iterator().next();
             int registerNumber = registers.get(register);
             registers.remove(register);
-            result = "Push " + register;
+            result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + input[2] + ") " + registers.get("register") +
-                    ", Compute Xor " + registers.get(input[1]) + " " + registers.get("register") + " " + registers.get(input[4]);
+            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+                    ", Compute Xor " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
-            result = result + ", Pop " + register;
+            result = result + ", Pop " + registerNumber;
         }
         return result;
     }
