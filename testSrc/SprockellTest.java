@@ -40,6 +40,12 @@ public class SprockellTest {
     }
 
     @Test
+    public void testAdd() throws UnsupportedInstructionException, TooManyRegistersException {
+        program.addInstr(new Op(OpCode.add, new Reg("r_1"), new Reg("r_2"), new Reg("r_3")));
+        Assert.assertTrue(sprockell.generate().equals("[Compute Add 0 1 2, EndProg ]"));
+    }
+
+    @Test
     public void testAddI() throws  UnsupportedInstructionException, TooManyRegistersException {
         program.addInstr(new Op(OpCode.addI, new Reg("r_1"), new Num(5), new Reg("r_2")));
         Assert.assertTrue(sprockell.generate().equals("[Load (ImmValue 5) 2, Compute Add 1 2 0, EndProg ]"));

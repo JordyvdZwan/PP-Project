@@ -154,7 +154,7 @@ public class SprocklGenerator {
                     break;
 
                 case "nop":
-                    result = result + nop(line) + ", ";
+                    result = result + nop() + ", ";
                     break;
 
                 default:
@@ -195,10 +195,11 @@ public class SprocklGenerator {
     }
 
     private String add(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute Add " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute Add " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String addI(String[] input) throws TooManyRegistersException {
@@ -227,10 +228,11 @@ public class SprocklGenerator {
     }
 
     private String sub(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute Sub " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute Sub " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String subI(String[] input) throws TooManyRegistersException {
@@ -259,10 +261,11 @@ public class SprocklGenerator {
     }
 
     private String mult(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute Mul " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute Mult " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String multI(String[] input) throws TooManyRegistersException {
@@ -291,45 +294,51 @@ public class SprocklGenerator {
     }
 
     private String equal(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute Equal " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute Equal " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String notEqual(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute NEq " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute Neq " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String greater(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute Gt " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute Gt " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String less(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute Lt " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute Lt " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String greaterEqual(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute GtE " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute GtE " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String lessEqual(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute LtE " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute LtE " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String load(String[] input) throws TooManyRegistersException {
@@ -346,18 +355,20 @@ public class SprocklGenerator {
     private String loadAI(String[] input) throws TooManyRegistersException {
         String result;
         String[] comma = input[3].split(",");
-        result = "Push " + comma[0];
-        result = result + ", " + addI(new String[]{"", comma[0], comma[1], "", comma[0]}) + ", " + load(new String[]{"", input[1], "", comma[0]});
-        result = result + ", " + "Pop " + comma[0];
+        addRegister(comma[0]);
+        result = "Push " + registers.get(comma[0]);
+        result = result + ", " + addI(new String[]{"", comma[0] + "," + comma[1], "", comma[0]}) + ", " + load(new String[]{"", input[1], "", comma[0]});
+        result = result + ", " + "Pop " + registers.get(comma[0]);
         return result;
     }
 
     private String loadAO(String[] input) throws TooManyRegistersException {
         String result;
         String[] comma = input[3].split(",");
-        result = "Push " + comma[0];
-        result = result + ", " + add(new String[]{"", comma[0], comma[1], "", comma[0]}) + ", " + load(new String[]{"", input[1], "", comma[0]});
-        result = result + ", " + "Pop " + comma[0];
+        addRegister(comma[0]);
+        result = "Push " + registers.get(comma[0]);
+        result = result + ", " + add(new String[]{"", comma[0] + "," + comma[1], "", comma[0]}) + ", " + load(new String[]{"", input[1], "", comma[0]});
+        result = result + ", " + "Pop " + registers.get(comma[0]);
         return result;
     }
 
@@ -388,10 +399,11 @@ public class SprocklGenerator {
     }
 
     private String lshift(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute LShift " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute LShift " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String lshiftI(String[] input) throws TooManyRegistersException {
@@ -420,10 +432,11 @@ public class SprocklGenerator {
     }
 
     private String rshift(String[] input) throws TooManyRegistersException{
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute RShift " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute RShift " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String rshiftI(String[] input) throws TooManyRegistersException {
@@ -452,10 +465,11 @@ public class SprocklGenerator {
     }
 
     private String or(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute Or " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute Or " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String orI(String[] input) throws TooManyRegistersException {
@@ -484,10 +498,11 @@ public class SprocklGenerator {
     }
 
     private String and(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute And " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute And " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String andI(String[] input) throws TooManyRegistersException {
@@ -516,10 +531,11 @@ public class SprocklGenerator {
     }
 
     private String xor(String[] input) throws TooManyRegistersException {
-        addRegister(input[1]);
-        addRegister(input[2]);
-        addRegister(input[4]);
-        return "Compute Xor " + registers.get(input[1]) + " " + registers.get(input[2]) + " " + registers.get(input[4]);
+        String[] comma = input[1].split(",");
+        addRegister(comma[0]);
+        addRegister(comma[1]);
+        addRegister(input[3]);
+        return "Compute Xor " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     private String xorI(String[] input) throws TooManyRegistersException {
@@ -553,7 +569,7 @@ public class SprocklGenerator {
         return "Push " + input[1] + ", Pop " + input[3];
     }
 
-    private String nop(String[] input) throws  TooManyRegistersException {
+    private String nop() throws  TooManyRegistersException {
         return "Nop";
     }
 
