@@ -20,8 +20,8 @@ public class SprocklGenerator {
 
     public String generate() throws UnsupportedInstructionException, TooManyRegistersException{
         String result = "[";
-        for (int i = 0; i < program.getInstr().size(); i++) {
-            String[] line = program.getInstr().get(i).toString().split(" ");
+        for (Instr anInstr : program.getInstr()) {
+            String[] line = anInstr.toString().split(" ");
             switch (line[0]) {
 
                 case "pop":
