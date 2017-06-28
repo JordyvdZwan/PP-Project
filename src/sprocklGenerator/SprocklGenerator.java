@@ -25,7 +25,7 @@ public class SprocklGenerator {
         this.program = program;
     }
 
-    public String generate() throws UnsupportedInstructionException, TooManyRegistersException{
+    public String generate(Boolean debug) throws UnsupportedInstructionException, TooManyRegistersException{
         String result = "import Sprockell \n" +
                 "prog :: [Instruction] \n" +
                 "prog = [";
@@ -194,8 +194,12 @@ public class SprocklGenerator {
                     throw new UnsupportedInstructionException(anInstr.toString());
             }
         }
-        result = result + "EndProg ] \n" +
-                "main = run [prog]";
+        result = result + "EndProg ]";
+        if (debug) {
+            result = result + "\nmain = runWithDebugger (debuggerSimplePrint showLocalMem) [prog]";
+        } else {
+            result = result + "\nmain = [prog]";
+        }
         return result;
     }
 
