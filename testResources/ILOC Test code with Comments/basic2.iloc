@@ -1,0 +1,32 @@
+                loadI   16        => r_0
+                storeAI r_0       => r_arp,0
+                loadI   0         => r_1                        Var Integer i;
+                storeAI r_1       => r_arp,4                    Var Integer i;
+                loadI   1         => r_2                        i = 1;
+                storeAI r_2       => r_arp,4                    i = 1;
+startWhile_3_0: loadAI  r_arp,4   => r_3                        i < 5
+                loadI   5         => r_4                        i < 5
+                cmp_LT  r_3,r_4   => r_5                        i < 5
+                cbr     r_5       -> bodyWhile_3_0,endWhile_3_0 while (i < 5) Do {
+bodyWhile_3_0:  loadAI  r_arp,4   => r_6                        i + 1
+                loadI   1         => r_7                        i + 1
+                add     r_6,r_7   => r_8                        i + 1
+                storeAI r_8       => r_arp,4                    i = i + 1;
+                jumpI             -> startWhile_3_0             while (i < 5) Do {
+endWhile_3_0:   nop                                             while (i < 5) Do {}
+                loadAI  r_arp,4   => r_10                       i == 5
+                loadI   5         => r_11                       i == 5
+                cmp_EQ  r_10,r_11 => r_12                       i == 5
+                cbr     r_12      -> if_6_0,else_6_0            if (i == 5) then {}
+if_6_0:         loadI   0         => r_13                       Boolean bol = false;
+                storeAI r_13      => r_arp,8                    Boolean bol = false;
+                loadI   -1        => r_14                       bol = true;
+                storeAI r_14      => r_arp,8                    bol = true;
+                loadI   6         => r_15                       i = 6;
+                storeAI r_15      => r_arp,4                    i = 6;
+                jumpI             -> end_6_0                    if (i == 5) then {
+else_6_0:       loadI   5         => r_16                       } else {
+                storeAI r_16      => r_arp,4                    i = 5;
+end_6_0:        nop                                             if (i == 5) then {} else {}
+                loadI   0         => r_17                       Boolean live;
+                storeAI r_17      => r_arp,12                   Boolean live;

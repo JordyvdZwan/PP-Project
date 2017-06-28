@@ -66,7 +66,11 @@ public class Compiler {
             try {
                 Writer writer;
                 writer = new BufferedWriter(new OutputStreamWriter(
-                        new FileOutputStream("resources\\out\\ppl-ouput-" + LogItem.sdf.format(new Date()) + ".hs"), "utf-8"));
+                        new FileOutputStream("resources\\out\\output.hs"), "utf-8"));
+                writer.append(result);
+                writer.flush();
+                writer = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream("resources\\out\\archive\\ppl-output-" + LogItem.sdf.format(new Date()) + ".hs"), "utf-8"));
                 writer.append(result);
                 writer.flush();
             } catch (IOException e) {
