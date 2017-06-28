@@ -29,6 +29,25 @@ public class Type {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Type type = (Type) o;
+
+        if (getConstruct() != null ? !getConstruct().equals(type.getConstruct()) : type.getConstruct() != null)
+            return false;
+        return getPrimitiveType() == type.getPrimitiveType();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getConstruct() != null ? getConstruct().hashCode() : 0;
+        result = 31 * result + (getPrimitiveType() != null ? getPrimitiveType().hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "" + primitiveType + (construct != null ? construct : "");
     }

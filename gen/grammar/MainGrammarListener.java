@@ -18,6 +18,16 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 */
 	void exitId(MainGrammarParser.IdContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#arrayId}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayId(MainGrammarParser.ArrayIdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#arrayId}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayId(MainGrammarParser.ArrayIdContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MainGrammarParser#program}.
 	 * @param ctx the parse tree
 	 */
@@ -39,6 +49,18 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDeclStat(MainGrammarParser.DeclStatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code arrayDeclStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arrayDeclStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code assStat}
 	 * labeled alternative in {@link MainGrammarParser#statement}.
@@ -108,15 +130,15 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 */
 	void exitPrimitiveType(MainGrammarParser.PrimitiveTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#array}.
+	 * Enter a parse tree produced by {@link MainGrammarParser#arrayType}.
 	 * @param ctx the parse tree
 	 */
-	void enterArray(MainGrammarParser.ArrayContext ctx);
+	void enterArrayType(MainGrammarParser.ArrayTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#array}.
+	 * Exit a parse tree produced by {@link MainGrammarParser#arrayType}.
 	 * @param ctx the parse tree
 	 */
-	void exitArray(MainGrammarParser.ArrayContext ctx);
+	void exitArrayType(MainGrammarParser.ArrayTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code parExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.

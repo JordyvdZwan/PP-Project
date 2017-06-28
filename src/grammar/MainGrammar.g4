@@ -4,11 +4,12 @@ import NumberGrammar;
 Letter: A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z;
 
 id: Letter (Letter | NUMBER)*;
+arrayId: (id) (WS)? OpenArray (WS)? expression (WS)? CloseArray;
 
 program : (statement)+ EOF;
 
 statement: (WS)? (Var WS)? type WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?                                                  #declStat
-         | (WS)? (Var WS)? type OpenArray CloseArray WS id (WS)? OpenArray (WS)? expression (WS)? CloseArray (WS)? EndStatement (WS)?   #arrayDeclStat
+         | (WS)? (Var WS)? type OpenArray CloseArray WS id (WS ASS WS type WS OpenArray (WS)? expression (WS)? CloseArray)? (WS)? EndStatement (WS)?   #arrayDeclStat
          | (WS)? target WS ASS WS expression (WS)? EndStatement (WS)?                                                                   #assStat
          | (WS)? IF (WS)? expression (WS)? (THEN)? (WS)? statement ((WS)? ELSE (WS)? statement)? (WS)?                                  #ifStat
          | (WS)? WHILE (WS)? expression (WS)? (DO)? (WS)? statement (WS)?                                                               #whileStat
@@ -16,11 +17,11 @@ statement: (WS)? (Var WS)? type WS id (WS ASS WS expression)? (WS)? EndStatement
          ;
 
 Var : V A R;
-type: array | primitiveType;
+type: arrayType | primitiveType;
 primitiveType: Integer | Boolean;
 Integer: I N T E G E R | I N T;
 Boolean: B O O L E A N | B O O L;
-array: primitiveType OpenArray CloseArray;
+arrayType: primitiveType OpenArray CloseArray;
 
 expression: prfOp (WS)? expression                                   #prfExpr
           | expression (WS)? multOp (WS)? expression                 #multExpr
@@ -30,14 +31,14 @@ expression: prfOp (WS)? expression                                   #prfExpr
           | LPAR (WS)? expression (WS)? RPAR                         #parExpr
           | id                                                       #idExpr
           | num                                                      #numExpr
-          | id (WS)? OpenArray (WS)? expression (WS)? CloseArray     #arrayExpr
+          | arrayId                                                  #arrayExpr
           | TRUE                                                     #trueExpr
           | FALSE                                                    #falseExpr
           ;
 
 num : ngWrittenNumber | NUMBER;
 NUMBER: ([0-9])+;
-target: id;
+target: id | arrayId;
 
 prfOp: Minus | Not;
 Minus:  '-' | M I N U S;

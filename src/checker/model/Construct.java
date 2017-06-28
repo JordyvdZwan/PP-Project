@@ -5,25 +5,6 @@ package checker.model;
  *
  * Construct types in the source language
  */
-public class Construct {
-
-    private CType cType;
-    private int length;
-
-    public Construct(CType cType) {
-        this.cType = cType;
-        this.length = length;
-    }
-
-    public CType getcType() {
-        return cType;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public enum CType {
-        Array;
-    }
+public enum Construct {
+    Array
 }

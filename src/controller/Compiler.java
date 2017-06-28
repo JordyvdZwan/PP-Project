@@ -1,12 +1,15 @@
 package controller;
 
 import checker.Checker;
+import checker.model.CheckerRecord;
+import checker.model.DeclarationTable;
 import exceptions.CheckerException;
 import exceptions.CompilerErrorException;
 import exceptions.SyntaxErrorException;
 import exceptions.UnsupportedInstructionException;
 import grammar.MainGrammarLexer;
 import grammar.MainGrammarParser;
+import ilocGenerator.ILOCGenerator;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import sprocklGenerator.SprocklGenerator;
@@ -27,7 +30,17 @@ import java.util.List;
  */
 public class Compiler {
 
-    private static Log log = new Log(true, true);
+    private final static LogType LOG_TYPE = LogType.Dev;
+    private final static boolean PRINT_TO_SCREEN = true;
+    private final static boolean WRITE_TO_FILE = true;
+
+    private final static boolean CHECKER_STAGE_1 = true;
+    private final static boolean CHECKER_STAGE_2 = true;
+    private final static boolean CHECKER_STAGE_3 = true;
+
+
+
+    private static Log log = new Log(PRINT_TO_SCREEN, WRITE_TO_FILE, LOG_TYPE);
 
     public static void main(String[] args) {
         Compiler compiler = new Compiler();
@@ -46,15 +59,18 @@ public class Compiler {
                     "}\n" +
                     "Boolean live;");
         } catch (SyntaxErrorException e) {
-            e.printStackTrace();
+            log.addLogItem(e.getMessage(), LogType.Error);
+            log.addLogItem("Compilation Unsuccessful!", LogType.Warning);
         } catch (CompilerErrorException e) {
-            e.printStackTrace();
+            log.addLogItem(e.getMessage(), LogType.Error);
+            log.addLogItem("Compilation Unsuccessful!", LogType.Warning);
         } catch (CheckerException e) {
-            e.printStackTrace();
+            log.addLogItem(e.getMessage(), LogType.Error);
+            log.addLogItem("Compilation Unsuccessful!", LogType.Warning);
         }
     }
 
-    public String compile(String source) throws SyntaxErrorException, CompilerErrorException, CheckerException {
+    private String compile(String source) throws SyntaxErrorException, CompilerErrorException, CheckerException {
 
         //Global Compile Variables
         long mainStageStart;
@@ -62,6 +78,10 @@ public class Compiler {
         long compileStart;
         CharStream charStream = CharStreams.fromString(source);
         ParseTree parseTree;
+
+        CheckerRecord checkerRecord = null;
+        DeclarationTable declarationTable = null;
+
         Program ilocProgram = null;
         String sprocklResult = null;
 
@@ -94,7 +114,9 @@ public class Compiler {
                     tokens = new CommonTokenStream(lexer);
 
                     // Error handling of Lexer Stage
-                    if (handleErrors(errorListener.getErrorMessages(), "Lexer Stage")) throw new CheckerException();
+                    if (handleErrors(errorListener.getErrorMessages(), "Lexer Stage")) {
+                        throw new CompilerErrorException("Fatal error(s) during Lexer Stage!");
+                    }
                     errorListener.resetErrorMessages();
                 }
                 log.addLogItem("\tLexer Stage Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
@@ -108,7 +130,9 @@ public class Compiler {
                     parseTree = parser.program();
 
                     // Error handling of Parser Stage
-                    if (handleErrors(errorListener.getErrorMessages(), "Parser Stage")) throw new CheckerException();
+                    if (handleErrors(errorListener.getErrorMessages(), "Parser Stage")) {
+                        throw new CompilerErrorException("Fatal error(s) during Parser Stage!");
+                    }
                     errorListener.resetErrorMessages();
                 }
                 log.addLogItem("\tParser Stage Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
@@ -136,43 +160,123 @@ public class Compiler {
             //Checking Phase Variables
             Checker checker = new Checker();
 
-            log.addLogItem("Starting Parsing Phase", LogType.Info);
+            log.addLogItem("Starting Checking Phase", LogType.Info);
             mainStageStart = System.currentTimeMillis();
             {
-                log.addLogItem("Starting Checker Stage 1", LogType.Dev);
-                subStageStart = System.currentTimeMillis();
-                {
-                    // Checker Stage 1 Body
-                    try {
-                        checker.getStage1().execute(parseTree);
-                    } catch (CheckerException e) {
-                        e.printStackTrace();
+
+                //---------------------------------
+                // Stage 1
+                //---------------------------------
+
+                if (CHECKER_STAGE_1) {
+                    log.addLogItem("Starting Checker Stage 1", LogType.Dev);
+                    subStageStart = System.currentTimeMillis();
+                    {
+                        // Checker Stage 1 Body
+                        try {
+                            checker.getStage1().execute(parseTree);
+                        } catch (CheckerException e) {
+                            e.printStackTrace();
+                        }
+
+                        // Error handling of Checker Stage 1
+                        if (handleErrors(checker.getStage1().getErrors(), "Checker Stage 1")) {
+                            log.addLogItem(" --- Data Dump --- " +
+                                    "\n=======================================================================================================" +
+                                    "\nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv" +
+                                    "\n" + checker.getDeclarationTable() +
+                                    "\n" + checker.getCheckerRecord().offsetsToString(checker.getCheckerRecord().getOffsets(), parseTree) +
+                                    "\n" + checker.getCheckerRecord().typesToString(checker.getCheckerRecord().getTypes(), parseTree) +
+                                    "\n" + checker.getCheckerRecord().entriesToString(checker.getCheckerRecord().getEntries(), parseTree) +
+                                    "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" +
+                                    "\n=======================================================================================================", LogType.Dev);
+                            throw new CompilerErrorException("Fatal error(s) during Checker stage 1!");
+                        }
+                        checker.getDeclarationTable().resetScope();
+
                     }
-
-                    // Error handling of Checker Stage 1
-                    if (handleErrors(checker.getStage1().getErrors(), "Checker Stage 1")) throw new CheckerException();
-                    checker.getDeclarationTable().resetScope();
-
+                    log.addLogItem("Checker Stage 1 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+                } else {
+                    log.addLogItem("Skipped Checker Stage 1.", LogType.Warning);
                 }
-                log.addLogItem("Checker Stage 1 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
-                log.addLogItem("Starting Checker Stage 2", LogType.Dev);
-                subStageStart = System.currentTimeMillis();
-                {
-                    // Checker Stage 2 Body
-                    try {
-                        checker.getStage2().execute(parseTree);
-                    } catch (CheckerException e) {
-                        e.printStackTrace();
+
+                //---------------------------------
+                // Stage 2
+                //---------------------------------
+
+                if (CHECKER_STAGE_2) {
+                    log.addLogItem("Starting Checker Stage 2", LogType.Dev);
+                    subStageStart = System.currentTimeMillis();
+                    {
+                        // Checker Stage 2 Body
+                        try {
+                            checker.getStage2().execute(parseTree);
+                        } catch (CheckerException e) {
+                            e.printStackTrace();
+                        }
+
+                        // Error handling of Checker Stage 2
+                        if (handleErrors(checker.getStage2().getErrors(), "Checker Stage 2")) {
+                            log.addLogItem(" --- Data Dump --- " +
+                                    "\n=======================================================================================================" +
+                                    "\nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv" +
+                                    "\n" + checker.getDeclarationTable() +
+                                    "\n" + checker.getCheckerRecord().offsetsToString(checker.getCheckerRecord().getOffsets(), parseTree) +
+                                    "\n" + checker.getCheckerRecord().typesToString(checker.getCheckerRecord().getTypes(), parseTree) +
+                                    "\n" + checker.getCheckerRecord().entriesToString(checker.getCheckerRecord().getEntries(), parseTree) +
+                                    "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" +
+                                    "\n=======================================================================================================", LogType.Dev);
+                            throw new CompilerErrorException("Fatal error(s) during Checker stage 2!");
+                        }
+                        checker.getDeclarationTable().resetScope();
+
                     }
-
-                    // Error handling of Checker Stage 2
-                    if (handleErrors(checker.getStage2().getErrors(), "Checker Stage 2")) throw new CheckerException();
-                    checker.getDeclarationTable().resetScope();
-
+                    log.addLogItem("Checker Stage 2 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+                } else {
+                    log.addLogItem("Skipped Checker Stage 2.", LogType.Warning);
                 }
-                log.addLogItem("Checker Stage 2 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+
+                //---------------------------------
+                // Stage 3
+                //---------------------------------
+
+                if (CHECKER_STAGE_3) {
+                    log.addLogItem("Starting Checker Stage 3", LogType.Dev);
+                    subStageStart = System.currentTimeMillis();
+                    {
+                        // Checker Stage 1 Body
+                        try {
+                            checker.getStage3().execute(parseTree);
+                        } catch (CheckerException e) {
+                            e.printStackTrace();
+                        }
+
+                        // Error handling of Checker Stage 1
+                        if (handleErrors(checker.getStage3().getErrors(), "Checker Stage 3")) {
+                            log.addLogItem(" --- Data Dump --- " +
+                                    "\n=======================================================================================================" +
+                                    "\nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv" +
+                                    "\n" + checker.getDeclarationTable() +
+                                    "\n" + checker.getCheckerRecord().offsetsToString(checker.getCheckerRecord().getOffsets(), parseTree) +
+                                    "\n" + checker.getCheckerRecord().typesToString(checker.getCheckerRecord().getTypes(), parseTree) +
+                                    "\n" + checker.getCheckerRecord().entriesToString(checker.getCheckerRecord().getEntries(), parseTree) +
+                                    "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" +
+                                    "\n=======================================================================================================", LogType.Dev);
+                            throw new CompilerErrorException("Fatal error(s) during Checker stage 3!");
+                        }
+                        checker.getDeclarationTable().resetScope();
+
+                    }
+                    log.addLogItem("Checker Stage 3 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+                } else {
+                    log.addLogItem("Skipped Checker Stage 3.", LogType.Warning);
+                }
+
+                declarationTable = checker.getDeclarationTable();
+                checkerRecord = checker.getCheckerRecord();
+
             }
-            log.addLogItem("Parsing Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
+            log.addLogItem("Checking Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
         }
 
         /*
@@ -210,6 +314,9 @@ public class Compiler {
             subStageStart = System.currentTimeMillis();
             {
                 // ILOC Code Generation Stage 1 Body
+                ILOCGenerator generator = new ILOCGenerator(checkerRecord, declarationTable);
+
+                ilocProgram = generator.generate(parseTree);
 
                 // Error handling of ILOC Code Generation Stage 1
 

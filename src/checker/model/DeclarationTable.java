@@ -13,7 +13,7 @@ public class DeclarationTable {
 
     private Scope root;
     private Scope scope;
-    private Integer nextOffset;
+    private Integer nextOffset = 4;
 
     public DeclarationTable() {
         root  = new Scope();
@@ -55,17 +55,17 @@ public class DeclarationTable {
 
     public Integer getNextOffset(Type type) {
         Integer res = nextOffset;
-        if (type.getConstruct().getcType() == Construct.CType.Array) {
-            nextOffset += type.getConstruct().getLength();
-        } else {
-            nextOffset += 4;
-        }
+        nextOffset += 4;
         return res;
     }
 
     @Override
     public String toString() {
-        return "" + root;
+        return "Declaration Table {\n" + root + "\n}";
+    }
+
+    public int getNextOffset() {
+        return nextOffset;
     }
 
     private class Scope {

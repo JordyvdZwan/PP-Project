@@ -5,4 +5,14 @@ package exceptions;
  */
 public class CompilerErrorException extends Exception {
 
+    private String message;
+
+    public CompilerErrorException(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
 }

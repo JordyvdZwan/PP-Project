@@ -17,6 +17,12 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitId(MainGrammarParser.IdContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MainGrammarParser#arrayId}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayId(MainGrammarParser.ArrayIdContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MainGrammarParser#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -29,6 +35,13 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDeclStat(MainGrammarParser.DeclStatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code arrayDeclStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code assStat}
 	 * labeled alternative in {@link MainGrammarParser#statement}.
@@ -70,11 +83,11 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrimitiveType(MainGrammarParser.PrimitiveTypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MainGrammarParser#array}.
+	 * Visit a parse tree produced by {@link MainGrammarParser#arrayType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArray(MainGrammarParser.ArrayContext ctx);
+	T visitArrayType(MainGrammarParser.ArrayTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code parExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.

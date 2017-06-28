@@ -2,7 +2,6 @@ package utils.log;
 
 import java.io.*;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,16 +11,19 @@ import java.util.List;
  * This Class represents a log to which you can add logItems or messages.
  * It is possible to use this class with multiple threads.
  */
+@SuppressWarnings("AccessStaticViaInstance")
 public class Log {
 
-    private List<LogItem> logItems = new LinkedList<>();
-    private boolean printToScreen;
-    private boolean writeToFile;
-    private Writer writer;
+    private static List<LogItem> logItems = new LinkedList<>();
+    private static boolean printToScreen;
+    private static boolean writeToFile;
+    private static Writer writer;
+    private static LogType type;
 
-    public Log(boolean printToScreen, boolean writeToFile) {
+    public Log(boolean printToScreen, boolean writeToFile, LogType logType) {
         this.printToScreen = printToScreen;
         this.writeToFile = writeToFile;
+        this.type = logType;
         if (writeToFile) {
             try {
                 writer = new BufferedWriter(new OutputStreamWriter(
@@ -38,17 +40,25 @@ public class Log {
      * This method adds a LogItem to the log.
      * @param item The LogItem that needs to be logged.
      */
-    public synchronized void addLogItem(LogItem item) {
+    private static synchronized void addLogItem(LogItem item) {
         logItems.add(item);
         if (printToScreen) {
-            System.out.println(item.toLogString());
+            if (item.getType() == LogType.Dev && (type == LogType.Dev)) {
+                System.out.println(item.toLogString());
+            } else if (item.getType() == LogType.Info && (type == LogType.Dev || type == LogType.Info)) {
+                System.out.println(item.toLogString());
+            } else if (item.getType() == LogType.Warning && (type == LogType.Dev || type == LogType.Info || type == LogType.Warning)) {
+                System.out.println(item.toLogString());
+            } else if (item.getType() == LogType.Error) {
+                System.out.println(item.toLogString());
+            }
         }
         if (writeToFile) {
             appendLogFile(item);
         }
     }
 
-    private void appendLogFile(LogItem item) {
+    private static  void appendLogFile(LogItem item) {
         try {
             writer.append(item.toLogString()).append(String.valueOf('\n'));
             writer.flush();
@@ -63,7 +73,7 @@ public class Log {
      * @param message Message that you need to log.
      * @param type This is the type of the LogItem that will be created.
      */
-    public void addLogItem(String message, LogType type) {
+    public static void addLogItem(String message, LogType type) {
         addLogItem(new LogItem(message, type));
     }
 
@@ -86,7 +96,7 @@ public class Log {
      * @param lines Maximum amount of lines you want the result to be.
      * @return String (possibly partial) representation of the log.
      */
-    public String toString(int lines) {
+    public static String toString(int lines) {
         String result = "";
         for (int i = (logItems.size() < lines ? 0 : logItems.size() - lines); i < logItems.size(); i++) {
             result = result + logItems.get(i).toLogString() + "\n";
@@ -99,7 +109,7 @@ public class Log {
      * @param type The type of logItems the result will contain.2
      * @return String representation of the LogItems of the type you have given.
      */
-    public String toString(LogType type) {
+    public static String toString(LogType type) {
         String result = "";
         for (LogItem item : logItems) {
             if (item.getType() == LogType.Dev && (type == LogType.Dev)) {
@@ -122,7 +132,7 @@ public class Log {
      * @param type The type of logItems the result will contain.
      * @return String representation of the LogItems of the type you have given.
      */
-    public String toString(int lines, LogType type) {
+    public static String toString(int lines, LogType type) {
         String result = "";
         for (int i = (logItems.size() < lines ? 0 : logItems.size() - lines); i < logItems.size(); i++) {
             if (logItems.get(i).getType() == LogType.Dev && (type == LogType.Dev)) {

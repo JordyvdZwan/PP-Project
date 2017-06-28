@@ -1,5 +1,7 @@
 package ilocGenerator.helperParsers;
 
+import grammar.MainGrammarBaseVisitor;
+import grammar.MainGrammarParser;
 import grammar.NumberGrammarBaseVisitor;
 import grammar.NumberGrammarParser;
 
@@ -15,10 +17,15 @@ import grammar.NumberGrammarParser;
  * Luckily it was successful and has the following features:
  * - Using the grammar defined in maingrammar this class generates an Long given an correct written number *
  */
-public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
+public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
+
+    public static int getNumber(MainGrammarParser.NgWrittenNumberContext ctx) {
+        WrittenNumberParser parser = new WrittenNumberParser();
+        return (parser.visitNgWrittenNumber(ctx)).intValue();
+    }
 
     @Override
-    public Long visitNgWrittenNumber(NumberGrammarParser.NgWrittenNumberContext ctx) {
+    public Long visitNgWrittenNumber(MainGrammarParser.NgWrittenNumberContext ctx) {
         Long result = 0L;
         if (ctx.NGZero() != null) {
             return 0L;
@@ -42,7 +49,7 @@ public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitNgsingle(NumberGrammarParser.NgsingleContext ctx) {
+    public Long visitNgsingle(MainGrammarParser.NgsingleContext ctx) {
         if (ctx.nghundred() != null) {
             if (ctx.nghprefix() != null) {
                 if (ctx.ngonly() != null) {
@@ -63,7 +70,7 @@ public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitNgonly(NumberGrammarParser.NgonlyContext ctx) {
+    public Long visitNgonly(MainGrammarParser.NgonlyContext ctx) {
         if (ctx.ngsingles() != null) {
             return visit(ctx.ngsingles());
         } else if (ctx.ngmain2() != null) {
@@ -75,7 +82,7 @@ public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
 
     @SuppressWarnings("Duplicates")
     @Override
-    public Long visitNgsingles(NumberGrammarParser.NgsinglesContext ctx) {
+    public Long visitNgsingles(MainGrammarParser.NgsinglesContext ctx) {
         if (ctx.NGOne() != null) {
             return 1L;
         } else if(ctx.NGTwo() != null) {
@@ -100,7 +107,7 @@ public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitNgmain1(NumberGrammarParser.Ngmain1Context ctx) {
+    public Long visitNgmain1(MainGrammarParser.Ngmain1Context ctx) {
         if (ctx.NGEleven() != null) {
             return 11L;
         } else if (ctx.NGTwelve() != null) {
@@ -113,7 +120,7 @@ public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitNgmain2(NumberGrammarParser.Ngmain2Context ctx) {
+    public Long visitNgmain2(MainGrammarParser.Ngmain2Context ctx) {
         Long result = 0L;
         result += visit(ctx.ngdoubles());
         if (ctx.ngseconds() != null) {
@@ -124,13 +131,13 @@ public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
 
     @SuppressWarnings("Duplicates")
     @Override
-    public Long visitNghprefix(NumberGrammarParser.NghprefixContext ctx) {
+    public Long visitNghprefix(MainGrammarParser.NghprefixContext ctx) {
         return visit(ctx.ngonly());
     }
 
     @SuppressWarnings("Duplicates")
     @Override
-    public Long visitNgseconds(NumberGrammarParser.NgsecondsContext ctx) {
+    public Long visitNgseconds(MainGrammarParser.NgsecondsContext ctx) {
         if (ctx.NGOne() != null) {
             return 1L;
         } else if (ctx.NGTwo() != null) {
@@ -153,7 +160,7 @@ public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitNgfirst(NumberGrammarParser.NgfirstContext ctx) {
+    public Long visitNgfirst(MainGrammarParser.NgfirstContext ctx) {
         if (ctx.NGThir() != null) {
             return 3L;
         } else if (ctx.NGFour() != null) {
@@ -170,7 +177,7 @@ public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitNgdoubles(NumberGrammarParser.NgdoublesContext ctx) {
+    public Long visitNgdoubles(MainGrammarParser.NgdoublesContext ctx) {
         if (ctx.NGTwenty() != null) {
             return 20L;
         } else if (ctx.NGThirty() != null) {
@@ -191,7 +198,7 @@ public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitNgthousand(NumberGrammarParser.NgthousandContext ctx) {
+    public Long visitNgthousand(MainGrammarParser.NgthousandContext ctx) {
         if (ctx.ngsingle() != null) {
             return visit(ctx.ngsingle()) * 1000;
         } else {
@@ -200,7 +207,7 @@ public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitNgmillion(NumberGrammarParser.NgmillionContext ctx) {
+    public Long visitNgmillion(MainGrammarParser.NgmillionContext ctx) {
         if (ctx.ngsingle() != null) {
             return visit(ctx.ngsingle()) * 1000000;
         } else {
@@ -209,7 +216,7 @@ public class WrittenNumberParser extends NumberGrammarBaseVisitor<Long> {
     }
 
     @Override
-    public Long visitNgbillion(NumberGrammarParser.NgbillionContext ctx) {
+    public Long visitNgbillion(MainGrammarParser.NgbillionContext ctx) {
         if (ctx.ngsingle() != null) {
             return visit(ctx.ngsingle()) * 1000000000;
         } else {

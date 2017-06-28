@@ -28,6 +28,18 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterArrayId(MainGrammarParser.ArrayIdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterProgram(MainGrammarParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -47,6 +59,18 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDeclStat(MainGrammarParser.DeclStatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -124,13 +148,13 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArray(MainGrammarParser.ArrayContext ctx) { }
+	@Override public void enterArrayType(MainGrammarParser.ArrayTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArray(MainGrammarParser.ArrayContext ctx) { }
+	@Override public void exitArrayType(MainGrammarParser.ArrayTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
