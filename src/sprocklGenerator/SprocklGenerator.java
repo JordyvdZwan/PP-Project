@@ -9,12 +9,14 @@ import utils.iloc.model.Str;
 import utils.log.Log;
 import utils.log.LogType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class SprocklGenerator {
 
-    private Map<String, Integer> registers = new HashMap<>();
+    private Map<String, Integer> registers = new LinkedHashMap<>();
     private Map<Label, Integer> jumps = new HashMap<>();
     private static final int REGISTERS = 6;
     private Program program;
@@ -242,7 +244,13 @@ public class SprocklGenerator {
                     ", Compute Add " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
-            String register = registers.keySet().iterator().next();
+            int i = 1;
+            ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
+            String register = keys.get(0);
+            while(register.equals(input[3])) {
+                register = keys.get(i);
+                i++;
+            }
             int registerNumber = registers.get(register);
             registers.remove(register);
             result = "Push " + registerNumber;
@@ -275,7 +283,13 @@ public class SprocklGenerator {
                     ", Compute Sub " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
-            String register = registers.keySet().iterator().next();
+            int i = 1;
+            ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
+            String register = keys.get(0);
+            while(register.equals(input[3])) {
+                register = keys.get(i);
+                i++;
+            }
             int registerNumber = registers.get(register);
             registers.remove(register);
             result = "Push " + registerNumber;
@@ -308,7 +322,13 @@ public class SprocklGenerator {
                     ", Compute Mult " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
-            String register = registers.keySet().iterator().next();
+            int i = 1;
+            ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
+            String register = keys.get(0);
+            while(register.equals(input[3])) {
+                register = keys.get(i);
+                i++;
+            }
             int registerNumber = registers.get(register);
             registers.remove(register);
             result = "Push " + registerNumber;
@@ -446,7 +466,13 @@ public class SprocklGenerator {
                     ", Compute LShift " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
-            String register = registers.keySet().iterator().next();
+            int i = 1;
+            ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
+            String register = keys.get(0);
+            while(register.equals(input[3])) {
+                register = keys.get(i);
+                i++;
+            }
             int registerNumber = registers.get(register);
             registers.remove(register);
             result = "Push " + registerNumber;
@@ -479,7 +505,13 @@ public class SprocklGenerator {
                     ", Compute RShift " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
-            String register = registers.keySet().iterator().next();
+            int i = 1;
+            ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
+            String register = keys.get(0);
+            while(register.equals(input[3])) {
+                register = keys.get(i);
+                i++;
+            }
             int registerNumber = registers.get(register);
             registers.remove(register);
             result = "Push " + registerNumber;
@@ -512,7 +544,13 @@ public class SprocklGenerator {
                     ", Compute Or " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
-            String register = registers.keySet().iterator().next();
+            int i = 1;
+            ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
+            String register = keys.get(0);
+            while(register.equals(input[3])) {
+                register = keys.get(i);
+                i++;
+            }
             int registerNumber = registers.get(register);
             registers.remove(register);
             result = "Push " + registerNumber;
@@ -545,7 +583,13 @@ public class SprocklGenerator {
                     ", Compute And " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
-            String register = registers.keySet().iterator().next();
+            int i = 1;
+            ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
+            String register = keys.get(0);
+            while(register.equals(input[3])) {
+                register = keys.get(i);
+                i++;
+            }
             int registerNumber = registers.get(register);
             registers.remove(register);
             result = "Push " + registerNumber;
@@ -578,7 +622,13 @@ public class SprocklGenerator {
                     ", Compute Xor " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
-            String register = registers.keySet().iterator().next();
+            int i = 1;
+            ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
+            String register = keys.get(0);
+            while(register.equals(input[3])) {
+                register = keys.get(i);
+                i++;
+            }
             int registerNumber = registers.get(register);
             registers.remove(register);
             result = "Push " + registerNumber;
