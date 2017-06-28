@@ -26,7 +26,9 @@ public class SprocklGenerator {
     }
 
     public String generate() throws UnsupportedInstructionException, TooManyRegistersException{
-        String result = "[";
+        String result = "import Sprockell \n" +
+                "prog :: [Instruction] \n" +
+                "prog = [";
         for (Instr anInstr : program.getInstr()) {
             if (anInstr.hasLabel()) {
                 jumps.put(anInstr.getLabel(), anInstr.getLine());
@@ -45,154 +47,155 @@ public class SprocklGenerator {
             switch (line[0]) {
 
                 case "pop":
-                    result = result + pop(line) + ", \n";
+                    result = result + pop(line) + ", ";
                     break;
 
                 case "push":
-                    result = result + push(line) + ", \n";
+                    result = result + push(line) + ", ";
                     break;
 
                 case "add":
-                    result = result + add(line) + ", \n";
+                    result = result + add(line) + ", ";
                     break;
 
                 case "addI":
-                    result = result + addI(line) + ", \n";
+                    result = result + addI(line) + ", ";
                     break;
 
                 case "sub":
-                    result = result + sub(line) + ", \n";
+                    result = result + sub(line) + ", ";
                     break;
 
                 case "subI":
-                    result = result + subI(line) + ", \n";
+                    result = result + subI(line) + ", ";
                     break;
 
                 case "mult":
-                    result = result + mult(line) +", \n";
+                    result = result + mult(line) +", ";
                     break;
 
                 case "multI":
-                    result = result + multI(line) + ", \n";
+                    result = result + multI(line) + ", ";
                     break;
 
                 case "cmp_EQ":
-                    result = result + equal(line) + ", \n";
+                    result = result + equal(line) + ", ";
                     break;
 
                 case "cmp_NE":
-                    result = result + notEqual(line) + ", \n";
+                    result = result + notEqual(line) + ", ";
                     break;
 
                 case "cmp_GT":
-                    result = result + greater(line) + ", \n";
+                    result = result + greater(line) + ", ";
                     break;
 
                 case "cmp_LT":
-                    result = result + less(line) + ", \n";
+                    result = result + less(line) + ", ";
                     break;
 
                 case "cmp_GE":
-                    result = result + greaterEqual(line) + ", \n";
+                    result = result + greaterEqual(line) + ", ";
                     break;
 
                 case "cmp_LE":
-                    result = result + lessEqual(line) + ", \n";
+                    result = result + lessEqual(line) + ", ";
                     break;
 
                 case "load":
-                    result = result + load(line) + ", \n";
+                    result = result + load(line) + ", ";
                     break;
 
                 case "loadI":
-                    result = result + loadI(line) + ", \n";
+                    result = result + loadI(line) + ", ";
                     break;
 
                 case "loadAI":
-                    result = result + loadAI(line) + ", \n";
+                    result = result + loadAI(line) + ", ";
                     break;
 
                 case "loadAO":
-                    result = result + loadAO(line) + ", \n";
+                    result = result + loadAO(line) + ", ";
                     break;
 
                 case "store":
-                    result = result + store(line) + ", \n";
+                    result = result + store(line) + ", ";
                     break;
 
                 case "storeAI":
-                    result = result + storeAI(line) + ", \n";
+                    result = result + storeAI(line) + ", ";
                     break;
 
                 case "storeAO":
-                    result = result + storeAO(line) + ", \n";
+                    result = result + storeAO(line) + ", ";
                     break;
 
                 case "lshift":
-                    result = result + lshift(line) + ", \n";
+                    result = result + lshift(line) + ", ";
                     break;
 
                 case "lshiftI":
-                    result = result + lshiftI(line) + ", \n";
+                    result = result + lshiftI(line) + ", ";
                     break;
 
                 case "rshift":
-                    result = result + rshift(line) + ", \n";
+                    result = result + rshift(line) + ", ";
                     break;
 
                 case "rshiftI":
-                    result = result + rshiftI(line) + ", \n";
+                    result = result + rshiftI(line) + ", ";
                     break;
 
                 case "or":
-                    result = result + or(line) + ", \n";
+                    result = result + or(line) + ", ";
                     break;
 
                 case "orI":
-                    result = result + orI(line) + ", \n";
+                    result = result + orI(line) + ", ";
                     break;
 
                 case "and":
-                    result = result + and(line) + ", \n";
+                    result = result + and(line) + ", ";
                     break;
 
                 case "andI":
-                    result = result + andI(line) + ", \n";
+                    result = result + andI(line) + ", ";
                     break;
 
                 case "xor":
-                    result = result + xor(line) + ", \n";
+                    result = result + xor(line) + ", ";
                     break;
 
                 case "xorI":
-                    result = result + xorI(line) + ", \n";
+                    result = result + xorI(line) + ", ";
                     break;
 
                 case "i2i":
-                    result = result + i2i(line) + ", \n";
+                    result = result + i2i(line) + ", ";
                     break;
 
                 case "nop":
-                    result = result + nop() + ", \n";
+                    result = result + nop() + ", ";
                     break;
 
                 case "jump":
-                    result = result + jump(line) + ", \n";
+                    result = result + jump(line) + ", ";
                     break;
 
                 case "jumpI":
-                    result = result + jumpI(line) + ", \n";
+                    result = result + jumpI(line) + ", ";
                     break;
 
                 case "cbr":
-                    result = result + cbr(line) + ", \n";
+                    result = result + cbr(line) + ", ";
                     break;
 
                 default:
                     throw new UnsupportedInstructionException(anInstr.toString());
             }
         }
-        result = result + "EndProg ]";
+        result = result + "EndProg ] \n" +
+                "main = run [prog]";
         return result;
     }
 
