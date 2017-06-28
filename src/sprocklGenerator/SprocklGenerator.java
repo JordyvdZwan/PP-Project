@@ -43,147 +43,147 @@ public class SprocklGenerator {
             switch (line[0]) {
 
                 case "pop":
-                    result = result + pop(line) + ", ";
+                    result = result + pop(line) + ", \n";
                     break;
 
                 case "push":
-                    result = result + push(line) + ", ";
+                    result = result + push(line) + ", \n";
                     break;
 
                 case "add":
-                    result = result + add(line) + ", ";
+                    result = result + add(line) + ", \n";
                     break;
 
                 case "addI":
-                    result = result + addI(line) + ", ";
+                    result = result + addI(line) + ", \n";
                     break;
 
                 case "sub":
-                    result = result + sub(line) + ", ";
+                    result = result + sub(line) + ", \n";
                     break;
 
                 case "subI":
-                    result = result + subI(line) + ", ";
+                    result = result + subI(line) + ", \n";
                     break;
 
                 case "mult":
-                    result = result + mult(line) +", ";
+                    result = result + mult(line) +", \n";
                     break;
 
                 case "multI":
-                    result = result + multI(line) + ", ";
+                    result = result + multI(line) + ", \n";
                     break;
 
                 case "cmp_EQ":
-                    result = result + equal(line) + ", ";
+                    result = result + equal(line) + ", \n";
                     break;
 
                 case "cmp_NE":
-                    result = result + notEqual(line) + ", ";
+                    result = result + notEqual(line) + ", \n";
                     break;
 
                 case "cmp_GT":
-                    result = result + greater(line) + ", ";
+                    result = result + greater(line) + ", \n";
                     break;
 
                 case "cmp_LT":
-                    result = result + less(line) + ", ";
+                    result = result + less(line) + ", \n";
                     break;
 
                 case "cmp_GE":
-                    result = result + greaterEqual(line) + ", ";
+                    result = result + greaterEqual(line) + ", \n";
                     break;
 
                 case "cmp_LE":
-                    result = result + lessEqual(line) + ", ";
+                    result = result + lessEqual(line) + ", \n";
                     break;
 
                 case "load":
-                    result = result + load(line) + ", ";
+                    result = result + load(line) + ", \n";
                     break;
 
                 case "loadI":
-                    result = result + loadI(line) + ", ";
+                    result = result + loadI(line) + ", \n";
                     break;
 
                 case "loadAI":
-                    result = result + loadAI(line) + ", ";
+                    result = result + loadAI(line) + ", \n";
                     break;
 
                 case "loadAO":
-                    result = result + loadAO(line) + ", ";
+                    result = result + loadAO(line) + ", \n";
                     break;
 
                 case "store":
-                    result = result + store(line) + ", ";
+                    result = result + store(line) + ", \n";
                     break;
 
                 case "storeAI":
-                    result = result + storeAI(line) + ", ";
+                    result = result + storeAI(line) + ", \n";
                     break;
 
                 case "storeAO":
-                    result = result + storeAO(line) + ", ";
+                    result = result + storeAO(line) + ", \n";
                     break;
 
                 case "lshift":
-                    result = result + lshift(line) + ", ";
+                    result = result + lshift(line) + ", \n";
                     break;
 
                 case "lshiftI":
-                    result = result + lshiftI(line) + ", ";
+                    result = result + lshiftI(line) + ", \n";
                     break;
 
                 case "rshift":
-                    result = result + rshift(line) + ", ";
+                    result = result + rshift(line) + ", \n";
                     break;
 
                 case "rshiftI":
-                    result = result + rshiftI(line) + ", ";
+                    result = result + rshiftI(line) + ", \n";
                     break;
 
                 case "or":
-                    result = result + or(line) + ", ";
+                    result = result + or(line) + ", \n";
                     break;
 
                 case "orI":
-                    result = result + orI(line) + ", ";
+                    result = result + orI(line) + ", \n";
                     break;
 
                 case "and":
-                    result = result + and(line) + ", ";
+                    result = result + and(line) + ", \n";
                     break;
 
                 case "andI":
-                    result = result + andI(line) + ", ";
+                    result = result + andI(line) + ", \n";
                     break;
 
                 case "xor":
-                    result = result + xor(line) + ", ";
+                    result = result + xor(line) + ", \n";
                     break;
 
                 case "xorI":
-                    result = result + xorI(line) + ", ";
+                    result = result + xorI(line) + ", \n";
                     break;
 
                 case "i2i":
-                    result = result + i2i(line) + ", ";
+                    result = result + i2i(line) + ", \n";
                     break;
 
                 case "nop":
-                    result = result + nop() + ", ";
+                    result = result + nop() + ", \n";
                     break;
 
                 case "jump":
-                    result = result + jump(line) + ", ";
+                    result = result + jump(line) + ", \n";
                     break;
 
                 case "jumpI":
-                    result = result + jumpI(line) + ", ";
+                    result = result + jumpI(line) + ", \n";
                     break;
 
                 case "cbr":
-                    result = result + cbr(line) + ", ";
+                    result = result + cbr(line) + ", \n";
                     break;
 
                 default:
