@@ -31,7 +31,6 @@ public class SprocklGenerator {
             }
         }
         for (Instr anInstr : program.getInstr()) {
-//            System.out.println(anInstr.toString());
             String[] line = anInstr.toString().split(" ");
             if (anInstr.hasLabel()) {
                 line[0] = null;
