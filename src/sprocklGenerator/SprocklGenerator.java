@@ -3,7 +3,9 @@ package sprocklGenerator;
 import exceptions.TooManyRegistersException;
 import exceptions.UnsupportedInstructionException;
 import utils.iloc.model.Instr;
+import utils.iloc.model.Label;
 import utils.iloc.model.Program;
+import utils.iloc.model.Str;
 import utils.log.Log;
 import utils.log.LogType;
 
@@ -13,6 +15,7 @@ import java.util.Map;
 public class SprocklGenerator {
 
     private Map<String, Integer> registers = new HashMap<>();
+    private Map<Label, Integer> jumps = new HashMap<>();
     private static final int REGISTERS = 6;
     private Program program;
 
@@ -23,8 +26,16 @@ public class SprocklGenerator {
     public String generate() throws UnsupportedInstructionException, TooManyRegistersException{
         String result = "[";
         for (Instr anInstr : program.getInstr()) {
+            if (anInstr.hasLabel()) {
+                jumps.put(anInstr.getLabel(), anInstr.getLine());
+            }
+        }
+        for (Instr anInstr : program.getInstr()) {
 //            System.out.println(anInstr.toString());
             String[] line = anInstr.toString().split(" ");
+            if (anInstr.hasLabel()) {
+                line[0] = null;
+            }
             Log.addLogItem("Converting following instruction to Sprockl: " + anInstr.toString(), LogType.Dev);
             switch (line[0]) {
 
@@ -158,6 +169,18 @@ public class SprocklGenerator {
 
                 case "nop":
                     result = result + nop() + ", ";
+                    break;
+
+                case "jump":
+                    result = result + jump(line) + ", ";
+                    break;
+
+                case "jumpI":
+                    result = result + jumpI(line) + ", ";
+                    break;
+
+                case "cbr":
+                    result = result + cbr(line) + ", ";
                     break;
 
                 default:
@@ -574,6 +597,21 @@ public class SprocklGenerator {
 
     private String nop() throws  TooManyRegistersException {
         return "Nop";
+    }
+
+    private String jump(String[] input) throws TooManyRegistersException {
+        addRegister(input[2]);
+        return "Jump (Ind " + registers.get(input[2]) + ")";
+    }
+
+    private String jumpI(String[] input) throws TooManyRegistersException {
+        return "Jump (Abs " + jumps.get(new Label(input[2])) + ")";
+    }
+
+    private String cbr(String[] input) throws TooManyRegistersException {
+        String[] comma = input[3].split(",");
+        addRegister(input[1]);
+        return "Branch " + registers.get(input[1]) + "(Abs " + jumps.get(new Label(comma[1])) + ")";
     }
 
 }
