@@ -196,7 +196,9 @@ public class SprocklGenerator {
         }
         result = result + "EndProg ]";
         if (debug) {
-            result = result + "\nmain = runWithDebugger (debuggerSimplePrint showLocalMem) [prog]";
+            result = result + "\nmain = runWithDebugger (debuggerSimplePrint showLocalMem) [prog]\n\n" +
+                    "showLocalMem :: DbgInput -> String\n" +
+                    "showLocalMem ( _ , systemState ) = show $ localMem $ head $ sprStates systemState";
         } else {
             result = result + "\nmain = [prog]";
         }
