@@ -14,7 +14,7 @@ public class LogItem {
                            Attributes
      -----------------------------------------------------------*/
 
-    final static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss.SSS");
+    public final static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss.SSS");
 
     private String message;
     private LogType type;

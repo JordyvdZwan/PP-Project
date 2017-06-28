@@ -15,10 +15,16 @@ import utils.iloc.Simulator;
 import utils.iloc.eval.Machine;
 import utils.iloc.model.Program;
 import utils.log.Log;
+import utils.log.LogItem;
 import utils.log.LogType;
 import utils.parsing.CompilerErrorListener;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by Jordy van der Zwan on 24-Jun-17.
@@ -47,26 +53,26 @@ public class Compiler {
     public static void main(String[] args) {
         Compiler compiler = new Compiler();
         try {
-            compiler.compile("Var Integer i;\n" +
-                    "i = 1;\n" +
-                    "while (i < 5) Do {\n" +
-                    "    i = i + 1;\n" +
-                    "}\n" +
-                    "if (i == 5) then {\n" +
-                    "    Boolean bol = false;\n" +
-                    "    bol = true;\n" +
-                    "    i = 6;\n" +
-                    "} else {\n" +
-                    "    i = 5;\n" +
-                    "}\n" +
-                    "Boolean live;");
-        } catch (SyntaxErrorException e) {
-            Log.addLogItem(e.getMessage(), LogType.Error);
-            Log.addLogItem("Compilation Unsuccessful!", LogType.Warning);
-        } catch (CompilerErrorException e) {
-            Log.addLogItem(e.getMessage(), LogType.Error);
-            Log.addLogItem("Compilation Unsuccessful!", LogType.Warning);
-        } catch (CheckerException e) {
+            Scanner in = new Scanner(new FileReader("resources\\out\\ppl-input.ppl"));
+            StringBuilder sb = new StringBuilder();
+            while(in.hasNext()) {
+                sb.append(in.next());
+            }
+            in.close();
+            String input = sb.toString();
+
+            String result = compiler.compile(input);
+            try {
+                Writer writer;
+                writer = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream("resources\\out\\ppl-ouput-" + LogItem.sdf.format(new Date()) + ".sprockl"), "utf-8"));
+                writer.append(result);
+                writer.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.addLogItem("Could not write to output file!", LogType.Error);
+            }
+        } catch (SyntaxErrorException | FileNotFoundException | CompilerErrorException | CheckerException e) {
             Log.addLogItem(e.getMessage(), LogType.Error);
             Log.addLogItem("Compilation Unsuccessful!", LogType.Warning);
         }
