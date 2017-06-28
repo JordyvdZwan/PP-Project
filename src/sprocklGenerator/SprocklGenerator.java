@@ -33,7 +33,11 @@ public class SprocklGenerator {
         for (Instr anInstr : program.getInstr()) {
             String[] line = anInstr.toString().split(" ");
             if (anInstr.hasLabel()) {
-                line[0] = null;
+                String[] temp = new String[line.length - 1];
+                for (int i = 1; i < line.length; i++) {
+                    temp[i-1] = line[i];
+                }
+                line = temp;
             }
             Log.addLogItem("Converting following instruction to Sprockl: " + anInstr.toString(), LogType.Dev);
             switch (line[0]) {
@@ -379,10 +383,10 @@ public class SprocklGenerator {
 
     private String loadAI(String[] input) throws TooManyRegistersException {
         String result;
-        String[] comma = input[3].split(",");
+        String[] comma = input[1].split(",");
         addRegister(comma[0]);
         result = "Push " + registers.get(comma[0]);
-        result = result + ", " + addI(new String[]{"", comma[0] + "," + comma[1], "", comma[0]}) + ", " + load(new String[]{"", input[1], "", comma[0]});
+        result = result + ", " + addI(new String[]{"", comma[0] + "," + comma[1], "", comma[0]}) + ", " + load(new String[]{"", comma[0], "", input[3]});
         result = result + ", " + "Pop " + registers.get(comma[0]);
         return result;
     }
