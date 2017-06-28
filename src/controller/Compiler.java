@@ -53,10 +53,11 @@ public class Compiler {
     public static void main(String[] args) {
         Compiler compiler = new Compiler();
         try {
-            Scanner in = new Scanner(new FileReader("resources\\out\\ppl-input.ppl"));
+            String filePath = new File("").getAbsolutePath();
+            Scanner in = new Scanner(new FileReader(filePath + "\\resources\\src\\input.ppl"));
             StringBuilder sb = new StringBuilder();
-            while(in.hasNext()) {
-                sb.append(in.next());
+            while(in.hasNextLine()) {
+                sb.append(in.nextLine()).append("\n");
             }
             in.close();
             String input = sb.toString();
