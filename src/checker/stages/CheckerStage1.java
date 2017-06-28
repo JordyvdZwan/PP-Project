@@ -80,6 +80,25 @@ public class CheckerStage1 extends MainGrammarBaseListener {
     }
 
     @Override
+    public void exitTarget(MainGrammarParser.TargetContext ctx) {
+        if (ctx.id() != null) {
+            setOffset(ctx, offset(ctx.id()));
+        } else {
+            setOffset(ctx, offset(ctx.arrayId()));
+        }
+    }
+
+    @Override
+    public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) {
+        setOffset(ctx, offset(ctx.id()));
+    }
+
+    @Override
+    public void exitIdExpr(MainGrammarParser.IdExprContext ctx) {
+        setOffset(ctx, offset(ctx.id()));
+    }
+
+    @Override
     public void enterBlockStat(MainGrammarParser.BlockStatContext ctx) {
         declarationTable.createScope();
     }
@@ -100,7 +119,9 @@ public class CheckerStage1 extends MainGrammarBaseListener {
     private void setOffset(ParserRuleContext ctx, Integer offset) {
         checkerRecord.setOffset(ctx, offset);
     }
-
+    private Integer offset(ParserRuleContext ctx) {
+        return checkerRecord.getOffset(ctx);
+    }
     public List<String> getErrors() {
         return errors;
     }

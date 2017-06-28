@@ -13,6 +13,7 @@ public class Variable {
     public Variable(Type type, String id, int offset) {
         this.id = id;
         this.offset = offset;
+        this.type = type;
     }
 
     public Type getType() {

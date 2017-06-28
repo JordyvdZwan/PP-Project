@@ -3,10 +3,7 @@ package controller;
 import checker.Checker;
 import checker.model.CheckerRecord;
 import checker.model.DeclarationTable;
-import exceptions.CheckerException;
-import exceptions.CompilerErrorException;
-import exceptions.SyntaxErrorException;
-import exceptions.UnsupportedInstructionException;
+import exceptions.*;
 import grammar.MainGrammarLexer;
 import grammar.MainGrammarParser;
 import ilocGenerator.ILOCGenerator;
@@ -59,14 +56,14 @@ public class Compiler {
                     "}\n" +
                     "Boolean live;");
         } catch (SyntaxErrorException e) {
-            log.addLogItem(e.getMessage(), LogType.Error);
-            log.addLogItem("Compilation Unsuccessful!", LogType.Warning);
+            Log.addLogItem(e.getMessage(), LogType.Error);
+            Log.addLogItem("Compilation Unsuccessful!", LogType.Warning);
         } catch (CompilerErrorException e) {
-            log.addLogItem(e.getMessage(), LogType.Error);
-            log.addLogItem("Compilation Unsuccessful!", LogType.Warning);
+            Log.addLogItem(e.getMessage(), LogType.Error);
+            Log.addLogItem("Compilation Unsuccessful!", LogType.Warning);
         } catch (CheckerException e) {
-            log.addLogItem(e.getMessage(), LogType.Error);
-            log.addLogItem("Compilation Unsuccessful!", LogType.Warning);
+            Log.addLogItem(e.getMessage(), LogType.Error);
+            Log.addLogItem("Compilation Unsuccessful!", LogType.Warning);
         }
     }
 
@@ -86,7 +83,7 @@ public class Compiler {
         String sprocklResult = null;
 
 
-        log.addLogItem("Starting compilation...", LogType.Info);
+        Log.addLogItem("Starting compilation...", LogType.Info);
         compileStart = System.currentTimeMillis();
         /*
          * Parsing Phase
@@ -100,10 +97,10 @@ public class Compiler {
             CompilerErrorListener errorListener;
             TokenStream tokens;
 
-            log.addLogItem("Starting Parsing Phase", LogType.Info);
+            Log.addLogItem("Starting Parsing Phase", LogType.Info);
             mainStageStart = System.currentTimeMillis();
             {
-                log.addLogItem("\tStarting Lexer Stage", LogType.Dev);
+                Log.addLogItem("\tStarting Lexer Stage", LogType.Dev);
                 subStageStart = System.currentTimeMillis();
                 {
                     // Lexer Stage
@@ -119,8 +116,8 @@ public class Compiler {
                     }
                     errorListener.resetErrorMessages();
                 }
-                log.addLogItem("\tLexer Stage Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
-                log.addLogItem("\tStarting Parser Stage", LogType.Dev);
+                Log.addLogItem("\tLexer Stage Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+                Log.addLogItem("\tStarting Parser Stage", LogType.Dev);
                 subStageStart = System.currentTimeMillis();
                 {
                     // Parser Stage
@@ -135,9 +132,9 @@ public class Compiler {
                     }
                     errorListener.resetErrorMessages();
                 }
-                log.addLogItem("\tParser Stage Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+                Log.addLogItem("\tParser Stage Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
             }
-            log.addLogItem("Parsing Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
+            Log.addLogItem("Parsing Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
 
             //Error handling of the Early parsing stage
             if (errorListener.getErrorMessages().size() > 0) {
@@ -160,7 +157,7 @@ public class Compiler {
             //Checking Phase Variables
             Checker checker = new Checker();
 
-            log.addLogItem("Starting Checking Phase", LogType.Info);
+            Log.addLogItem("Starting Checking Phase", LogType.Info);
             mainStageStart = System.currentTimeMillis();
             {
 
@@ -169,7 +166,7 @@ public class Compiler {
                 //---------------------------------
 
                 if (CHECKER_STAGE_1) {
-                    log.addLogItem("Starting Checker Stage 1", LogType.Dev);
+                    Log.addLogItem("Starting Checker Stage 1", LogType.Dev);
                     subStageStart = System.currentTimeMillis();
                     {
                         // Checker Stage 1 Body
@@ -181,13 +178,13 @@ public class Compiler {
 
                         // Error handling of Checker Stage 1
                         if (handleErrors(checker.getStage1().getErrors(), "Checker Stage 1")) {
-                            log.addLogItem(" --- Data Dump --- " +
+                            Log.addLogItem(" --- Data Dump --- " +
                                     "\n=======================================================================================================" +
                                     "\nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv" +
                                     "\n" + checker.getDeclarationTable() +
-                                    "\n" + checker.getCheckerRecord().offsetsToString(checker.getCheckerRecord().getOffsets(), parseTree) +
-                                    "\n" + checker.getCheckerRecord().typesToString(checker.getCheckerRecord().getTypes(), parseTree) +
-                                    "\n" + checker.getCheckerRecord().entriesToString(checker.getCheckerRecord().getEntries(), parseTree) +
+//                                    "\n" + checker.getCheckerRecord().offsetsToString(checker.getCheckerRecord().getOffsets(), parseTree) +
+//                                    "\n" + checker.getCheckerRecord().typesToString(checker.getCheckerRecord().getTypes(), parseTree) +
+//                                    "\n" + checker.getCheckerRecord().entriesToString(checker.getCheckerRecord().getEntries(), parseTree) +
                                     "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" +
                                     "\n=======================================================================================================", LogType.Dev);
                             throw new CompilerErrorException("Fatal error(s) during Checker stage 1!");
@@ -195,9 +192,9 @@ public class Compiler {
                         checker.getDeclarationTable().resetScope();
 
                     }
-                    log.addLogItem("Checker Stage 1 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+                    Log.addLogItem("Checker Stage 1 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
                 } else {
-                    log.addLogItem("Skipped Checker Stage 1.", LogType.Warning);
+                    Log.addLogItem("Skipped Checker Stage 1.", LogType.Warning);
                 }
 
                 //---------------------------------
@@ -205,7 +202,7 @@ public class Compiler {
                 //---------------------------------
 
                 if (CHECKER_STAGE_2) {
-                    log.addLogItem("Starting Checker Stage 2", LogType.Dev);
+                    Log.addLogItem("Starting Checker Stage 2", LogType.Dev);
                     subStageStart = System.currentTimeMillis();
                     {
                         // Checker Stage 2 Body
@@ -217,13 +214,13 @@ public class Compiler {
 
                         // Error handling of Checker Stage 2
                         if (handleErrors(checker.getStage2().getErrors(), "Checker Stage 2")) {
-                            log.addLogItem(" --- Data Dump --- " +
+                            Log.addLogItem(" --- Data Dump --- " +
                                     "\n=======================================================================================================" +
                                     "\nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv" +
                                     "\n" + checker.getDeclarationTable() +
-                                    "\n" + checker.getCheckerRecord().offsetsToString(checker.getCheckerRecord().getOffsets(), parseTree) +
-                                    "\n" + checker.getCheckerRecord().typesToString(checker.getCheckerRecord().getTypes(), parseTree) +
-                                    "\n" + checker.getCheckerRecord().entriesToString(checker.getCheckerRecord().getEntries(), parseTree) +
+//                                    "\n" + checker.getCheckerRecord().offsetsToString(checker.getCheckerRecord().getOffsets(), parseTree) +
+//                                    "\n" + checker.getCheckerRecord().typesToString(checker.getCheckerRecord().getTypes(), parseTree) +
+//                                    "\n" + checker.getCheckerRecord().entriesToString(checker.getCheckerRecord().getEntries(), parseTree) +
                                     "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" +
                                     "\n=======================================================================================================", LogType.Dev);
                             throw new CompilerErrorException("Fatal error(s) during Checker stage 2!");
@@ -231,9 +228,9 @@ public class Compiler {
                         checker.getDeclarationTable().resetScope();
 
                     }
-                    log.addLogItem("Checker Stage 2 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+                    Log.addLogItem("Checker Stage 2 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
                 } else {
-                    log.addLogItem("Skipped Checker Stage 2.", LogType.Warning);
+                    Log.addLogItem("Skipped Checker Stage 2.", LogType.Warning);
                 }
 
                 //---------------------------------
@@ -241,7 +238,7 @@ public class Compiler {
                 //---------------------------------
 
                 if (CHECKER_STAGE_3) {
-                    log.addLogItem("Starting Checker Stage 3", LogType.Dev);
+                    Log.addLogItem("Starting Checker Stage 3", LogType.Dev);
                     subStageStart = System.currentTimeMillis();
                     {
                         // Checker Stage 1 Body
@@ -253,13 +250,13 @@ public class Compiler {
 
                         // Error handling of Checker Stage 1
                         if (handleErrors(checker.getStage3().getErrors(), "Checker Stage 3")) {
-                            log.addLogItem(" --- Data Dump --- " +
+                            Log.addLogItem(" --- Data Dump --- " +
                                     "\n=======================================================================================================" +
                                     "\nvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv" +
                                     "\n" + checker.getDeclarationTable() +
-                                    "\n" + checker.getCheckerRecord().offsetsToString(checker.getCheckerRecord().getOffsets(), parseTree) +
-                                    "\n" + checker.getCheckerRecord().typesToString(checker.getCheckerRecord().getTypes(), parseTree) +
-                                    "\n" + checker.getCheckerRecord().entriesToString(checker.getCheckerRecord().getEntries(), parseTree) +
+//                                    "\n" + checker.getCheckerRecord().offsetsToString(checker.getCheckerRecord().getOffsets(), parseTree) +
+//                                    "\n" + checker.getCheckerRecord().typesToString(checker.getCheckerRecord().getTypes(), parseTree) +
+//                                    "\n" + checker.getCheckerRecord().entriesToString(checker.getCheckerRecord().getEntries(), parseTree) +
                                     "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" +
                                     "\n=======================================================================================================", LogType.Dev);
                             throw new CompilerErrorException("Fatal error(s) during Checker stage 3!");
@@ -267,16 +264,16 @@ public class Compiler {
                         checker.getDeclarationTable().resetScope();
 
                     }
-                    log.addLogItem("Checker Stage 3 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+                    Log.addLogItem("Checker Stage 3 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
                 } else {
-                    log.addLogItem("Skipped Checker Stage 3.", LogType.Warning);
+                    Log.addLogItem("Skipped Checker Stage 3.", LogType.Warning);
                 }
 
                 declarationTable = checker.getDeclarationTable();
                 checkerRecord = checker.getCheckerRecord();
 
             }
-            log.addLogItem("Checking Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
+            Log.addLogItem("Checking Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
         }
 
         /*
@@ -286,10 +283,10 @@ public class Compiler {
          * This includes register allocation.
          */
 
-        log.addLogItem("Starting ILOC Pre-processing Phase", LogType.Info);
+        Log.addLogItem("Starting ILOC Pre-processing Phase", LogType.Info);
         mainStageStart = System.currentTimeMillis();
         {
-            log.addLogItem("Starting ILOC Pre-processing Stage 1", LogType.Dev);
+            Log.addLogItem("Starting ILOC Pre-processing Stage 1", LogType.Dev);
             subStageStart = System.currentTimeMillis();
             {
                 // ILOC Pre-processing Stage 1 Body
@@ -297,9 +294,9 @@ public class Compiler {
                 // Error handling of ILOC Pre-processing Stage 1
 
             }
-            log.addLogItem("ILOC Pre-processing Stage 1 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+            Log.addLogItem("ILOC Pre-processing Stage 1 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
         }
-        log.addLogItem("ILOC Pre-processing Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
+        Log.addLogItem("ILOC Pre-processing Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
 
         /*
          * Generation of ILOC Code Generation Phase
@@ -307,10 +304,10 @@ public class Compiler {
          * In this stage the source code will be turned into ILOC 'code'.
          */
 
-        log.addLogItem("Starting ILOC Code Generation Phase", LogType.Info);
+        Log.addLogItem("Starting ILOC Code Generation Phase", LogType.Info);
         mainStageStart = System.currentTimeMillis();
         {
-            log.addLogItem("Starting ILOC Code Generation Stage 1", LogType.Dev);
+            Log.addLogItem("Starting ILOC Code Generation Stage 1", LogType.Dev);
             subStageStart = System.currentTimeMillis();
             {
                 // ILOC Code Generation Stage 1 Body
@@ -321,9 +318,13 @@ public class Compiler {
                 // Error handling of ILOC Code Generation Stage 1
 
             }
-            log.addLogItem("ILOC Code Generation Stage 1 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+            Log.addLogItem("ILOC Code Generation Stage 1 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+
+            Log.addLogItem("ILOC PROGRAM PRINT:\nVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV\n" +
+                    ilocProgram.prettyPrint() +
+                    "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", LogType.Dev);
         }
-        log.addLogItem("ILOC Code Generation Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
+        Log.addLogItem("ILOC Code Generation Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
 
         /*
          * Generation of Sprockl Code generation Phase
@@ -331,10 +332,10 @@ public class Compiler {
          * In this stage the ILOC code will be turned into Sprockl code.
          */
 
-        log.addLogItem("Starting Sprockl Code Generation Phase", LogType.Info);
+        Log.addLogItem("Starting Sprockl Code Generation Phase", LogType.Info);
         mainStageStart = System.currentTimeMillis();
         {
-            log.addLogItem("Starting Sprockl Code Generation Stage 1", LogType.Dev);
+            Log.addLogItem("Starting Sprockl Code Generation Stage 1", LogType.Dev);
             subStageStart = System.currentTimeMillis();
             {
                 // ILOC Code Generation Stage 1 Body
@@ -342,18 +343,20 @@ public class Compiler {
                 try {
                     if (ilocProgram != null) sprocklResult = generator.generate();
                 } catch (UnsupportedInstructionException e) {
-                    e.printStackTrace();
+                    throw new CompilerErrorException("Unsupported instruction during Sprockl Conversion: " + e.getMessage());
+                } catch (TooManyRegistersException e) {
+                    throw new CompilerErrorException("Too many registers exception during Sprockl Conversion.");
                 }
-
 
                 // Error handling of ILOC Code Generation Stage 1
 
             }
-            log.addLogItem("Sprockl Code Generation Stage 1 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
-        }
-        log.addLogItem("Sprockl Code Generation Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
+            Log.addLogItem("Sprockl Code Generation Stage 1 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
 
-        log.addLogItem("Code Compilation completed! Total compilation time: " + (System.currentTimeMillis() - compileStart) + "ms", LogType.Info);
+        }
+        Log.addLogItem("Sprockl Code Generation Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
+
+        Log.addLogItem("Code Compilation completed! Total compilation time: " + (System.currentTimeMillis() - compileStart) + "ms", LogType.Info);
 
         return sprocklResult;
     }
@@ -361,10 +364,10 @@ public class Compiler {
     private boolean handleErrors(List<String> errors, String stage) {
         if (errors.size() > 0) {
             for (String error : errors) {
-                log.addLogItem(error, LogType.Error);
+                Log.addLogItem(error, LogType.Error);
             }
         } else {
-            log.addLogItem("No errors in " + stage, LogType.Dev);
+            Log.addLogItem("No errors in " + stage, LogType.Dev);
         }
         return errors.size() > 0;
     }

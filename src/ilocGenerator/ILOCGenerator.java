@@ -151,8 +151,8 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
             emit(OpCode.storeAI, reg(ctx.expression()), arp, offset(ctx.id()));
         } else {
             if (checkResult.getType(ctx.id()).getPrimitiveType() == PrimitiveType.INTEGER) {
-                result = emit(OpCode.store, new Num(Simulator.FALSE), reg(ctx));
-                emit(OpCode.store, reg(ctx), arp, offset(ctx.id()));
+                result = emit(OpCode.loadI, new Num(Simulator.FALSE), reg(ctx));
+                emit(OpCode.storeAI, reg(ctx), arp, offset(ctx.id()));
             } else {
                 result = emit(OpCode.loadI, new Num(0), reg(ctx));//TODO change default values to a final
                 emit(OpCode.storeAI, reg(ctx), arp, offset(ctx.id()));

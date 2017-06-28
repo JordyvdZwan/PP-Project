@@ -92,7 +92,6 @@ public class CheckerStage2 extends MainGrammarBaseListener {
     @Override
     public void exitTarget(MainGrammarParser.TargetContext ctx) {
         if (ctx.id() != null) {
-            Log.addLogItem("Setting: " +  ctx.getText() + "\n to type: " + type(ctx.id()), LogType.Dev);
             setType(ctx, type(ctx.id()));
         } else {
             setType(ctx, new Type(type(ctx.arrayId()).getPrimitiveType()));

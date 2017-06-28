@@ -4,6 +4,8 @@ import exceptions.TooManyRegistersException;
 import exceptions.UnsupportedInstructionException;
 import utils.iloc.model.Instr;
 import utils.iloc.model.Program;
+import utils.log.Log;
+import utils.log.LogType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +25,7 @@ public class SprocklGenerator {
         for (Instr anInstr : program.getInstr()) {
 //            System.out.println(anInstr.toString());
             String[] line = anInstr.toString().split(" ");
+            Log.addLogItem("Converting following instruction to Sprockl: " + anInstr.toString(), LogType.Dev);
             switch (line[0]) {
 
                 case "pop":
@@ -158,7 +161,7 @@ public class SprocklGenerator {
                     break;
 
                 default:
-                    throw new UnsupportedInstructionException();
+                    throw new UnsupportedInstructionException(anInstr.toString());
             }
         }
         result = result + "EndProg ]";
