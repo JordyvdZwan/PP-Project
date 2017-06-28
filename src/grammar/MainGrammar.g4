@@ -9,7 +9,7 @@ arrayId: (id) (WS)? OpenArray (WS)? expression (WS)? CloseArray;
 program : (statement)+ EOF;
 
 statement: (WS)? (Var WS)? type WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?                                                  #declStat
-         | (WS)? (Var WS)? type OpenArray CloseArray WS id (WS ASS WS type WS OpenArray (WS)? expression (WS)? CloseArray)? (WS)? EndStatement (WS)?   #arrayDeclStat
+         | (WS)? (Var WS)? type OpenArray CloseArray WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?   #arrayDeclStat
          | (WS)? target WS ASS WS expression (WS)? EndStatement (WS)?                                                                   #assStat
          | (WS)? IF (WS)? expression (WS)? (THEN)? (WS)? statement ((WS)? ELSE (WS)? statement)? (WS)?                                  #ifStat
          | (WS)? WHILE (WS)? expression (WS)? (DO)? (WS)? statement (WS)?                                                               #whileStat

@@ -7,9 +7,12 @@ import exceptions.*;
 import grammar.MainGrammarLexer;
 import grammar.MainGrammarParser;
 import ilocGenerator.ILOCGenerator;
+import ilocPostProccessor.ILOCPostProcessor;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import sprocklGenerator.SprocklGenerator;
+import utils.iloc.Simulator;
+import utils.iloc.eval.Machine;
 import utils.iloc.model.Program;
 import utils.log.Log;
 import utils.log.LogType;
@@ -35,6 +38,8 @@ public class Compiler {
     private final static boolean CHECKER_STAGE_2 = true;
     private final static boolean CHECKER_STAGE_3 = true;
 
+    private final static boolean ILOC_GENERATOR_SIMULATOR_RUN = true;
+    private final static boolean ILOC_POSTPROCESSOR_SIMULATOR_RUN = true;
 
 
     private static Log log = new Log(PRINT_TO_SCREEN, WRITE_TO_FILE, LOG_TYPE);
@@ -323,8 +328,51 @@ public class Compiler {
             Log.addLogItem("ILOC PROGRAM PRINT:\nVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV\n" +
                     ilocProgram.prettyPrint() +
                     "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", LogType.Dev);
+
+            Simulator simulator = new Simulator(ilocProgram);
+            simulator.run();
+            Log.addLogItem("ILOC Simulator execution:\nVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV\n" +
+                    simulator.getVM().toString() + "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", LogType.Dev);
+
         }
         Log.addLogItem("ILOC Code Generation Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
+
+        /*
+         * ILOC Post-processing Phase
+         *
+         * In this stage the iloc code will be made (more) usable.
+         */
+
+        Log.addLogItem("Starting ILOC Post-processing Phase", LogType.Info);
+        mainStageStart = System.currentTimeMillis();
+        {
+            Log.addLogItem("Starting ILOC Post-processing Stage 1", LogType.Dev);
+            subStageStart = System.currentTimeMillis();
+            {
+                // ILOC Post-processing Stage 1 Body
+                ILOCPostProcessor postProcessor = new ILOCPostProcessor(ilocProgram);
+
+                ilocProgram = postProcessor.execute();
+
+                // Error handling of ILOC Post-processing Stage 1
+
+            }
+            Log.addLogItem("ILOC Post-processing Stage 1 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
+
+            Log.addLogItem("ILOC PROGRAM PRINT:\nVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV\n" +
+                    ilocProgram.prettyPrint() +
+                    "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", LogType.Dev);
+
+            Simulator simulator = new Simulator(ilocProgram);
+            simulator.run();
+            Log.addLogItem("ILOC Simulator execution:\nVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV\n" +
+                    simulator.getVM().toString() + "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", LogType.Dev);
+        }
+
+
+
+
+        Log.addLogItem("ILOC Post-processing Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
 
         /*
          * Generation of Sprockl Code generation Phase

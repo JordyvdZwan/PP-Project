@@ -1,0 +1,36 @@
+28-06-2017 11.13.38.943 [Dev]: ILOC PROGRAM PRINT:
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+                loadI   16        => r_0
+                storeAI r_0       => r_arp,0
+                loadI   0         => r_1
+                storeAI r_1       => r_arp,4
+                loadI   1         => r_2
+                storeAI r_2       => r_arp,4
+startWhile_3_0: loadAI  r_arp,4   => r_3
+                loadI   5         => r_4
+                cmp_LT  r_3,r_4   => r_5
+                cbr     r_5       -> bodyWhile_3_0,endWhile_3_0
+bodyWhile_3_0:  loadAI  r_arp,4   => r_6
+                loadI   1         => r_7
+                add     r_6,r_7   => r_8
+                storeAI r_8       => r_arp,4
+                jumpI             -> startWhile_3_0
+endWhile_3_0:   nop
+                loadAI  r_arp,4   => r_10
+                loadI   5         => r_11
+                cmp_EQ  r_10,r_11 => r_12
+                cbr     r_12      -> if_6_0,else_6_0
+if_6_0:         loadI   0         => r_13
+                storeAI r_13      => r_arp,8
+                loadI   -1        => r_14
+                storeAI r_14      => r_arp,8
+                loadI   6         => r_15
+                storeAI r_15      => r_arp,4
+                jumpI             -> end_6_0
+else_6_0:       loadI   5         => r_16
+                storeAI r_16      => r_arp,4
+end_6_0:        nop
+                loadI   0         => r_17
+                storeAI r_17      => r_arp,12
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
