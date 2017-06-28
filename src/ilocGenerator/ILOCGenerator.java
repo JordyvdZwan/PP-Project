@@ -184,7 +184,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
 
 
     @Override
-    public Op visitArrayExpr(MainGrammarParser.ArrayExprContext ctx) {
+    public Op visitIndexExpr(MainGrammarParser.IndexExprContext ctx) {
         Op res = visit(ctx.arrayId());
         setReg(ctx, reg(ctx.arrayId()));
         return res;

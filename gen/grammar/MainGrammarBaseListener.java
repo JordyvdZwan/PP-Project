@@ -160,6 +160,18 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterIndexExpr(MainGrammarParser.IndexExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIndexExpr(MainGrammarParser.IndexExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterParExpr(MainGrammarParser.ParExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -167,18 +179,6 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParExpr(MainGrammarParser.ParExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArrayExpr(MainGrammarParser.ArrayExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArrayExpr(MainGrammarParser.ArrayExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -31,7 +31,8 @@ expression: prfOp (WS)? expression                                   #prfExpr
           | LPAR (WS)? expression (WS)? RPAR                         #parExpr
           | id                                                       #idExpr
           | num                                                      #numExpr
-          | arrayId                                                  #arrayExpr
+          | arrayId                                                  #indexExpr
+          | type (WS)? OpenArray (WS)? expression (WS)? CloseArray   #arrayExpr
           | TRUE                                                     #trueExpr
           | FALSE                                                    #falseExpr
           ;

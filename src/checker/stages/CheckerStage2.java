@@ -59,8 +59,8 @@ public class CheckerStage2 extends MainGrammarBaseListener {
 
     @Override
     public void exitArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
-        setType(ctx.id(), new Type(Construct.Array, PrimitiveType.valueOf(ctx.type(0).primitiveType().getText().toUpperCase())));
-        checkType(ctx, new Type(Construct.Array, PrimitiveType.valueOf(ctx.type(1).primitiveType().getText().toUpperCase())));
+        setType(ctx.id(), new Type(Construct.Array, PrimitiveType.valueOf(ctx.type().primitiveType().getText().toUpperCase())));
+        checkType(ctx, type(ctx.expression()));
     }
 
 
@@ -110,7 +110,7 @@ public class CheckerStage2 extends MainGrammarBaseListener {
 
     //Variable expressions
     @Override
-    public void exitArrayExpr(MainGrammarParser.ArrayExprContext ctx) {
+    public void exitIndexExpr(MainGrammarParser.IndexExprContext ctx) {
         setType(ctx, type(ctx.arrayId()));
     }
     @Override

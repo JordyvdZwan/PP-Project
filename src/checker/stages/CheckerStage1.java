@@ -60,7 +60,7 @@ public class CheckerStage1 extends MainGrammarBaseListener {
 
     @Override
     public void enterArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
-        Type type = new Type(Construct.Array, PrimitiveType.valueOf(ctx.type(0).getText().toUpperCase()));
+        Type type = new Type(Construct.Array, PrimitiveType.valueOf(ctx.type().getText().toUpperCase()));
         if (declarationTable.isDeclaredInScope(ctx.id().getText())) {
             errors.add("Array Variable already declared: " + ctx.id().getText());
         } else {

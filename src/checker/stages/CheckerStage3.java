@@ -93,7 +93,7 @@ public class CheckerStage3 extends MainGrammarBaseListener {
 
     //Variable expressions
     @Override
-    public void exitArrayExpr(MainGrammarParser.ArrayExprContext ctx) {
+    public void exitIndexExpr(MainGrammarParser.IndexExprContext ctx) {
         setEntry(ctx, ctx);
     }
     @Override
