@@ -441,7 +441,7 @@ public class SprocklGenerator {
         result = "Push " + registers.get(comma[0]);
         result = result + ", " + addI(new String[]{"", comma[0] + "," + comma[1], "", comma[0]}) + ", " + load(new String[]{"", comma[0], "", input[3]});
         result = result + ", " + "Pop " + registers.get(comma[0]);
-        extraSprockell += 2;
+        extraSprockell += 3;
         return result;
     }
 
@@ -452,7 +452,7 @@ public class SprocklGenerator {
         result = "Push " + registers.get(comma[0]);
         result = result + ", " + add(new String[]{"", comma[0] + "," + comma[1], "", comma[0]}) + ", " + load(new String[]{"", input[1], "", comma[0]});
         result = result + ", " + "Pop " + registers.get(comma[0]);
-        extraSprockell += 2;
+        extraSprockell += 3;
         return result;
     }
 
@@ -469,7 +469,7 @@ public class SprocklGenerator {
         result = "Push " + registers.get(comma[0]);
         result = result + ", " + addI(new String[]{"", comma[0] + "," + comma[1], "", comma[0]}) + ", " + store(new String[]{"", input[1], "", comma[0]});
         result = result + ", " + "Pop " + registers.get(comma[0]);
-        extraSprockell += 2;
+        extraSprockell += 3;
         return result;
     }
 
@@ -480,7 +480,7 @@ public class SprocklGenerator {
         result = "Push " + registers.get(comma[0]);
         result = result + ", " + add(new String[]{"", comma[0] + "," +  comma[1], "", comma[0]}) + ", " + store(new String[]{"", input[1], "", comma[0]});
         result = result + ", " + "Pop " + registers.get(comma[0]);
-        extraSprockell += 2;
+        extraSprockell += 3;
         return result;
     }
 
@@ -705,13 +705,13 @@ public class SprocklGenerator {
     }
 
     private String jumpI(String[] input) throws TooManyRegistersException {
-        return "Jump (Abs " + jumps.get(new Label(input[2])) + ")";
+        return "Jump (Abs " + (jumps.get(new Label(input[2])) + 1) + ")";
     }
 
     private String cbr(String[] input) throws TooManyRegistersException {
         String[] comma = input[3].split(",");
         addRegister(input[1]);
-        return "Branch " + registers.get(input[1]) + "(Abs " + jumps.get(new Label(comma[1])) + ")";
+        return "Branch " + registers.get(input[1]) + "(Abs " + (jumps.get(new Label(comma[1])) + 1) + ")";
     }
 
 }
