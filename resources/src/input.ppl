@@ -1,2 +1,13 @@
-Integer i = 0;
-i = i + 1;
+Var Integer i;
+i = _Two;
+while (i < 5) Do {
+    i = i + 1;
+}
+if (i == 5) then {
+    Boolean bol = false;
+    bol = true;
+    i = 6;
+} else {
+    i = 5;
+}
+Boolean live;

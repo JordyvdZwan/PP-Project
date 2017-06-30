@@ -103,6 +103,13 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParExpr(MainGrammarParser.ParExprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code arrayExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayExpr(MainGrammarParser.ArrayExprContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code trueExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree

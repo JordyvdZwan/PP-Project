@@ -164,6 +164,18 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 */
 	void exitParExpr(MainGrammarParser.ParExprContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code arrayExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayExpr(MainGrammarParser.ArrayExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arrayExpr}
+	 * labeled alternative in {@link MainGrammarParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayExpr(MainGrammarParser.ArrayExprContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code trueExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
 	 * @param ctx the parse tree

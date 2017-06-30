@@ -17,14 +17,14 @@ public class NumberGrammarLexer extends Lexer {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, NGHundred=3, NGThousand=4, NGMillion=5, NGBillion=6, NGZero=7, 
-		NGOne=8, NGTwo=9, NGThree=10, NGFour=11, NGFive=12, NGSix=13, NGSeven=14, 
-		NGEight=15, NGNine=16, NGTen=17, NGEleven=18, NGTwelve=19, NGEighteen=20, 
-		NGThir=21, NGFif=22, NGTeen=23, NGTwenty=24, NGThirty=25, NGForty=26, 
-		NGFifty=27, NGSixty=28, NGSeventy=29, NGEighty=30, NGNinety=31, NGAnd=32, 
-		NGA=33, NGB=34, NGC=35, NGD=36, NGE=37, NGF=38, NGG=39, NGH=40, NGI=41, 
-		NGJ=42, NGK=43, NGL=44, NGM=45, NGN=46, NGO=47, NGP=48, NGQ=49, NGR=50, 
-		NGS=51, NGT=52, NGU=53, NGV=54, NGW=55, NGX=56, NGY=57, NGZ=58;
+		T__0=1, NGUnderscore=2, NGHundred=3, NGThousand=4, NGMillion=5, NGBillion=6, 
+		NGZero=7, NGOne=8, NGTwo=9, NGThree=10, NGFour=11, NGFive=12, NGSix=13, 
+		NGSeven=14, NGEight=15, NGNine=16, NGTen=17, NGEleven=18, NGTwelve=19, 
+		NGEighteen=20, NGThir=21, NGFif=22, NGTeen=23, NGTwenty=24, NGThirty=25, 
+		NGForty=26, NGFifty=27, NGSixty=28, NGSeventy=29, NGEighty=30, NGNinety=31, 
+		NGAnd=32, NGA=33, NGB=34, NGC=35, NGD=36, NGE=37, NGF=38, NGG=39, NGH=40, 
+		NGI=41, NGJ=42, NGK=43, NGL=44, NGM=45, NGN=46, NGO=47, NGP=48, NGQ=49, 
+		NGR=50, NGS=51, NGT=52, NGU=53, NGV=54, NGW=55, NGX=56, NGY=57, NGZ=58;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
@@ -34,25 +34,21 @@ public class NumberGrammarLexer extends Lexer {
 	};
 
 	public static final String[] ruleNames = {
-		"T__0", "T__1", "NGHundred", "NGThousand", "NGMillion", "NGBillion", "NGZero", 
-		"NGOne", "NGTwo", "NGThree", "NGFour", "NGFive", "NGSix", "NGSeven", "NGEight", 
-		"NGNine", "NGTen", "NGEleven", "NGTwelve", "NGEighteen", "NGThir", "NGFif", 
-		"NGTeen", "NGTwenty", "NGThirty", "NGForty", "NGFifty", "NGSixty", "NGSeventy", 
-		"NGEighty", "NGNinety", "NGAnd", "NGA", "NGB", "NGC", "NGD", "NGE", "NGF", 
-		"NGG", "NGH", "NGI", "NGJ", "NGK", "NGL", "NGM", "NGN", "NGO", "NGP", 
-		"NGQ", "NGR", "NGS", "NGT", "NGU", "NGV", "NGW", "NGX", "NGY", "NGZ"
+		"T__0", "NGUnderscore", "NGHundred", "NGThousand", "NGMillion", "NGBillion", 
+		"NGZero", "NGOne", "NGTwo", "NGThree", "NGFour", "NGFive", "NGSix", "NGSeven", 
+		"NGEight", "NGNine", "NGTen", "NGEleven", "NGTwelve", "NGEighteen", "NGThir", 
+		"NGFif", "NGTeen", "NGTwenty", "NGThirty", "NGForty", "NGFifty", "NGSixty", 
+		"NGSeventy", "NGEighty", "NGNinety", "NGAnd", "NGA", "NGB", "NGC", "NGD", 
+		"NGE", "NGF", "NGG", "NGH", "NGI", "NGJ", "NGK", "NGL", "NGM", "NGN", 
+		"NGO", "NGP", "NGQ", "NGR", "NGS", "NGT", "NGU", "NGV", "NGW", "NGX", 
+		"NGY", "NGZ"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'_'", "'-'", null, null, null, null, null, null, null, null, null, 
-		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, null, null, null, null, null, null, null, "'a'", "'b'", "'c'", 
-		"'d'", "'e'", "'f'", "'g'", "'h'", "'i'", "'j'", "'k'", "'l'", "'m'", 
-		"'n'", "'o'", "'p'", "'q'", "'r'", "'s'", "'t'", "'u'", "'v'", "'w'", 
-		"'x'", "'y'", "'z'"
+		null, "'-'", "'_'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, "NGHundred", "NGThousand", "NGMillion", "NGBillion", 
+		null, null, "NGUnderscore", "NGHundred", "NGThousand", "NGMillion", "NGBillion", 
 		"NGZero", "NGOne", "NGTwo", "NGThree", "NGFour", "NGFive", "NGSix", "NGSeven", 
 		"NGEight", "NGNine", "NGTen", "NGEleven", "NGTwelve", "NGEighteen", "NGThir", 
 		"NGFif", "NGTeen", "NGTwenty", "NGThirty", "NGForty", "NGFifty", "NGSixty", 
@@ -144,21 +140,24 @@ public class NumberGrammarLexer extends Lexer {
 		"\3\65\3\66\3\66\3\67\3\67\38\38\39\39\3:\3:\3;\3;\2\2<\3\3\5\4\7\5\t\6"+
 		"\13\7\r\b\17\t\21\n\23\13\25\f\27\r\31\16\33\17\35\20\37\21!\22#\23%\24"+
 		"\'\25)\26+\27-\30/\31\61\32\63\33\65\34\67\359\36;\37= ?!A\"C#E$G%I&K"+
-		"\'M(O)Q*S+U,W-Y.[/]\60_\61a\62c\63e\64g\65i\66k\67m8o9q:s;u<\3\2\2\2\u0164"+
-		"\2\3\3\2\2\2\2\5\3\2\2\2\2\7\3\2\2\2\2\t\3\2\2\2\2\13\3\2\2\2\2\r\3\2"+
-		"\2\2\2\17\3\2\2\2\2\21\3\2\2\2\2\23\3\2\2\2\2\25\3\2\2\2\2\27\3\2\2\2"+
-		"\2\31\3\2\2\2\2\33\3\2\2\2\2\35\3\2\2\2\2\37\3\2\2\2\2!\3\2\2\2\2#\3\2"+
-		"\2\2\2%\3\2\2\2\2\'\3\2\2\2\2)\3\2\2\2\2+\3\2\2\2\2-\3\2\2\2\2/\3\2\2"+
-		"\2\2\61\3\2\2\2\2\63\3\2\2\2\2\65\3\2\2\2\2\67\3\2\2\2\29\3\2\2\2\2;\3"+
-		"\2\2\2\2=\3\2\2\2\2?\3\2\2\2\2A\3\2\2\2\2C\3\2\2\2\2E\3\2\2\2\2G\3\2\2"+
-		"\2\2I\3\2\2\2\2K\3\2\2\2\2M\3\2\2\2\2O\3\2\2\2\2Q\3\2\2\2\2S\3\2\2\2\2"+
-		"U\3\2\2\2\2W\3\2\2\2\2Y\3\2\2\2\2[\3\2\2\2\2]\3\2\2\2\2_\3\2\2\2\2a\3"+
-		"\2\2\2\2c\3\2\2\2\2e\3\2\2\2\2g\3\2\2\2\2i\3\2\2\2\2k\3\2\2\2\2m\3\2\2"+
-		"\2\2o\3\2\2\2\2q\3\2\2\2\2s\3\2\2\2\2u\3\2\2\2\3w\3\2\2\2\5y\3\2\2\2\7"+
-		"{\3\2\2\2\t\u0083\3\2\2\2\13\u008c\3\2\2\2\r\u0094\3\2\2\2\17\u009c\3"+
-		"\2\2\2\21\u00a1\3\2\2\2\23\u00a5\3\2\2\2\25\u00a9\3\2\2\2\27\u00af\3\2"+
-		"\2\2\31\u00b4\3\2\2\2\33\u00b9\3\2\2\2\35\u00bd\3\2\2\2\37\u00c3\3\2\2"+
-		"\2!\u00c9\3\2\2\2#\u00ce\3\2\2\2%\u00d2\3\2\2\2\'\u00d9\3\2\2\2)\u00e0"+
+		"\'M(O)Q*S+U,W-Y.[/]\60_\61a\62c\63e\64g\65i\66k\67m8o9q:s;u<\3\2\34\4"+
+		"\2CCcc\4\2DDdd\4\2EEee\4\2FFff\4\2GGgg\4\2HHhh\4\2IIii\4\2JJjj\4\2KKk"+
+		"k\4\2LLll\4\2MMmm\4\2NNnn\4\2OOoo\4\2PPpp\4\2QQqq\4\2RRrr\4\2SSss\4\2"+
+		"TTtt\4\2UUuu\4\2VVvv\4\2WWww\4\2XXxx\4\2YYyy\4\2ZZzz\4\2[[{{\4\2\\\\|"+
+		"|\2\u0164\2\3\3\2\2\2\2\5\3\2\2\2\2\7\3\2\2\2\2\t\3\2\2\2\2\13\3\2\2\2"+
+		"\2\r\3\2\2\2\2\17\3\2\2\2\2\21\3\2\2\2\2\23\3\2\2\2\2\25\3\2\2\2\2\27"+
+		"\3\2\2\2\2\31\3\2\2\2\2\33\3\2\2\2\2\35\3\2\2\2\2\37\3\2\2\2\2!\3\2\2"+
+		"\2\2#\3\2\2\2\2%\3\2\2\2\2\'\3\2\2\2\2)\3\2\2\2\2+\3\2\2\2\2-\3\2\2\2"+
+		"\2/\3\2\2\2\2\61\3\2\2\2\2\63\3\2\2\2\2\65\3\2\2\2\2\67\3\2\2\2\29\3\2"+
+		"\2\2\2;\3\2\2\2\2=\3\2\2\2\2?\3\2\2\2\2A\3\2\2\2\2C\3\2\2\2\2E\3\2\2\2"+
+		"\2G\3\2\2\2\2I\3\2\2\2\2K\3\2\2\2\2M\3\2\2\2\2O\3\2\2\2\2Q\3\2\2\2\2S"+
+		"\3\2\2\2\2U\3\2\2\2\2W\3\2\2\2\2Y\3\2\2\2\2[\3\2\2\2\2]\3\2\2\2\2_\3\2"+
+		"\2\2\2a\3\2\2\2\2c\3\2\2\2\2e\3\2\2\2\2g\3\2\2\2\2i\3\2\2\2\2k\3\2\2\2"+
+		"\2m\3\2\2\2\2o\3\2\2\2\2q\3\2\2\2\2s\3\2\2\2\2u\3\2\2\2\3w\3\2\2\2\5y"+
+		"\3\2\2\2\7{\3\2\2\2\t\u0083\3\2\2\2\13\u008c\3\2\2\2\r\u0094\3\2\2\2\17"+
+		"\u009c\3\2\2\2\21\u00a1\3\2\2\2\23\u00a5\3\2\2\2\25\u00a9\3\2\2\2\27\u00af"+
+		"\3\2\2\2\31\u00b4\3\2\2\2\33\u00b9\3\2\2\2\35\u00bd\3\2\2\2\37\u00c3\3"+
+		"\2\2\2!\u00c9\3\2\2\2#\u00ce\3\2\2\2%\u00d2\3\2\2\2\'\u00d9\3\2\2\2)\u00e0"+
 		"\3\2\2\2+\u00e9\3\2\2\2-\u00ee\3\2\2\2/\u00f2\3\2\2\2\61\u00f7\3\2\2\2"+
 		"\63\u00fe\3\2\2\2\65\u0105\3\2\2\2\67\u010b\3\2\2\29\u0111\3\2\2\2;\u0117"+
 		"\3\2\2\2=\u011f\3\2\2\2?\u0126\3\2\2\2A\u012d\3\2\2\2C\u0131\3\2\2\2E"+
@@ -167,7 +166,7 @@ public class NumberGrammarLexer extends Lexer {
 		"\3\2\2\2Y\u0147\3\2\2\2[\u0149\3\2\2\2]\u014b\3\2\2\2_\u014d\3\2\2\2a"+
 		"\u014f\3\2\2\2c\u0151\3\2\2\2e\u0153\3\2\2\2g\u0155\3\2\2\2i\u0157\3\2"+
 		"\2\2k\u0159\3\2\2\2m\u015b\3\2\2\2o\u015d\3\2\2\2q\u015f\3\2\2\2s\u0161"+
-		"\3\2\2\2u\u0163\3\2\2\2wx\7a\2\2x\4\3\2\2\2yz\7/\2\2z\6\3\2\2\2{|\5Q)"+
+		"\3\2\2\2u\u0163\3\2\2\2wx\7/\2\2x\4\3\2\2\2yz\7a\2\2z\6\3\2\2\2{|\5Q)"+
 		"\2|}\5k\66\2}~\5]/\2~\177\5I%\2\177\u0080\5e\63\2\u0080\u0081\5K&\2\u0081"+
 		"\u0082\5I%\2\u0082\b\3\2\2\2\u0083\u0084\5i\65\2\u0084\u0085\5Q)\2\u0085"+
 		"\u0086\5_\60\2\u0086\u0087\5k\66\2\u0087\u0088\5g\64\2\u0088\u0089\5C"+
@@ -213,20 +212,20 @@ public class NumberGrammarLexer extends Lexer {
 		"\u0123\5Q)\2\u0123\u0124\5i\65\2\u0124\u0125\5s:\2\u0125>\3\2\2\2\u0126"+
 		"\u0127\5]/\2\u0127\u0128\5S*\2\u0128\u0129\5]/\2\u0129\u012a\5K&\2\u012a"+
 		"\u012b\5i\65\2\u012b\u012c\5s:\2\u012c@\3\2\2\2\u012d\u012e\5C\"\2\u012e"+
-		"\u012f\5]/\2\u012f\u0130\5I%\2\u0130B\3\2\2\2\u0131\u0132\7c\2\2\u0132"+
-		"D\3\2\2\2\u0133\u0134\7d\2\2\u0134F\3\2\2\2\u0135\u0136\7e\2\2\u0136H"+
-		"\3\2\2\2\u0137\u0138\7f\2\2\u0138J\3\2\2\2\u0139\u013a\7g\2\2\u013aL\3"+
-		"\2\2\2\u013b\u013c\7h\2\2\u013cN\3\2\2\2\u013d\u013e\7i\2\2\u013eP\3\2"+
-		"\2\2\u013f\u0140\7j\2\2\u0140R\3\2\2\2\u0141\u0142\7k\2\2\u0142T\3\2\2"+
-		"\2\u0143\u0144\7l\2\2\u0144V\3\2\2\2\u0145\u0146\7m\2\2\u0146X\3\2\2\2"+
-		"\u0147\u0148\7n\2\2\u0148Z\3\2\2\2\u0149\u014a\7o\2\2\u014a\\\3\2\2\2"+
-		"\u014b\u014c\7p\2\2\u014c^\3\2\2\2\u014d\u014e\7q\2\2\u014e`\3\2\2\2\u014f"+
-		"\u0150\7r\2\2\u0150b\3\2\2\2\u0151\u0152\7s\2\2\u0152d\3\2\2\2\u0153\u0154"+
-		"\7t\2\2\u0154f\3\2\2\2\u0155\u0156\7u\2\2\u0156h\3\2\2\2\u0157\u0158\7"+
-		"v\2\2\u0158j\3\2\2\2\u0159\u015a\7w\2\2\u015al\3\2\2\2\u015b\u015c\7x"+
-		"\2\2\u015cn\3\2\2\2\u015d\u015e\7y\2\2\u015ep\3\2\2\2\u015f\u0160\7z\2"+
-		"\2\u0160r\3\2\2\2\u0161\u0162\7{\2\2\u0162t\3\2\2\2\u0163\u0164\7|\2\2"+
-		"\u0164v\3\2\2\2\3\2\2";
+		"\u012f\5]/\2\u012f\u0130\5I%\2\u0130B\3\2\2\2\u0131\u0132\t\2\2\2\u0132"+
+		"D\3\2\2\2\u0133\u0134\t\3\2\2\u0134F\3\2\2\2\u0135\u0136\t\4\2\2\u0136"+
+		"H\3\2\2\2\u0137\u0138\t\5\2\2\u0138J\3\2\2\2\u0139\u013a\t\6\2\2\u013a"+
+		"L\3\2\2\2\u013b\u013c\t\7\2\2\u013cN\3\2\2\2\u013d\u013e\t\b\2\2\u013e"+
+		"P\3\2\2\2\u013f\u0140\t\t\2\2\u0140R\3\2\2\2\u0141\u0142\t\n\2\2\u0142"+
+		"T\3\2\2\2\u0143\u0144\t\13\2\2\u0144V\3\2\2\2\u0145\u0146\t\f\2\2\u0146"+
+		"X\3\2\2\2\u0147\u0148\t\r\2\2\u0148Z\3\2\2\2\u0149\u014a\t\16\2\2\u014a"+
+		"\\\3\2\2\2\u014b\u014c\t\17\2\2\u014c^\3\2\2\2\u014d\u014e\t\20\2\2\u014e"+
+		"`\3\2\2\2\u014f\u0150\t\21\2\2\u0150b\3\2\2\2\u0151\u0152\t\22\2\2\u0152"+
+		"d\3\2\2\2\u0153\u0154\t\23\2\2\u0154f\3\2\2\2\u0155\u0156\t\24\2\2\u0156"+
+		"h\3\2\2\2\u0157\u0158\t\25\2\2\u0158j\3\2\2\2\u0159\u015a\t\26\2\2\u015a"+
+		"l\3\2\2\2\u015b\u015c\t\27\2\2\u015cn\3\2\2\2\u015d\u015e\t\30\2\2\u015e"+
+		"p\3\2\2\2\u015f\u0160\t\31\2\2\u0160r\3\2\2\2\u0161\u0162\t\32\2\2\u0162"+
+		"t\3\2\2\2\u0163\u0164\t\33\2\2\u0164v\3\2\2\2\3\2\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

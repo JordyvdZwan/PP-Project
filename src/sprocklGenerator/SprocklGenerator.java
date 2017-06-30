@@ -252,7 +252,7 @@ public class SprocklGenerator {
         addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Add " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
@@ -267,7 +267,7 @@ public class SprocklGenerator {
             registers.remove(register);
             result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = result + ", Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Add " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
@@ -291,7 +291,7 @@ public class SprocklGenerator {
         addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Sub " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
@@ -306,7 +306,7 @@ public class SprocklGenerator {
             registers.remove(register);
             result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = result + ", Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Sub " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
@@ -330,7 +330,7 @@ public class SprocklGenerator {
         addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Mult " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
@@ -345,7 +345,7 @@ public class SprocklGenerator {
             registers.remove(register);
             result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = result + ", Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Mult " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
@@ -410,7 +410,7 @@ public class SprocklGenerator {
 
     private String loadI(String[] input) throws TooManyRegistersException {
         addRegister(input[3]);
-        return "Load (ImmValue " + input[1] + ") " + registers.get(input[3]);
+        return "Load (ImmValue (" + input[1] + ")) " + registers.get(input[3]);
     }
 
     private String loadAI(String[] input) throws TooManyRegistersException {
@@ -474,7 +474,7 @@ public class SprocklGenerator {
         addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute LShift " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
@@ -489,7 +489,7 @@ public class SprocklGenerator {
             registers.remove(register);
             result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = result + ", Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute LShift " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
@@ -513,7 +513,7 @@ public class SprocklGenerator {
         addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute RShift " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
@@ -528,7 +528,7 @@ public class SprocklGenerator {
             registers.remove(register);
             result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = result + ", Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute RShift " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
@@ -552,7 +552,7 @@ public class SprocklGenerator {
         addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Or " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
@@ -567,7 +567,7 @@ public class SprocklGenerator {
             registers.remove(register);
             result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = result + ", Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Or " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
@@ -591,7 +591,7 @@ public class SprocklGenerator {
         addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute And " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
@@ -606,7 +606,7 @@ public class SprocklGenerator {
             registers.remove(register);
             result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = result + ", Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute And " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);
@@ -630,7 +630,7 @@ public class SprocklGenerator {
         addRegister(comma[0]);
         if (registers.size() < REGISTERS) {
             registers.put("register", registers.size());
-            result = "Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Xor " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
         } else {
@@ -645,7 +645,7 @@ public class SprocklGenerator {
             registers.remove(register);
             result = "Push " + registerNumber;
             registers.put("register", registerNumber);
-            result = result + ", Load (ImmValue " + comma[1] + ") " + registers.get("register") +
+            result = result + ", Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Xor " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
             registers.put(register, registerNumber);

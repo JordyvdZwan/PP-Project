@@ -44,8 +44,8 @@ public class Compiler {
     private final static boolean ILOC_GENERATOR_SIMULATOR_RUN = true;
     private final static boolean ILOC_POSTPROCESSOR_SIMULATOR_RUN = true;
 
-    private final static boolean DEBUG = false;
-    private final static boolean PRETTYPRINT = true;
+    private final static boolean DEBUG = true;
+    private final static boolean PRETTYPRINT = false;
 
 
     private static Log log = new Log(PRINT_TO_SCREEN, WRITE_TO_FILE, LOG_TYPE);
