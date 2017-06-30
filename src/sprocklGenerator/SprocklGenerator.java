@@ -5,14 +5,10 @@ import exceptions.UnsupportedInstructionException;
 import utils.iloc.model.Instr;
 import utils.iloc.model.Label;
 import utils.iloc.model.Program;
-import utils.iloc.model.Str;
 import utils.log.Log;
 import utils.log.LogType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SprocklGenerator {
 
@@ -20,23 +16,22 @@ public class SprocklGenerator {
     private Map<Label, Integer> jumps = new HashMap<>();
     private static final int REGISTERS = 6;
     private Program program;
+    private int extraSprockell;
 
     public SprocklGenerator(Program program) {
         this.program = program;
     }
 
-    public String generate(Boolean debug, Boolean prettyPrint) throws UnsupportedInstructionException, TooManyRegistersException{
+    public String generate(Boolean debug, Boolean prettyPrint) throws UnsupportedInstructionException, TooManyRegistersException {
         String result = "import Sprockell \n" +
                 "prog :: [Instruction] \n" +
                 "prog = [";
-        for (Instr anInstr : program.getInstr()) {
-            if (anInstr.hasLabel()) {
-                jumps.put(anInstr.getLabel(), anInstr.getLine());
-            }
-        }
+        extraSprockell = 0;
+        List<Instr> todo = new ArrayList<>();
         for (Instr anInstr : program.getInstr()) {
             String[] line = anInstr.toString().split(" ");
             if (anInstr.hasLabel()) {
+                jumps.put(anInstr.getLabel(), anInstr.getLine() + extraSprockell);
                 String[] temp = new String[line.length - 1];
                 for (int i = 1; i < line.length; i++) {
                     temp[i-1] = line[i];
@@ -179,15 +174,18 @@ public class SprocklGenerator {
                     break;
 
                 case "jump":
-                    result = result + jump(line) + ", ";
+                    todo.add(anInstr);
+                    result = result + "TODO";
                     break;
 
                 case "jumpI":
-                    result = result + jumpI(line) + ", ";
+                    todo.add(anInstr);
+                    result = result + "TODO";
                     break;
 
                 case "cbr":
-                    result = result + cbr(line) + ", ";
+                    todo.add(anInstr);
+                    result = result + "TODO";
                     break;
 
                 default:
@@ -195,6 +193,23 @@ public class SprocklGenerator {
             }
             if (prettyPrint) {
                 result = result + "\n";
+            }
+        }
+        for (Instr anInstr : todo) {
+            String[] line = anInstr.toString().split(" ");
+            switch(line[0]) {
+
+                case "jump":
+                    result = result.replaceFirst("TODO", jump(line) + ", ");
+                    break;
+
+                case "jumpI":
+                    result = result.replaceFirst("TODO", jumpI(line) + ", ");
+                    break;
+
+                case "cbr":
+                    result = result.replaceFirst("TODO", cbr(line) + ", ");
+                    break;
             }
         }
         result = result + "EndProg ]";
@@ -255,6 +270,7 @@ public class SprocklGenerator {
             result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Add " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
+            extraSprockell += 1;
         } else {
             int i = 1;
             ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
@@ -272,6 +288,7 @@ public class SprocklGenerator {
             registers.remove("register");
             registers.put(register, registerNumber);
             result = result + ", Pop " + registerNumber;
+            extraSprockell += 3;
         }
         return result;
     }
@@ -294,6 +311,7 @@ public class SprocklGenerator {
             result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Sub " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
+            extraSprockell += 1;
         } else {
             int i = 1;
             ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
@@ -311,6 +329,7 @@ public class SprocklGenerator {
             registers.remove("register");
             registers.put(register, registerNumber);
             result = result + ", Pop " + registerNumber;
+            extraSprockell += 3;
         }
         return result;
     }
@@ -333,6 +352,7 @@ public class SprocklGenerator {
             result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Mult " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
+            extraSprockell += 1;
         } else {
             int i = 1;
             ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
@@ -350,6 +370,7 @@ public class SprocklGenerator {
             registers.remove("register");
             registers.put(register, registerNumber);
             result = result + ", Pop " + registerNumber;
+            extraSprockell += 3;
         }
         return result;
     }
@@ -420,6 +441,7 @@ public class SprocklGenerator {
         result = "Push " + registers.get(comma[0]);
         result = result + ", " + addI(new String[]{"", comma[0] + "," + comma[1], "", comma[0]}) + ", " + load(new String[]{"", comma[0], "", input[3]});
         result = result + ", " + "Pop " + registers.get(comma[0]);
+        extraSprockell += 2;
         return result;
     }
 
@@ -430,6 +452,7 @@ public class SprocklGenerator {
         result = "Push " + registers.get(comma[0]);
         result = result + ", " + add(new String[]{"", comma[0] + "," + comma[1], "", comma[0]}) + ", " + load(new String[]{"", input[1], "", comma[0]});
         result = result + ", " + "Pop " + registers.get(comma[0]);
+        extraSprockell += 2;
         return result;
     }
 
@@ -446,6 +469,7 @@ public class SprocklGenerator {
         result = "Push " + registers.get(comma[0]);
         result = result + ", " + addI(new String[]{"", comma[0] + "," + comma[1], "", comma[0]}) + ", " + store(new String[]{"", input[1], "", comma[0]});
         result = result + ", " + "Pop " + registers.get(comma[0]);
+        extraSprockell += 2;
         return result;
     }
 
@@ -456,6 +480,7 @@ public class SprocklGenerator {
         result = "Push " + registers.get(comma[0]);
         result = result + ", " + add(new String[]{"", comma[0] + "," +  comma[1], "", comma[0]}) + ", " + store(new String[]{"", input[1], "", comma[0]});
         result = result + ", " + "Pop " + registers.get(comma[0]);
+        extraSprockell += 2;
         return result;
     }
 
@@ -477,6 +502,7 @@ public class SprocklGenerator {
             result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute LShift " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
+            extraSprockell += 1;
         } else {
             int i = 1;
             ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
@@ -494,6 +520,7 @@ public class SprocklGenerator {
             registers.remove("register");
             registers.put(register, registerNumber);
             result = result + ", Pop " + registerNumber;
+            extraSprockell += 3;
         }
         return result;
     }
@@ -516,6 +543,7 @@ public class SprocklGenerator {
             result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute RShift " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
+            extraSprockell += 1;
         } else {
             int i = 1;
             ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
@@ -533,6 +561,7 @@ public class SprocklGenerator {
             registers.remove("register");
             registers.put(register, registerNumber);
             result = result + ", Pop " + registerNumber;
+            extraSprockell += 3;
         }
         return result;
     }
@@ -555,6 +584,7 @@ public class SprocklGenerator {
             result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Or " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
+            extraSprockell += 1;
         } else {
             int i = 1;
             ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
@@ -572,6 +602,7 @@ public class SprocklGenerator {
             registers.remove("register");
             registers.put(register, registerNumber);
             result = result + ", Pop " + registerNumber;
+            extraSprockell += 3;
         }
         return result;
     }
@@ -594,6 +625,7 @@ public class SprocklGenerator {
             result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute And " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
+            extraSprockell += 1;
         } else {
             int i = 1;
             ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
@@ -611,6 +643,7 @@ public class SprocklGenerator {
             registers.remove("register");
             registers.put(register, registerNumber);
             result = result + ", Pop " + registerNumber;
+            extraSprockell += 3;
         }
         return result;
     }
@@ -633,6 +666,7 @@ public class SprocklGenerator {
             result = "Load (ImmValue (" + comma[1] + ")) " + registers.get("register") +
                     ", Compute Xor " + registers.get(comma[0]) + " " + registers.get("register") + " " + registers.get(input[3]);
             registers.remove("register");
+            extraSprockell += 1;
         } else {
             int i = 1;
             ArrayList<String> keys = (new ArrayList<>(registers.keySet()));
@@ -650,6 +684,7 @@ public class SprocklGenerator {
             registers.remove("register");
             registers.put(register, registerNumber);
             result = result + ", Pop " + registerNumber;
+            extraSprockell += 3;
         }
         return result;
     }
