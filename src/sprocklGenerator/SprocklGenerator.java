@@ -705,13 +705,13 @@ public class SprocklGenerator {
     }
 
     private String jumpI(String[] input) throws TooManyRegistersException {
-        return "Jump (Abs " + (jumps.get(new Label(input[2])) + 1) + ")";
+        return "Jump (Abs " + (jumps.get(new Label(input[2]))) + ")";
     }
 
     private String cbr(String[] input) throws TooManyRegistersException {
         String[] comma = input[3].split(",");
         addRegister(input[1]);
-        return "Branch " + registers.get(input[1]) + "(Abs " + (jumps.get(new Label(comma[1])) + 1) + ")";
+        return "Branch " + registers.get(input[1]) + "(Abs " + (jumps.get(new Label(comma[1]))) + ")";
     }
 
 }
