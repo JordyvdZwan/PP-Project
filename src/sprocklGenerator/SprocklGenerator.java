@@ -26,11 +26,11 @@ public class SprocklGenerator {
 
     /** The extra lines Sprockell compared to iloc*/
     private int extraSprockell;
-
+    //TODO comments
     public SprocklGenerator(Program program) {
         this.program = program;
     }
-
+    //TODO comments
     public String generate(Boolean debug, Boolean prettyPrint) throws UnsupportedInstructionException, TooManyRegistersException {
         String result = "import Sprockell \n" +
                 "prog :: [Instruction] \n" +
@@ -251,7 +251,11 @@ public class SprocklGenerator {
         }
     }
 
-//    om een register te kiezen
+    /**
+     * A function to assign a number to a register I wrote to piss of my project partner.
+     * 22 is the amount of syllables of the song iene miene mutte.
+     * @return The number assigned to a register
+     */
     private int ieneMieneMutte() {
         int result = (int) (Math.random() * REGISTERS);
         for (int i = 0; i < 22; i++) {
@@ -591,7 +595,7 @@ public class SprocklGenerator {
     /**
      * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
      * After that it will try to assign a number to the first register (the other one in not necessary because that will happen in the helper function).
-     * 
+     * //TODO comments
      * @param input The String array containing the iloc code split at whitespaces : [loadAI, register,number, =>, register]
      * @return The Sprockell code.
      * @throws TooManyRegistersException
@@ -606,7 +610,7 @@ public class SprocklGenerator {
         extraSprockell += 3;
         return result;
     }
-
+    //TODO comments
     private String loadAO(String[] input) throws TooManyRegistersException {
         String result;
         String[] comma = input[3].split(",");
@@ -617,13 +621,13 @@ public class SprocklGenerator {
         extraSprockell += 3;
         return result;
     }
-
+    //TODO comments
     private String store(String[] input) throws TooManyRegistersException {
         addRegister(input[1]);
         addRegister(input[3]);
         return "Store " + registers.get(input[1]) + " (IndAddr " + registers.get(input[3]) + ")";
     }
-
+    //TODO comments
     private String storeAI(String[] input) throws TooManyRegistersException {
         String result;
         String[] comma = input[3].split(",");
@@ -634,7 +638,7 @@ public class SprocklGenerator {
         extraSprockell += 3;
         return result;
     }
-
+    //TODO comments
     private String storeAO(String[] input) throws TooManyRegistersException {
         String result;
         String[] comma = input[3].split(",");
@@ -645,7 +649,7 @@ public class SprocklGenerator {
         extraSprockell += 3;
         return result;
     }
-
+    //TODO comments
     private String lshift(String[] input) throws TooManyRegistersException {
         String[] comma = input[1].split(",");
         addRegister(comma[0]);
@@ -653,7 +657,7 @@ public class SprocklGenerator {
         addRegister(input[3]);
         return "Compute LShift " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
-
+    //TODO comments
     private String lshiftI(String[] input) throws TooManyRegistersException {
         String result;
         addRegister(input[3]);
@@ -686,7 +690,7 @@ public class SprocklGenerator {
         }
         return result;
     }
-
+    //TODO comments
     private String rshift(String[] input) throws TooManyRegistersException{
         String[] comma = input[1].split(",");
         addRegister(comma[0]);
@@ -694,7 +698,7 @@ public class SprocklGenerator {
         addRegister(input[3]);
         return "Compute RShift " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
-
+    //TODO comments
     private String rshiftI(String[] input) throws TooManyRegistersException {
         String result;
         addRegister(input[3]);
@@ -727,7 +731,7 @@ public class SprocklGenerator {
         }
         return result;
     }
-
+    //TODO comments
     private String or(String[] input) throws TooManyRegistersException {
         String[] comma = input[1].split(",");
         addRegister(comma[0]);
@@ -735,7 +739,7 @@ public class SprocklGenerator {
         addRegister(input[3]);
         return "Compute Or " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
-
+    //TODO comments
     private String orI(String[] input) throws TooManyRegistersException {
         String result;
         addRegister(input[3]);
@@ -768,7 +772,7 @@ public class SprocklGenerator {
         }
         return result;
     }
-
+    //TODO comments
     private String and(String[] input) throws TooManyRegistersException {
         String[] comma = input[1].split(",");
         addRegister(comma[0]);
@@ -776,7 +780,7 @@ public class SprocklGenerator {
         addRegister(input[3]);
         return "Compute And " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
-
+    //TODO comments
     private String andI(String[] input) throws TooManyRegistersException {
         String result;
         addRegister(input[3]);
@@ -809,7 +813,7 @@ public class SprocklGenerator {
         }
         return result;
     }
-
+    //TODO comments
     private String xor(String[] input) throws TooManyRegistersException {
         String[] comma = input[1].split(",");
         addRegister(comma[0]);
@@ -817,7 +821,7 @@ public class SprocklGenerator {
         addRegister(input[3]);
         return "Compute Xor " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
-
+    //TODO comments
     private String xorI(String[] input) throws TooManyRegistersException {
         String result;
         addRegister(input[3]);
@@ -850,26 +854,26 @@ public class SprocklGenerator {
         }
         return result;
     }
-
+    //TODO comments
     private String i2i(String[] input) throws TooManyRegistersException {
         addRegister(input[1]);
         addRegister(input[3]);
         return "Push " + input[1] + ", Pop " + input[3];
     }
-
+    //TODO comments
     private String nop() throws  TooManyRegistersException {
         return "Nop";
     }
-
+    //TODO comments
     private String jump(String[] input) throws TooManyRegistersException {
         addRegister(input[2]);
         return "Jump (Ind " + registers.get(input[2]) + ")";
     }
-
+    //TODO comments
     private String jumpI(String[] input) throws TooManyRegistersException {
         return "Jump (Abs " + (jumps.get(new Label(input[2])) + 1) + ")";
     }
-
+    //TODO comments
     private String cbr(String[] input) throws TooManyRegistersException {
         String[] comma = input[3].split(",");
         addRegister(input[1]);
