@@ -58,17 +58,17 @@ public class CheckerStage1 extends MainGrammarBaseListener {
         }
     }
 
-    @Override
-    public void enterArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
-        Type type = new Type(Construct.Array, PrimitiveType.valueOf(ctx.type().getText().toUpperCase()));
-        if (declarationTable.isDeclaredInScope(ctx.id().getText())) {
-            errors.add("Array Variable already declared: " + ctx.id().getText());
-        } else {
-            Variable var = new Variable(type, ctx.id().getText(), declarationTable.getNextOffset(type));
-            declarationTable.addVariable(var);
-            setOffset(ctx, var.getOffset());
-        }
-    }
+//    @Override
+//    public void enterArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
+//        Type type = new Type(Construct.Array, PrimitiveType.valueOf(ctx.type().getText().toUpperCase()));
+//        if (declarationTable.isDeclaredInScope(ctx.id().getText())) {
+//            errors.add("Array Variable already declared: " + ctx.id().getText());
+//        } else {
+//            Variable var = new Variable(type, ctx.id().getText(), declarationTable.getNextOffset(type));
+//            declarationTable.addVariable(var);
+//            setOffset(ctx, var.getOffset());
+//        }
+//    }
 
     @Override
     public void exitId(MainGrammarParser.IdContext ctx) {
@@ -81,17 +81,17 @@ public class CheckerStage1 extends MainGrammarBaseListener {
 
     @Override
     public void exitTarget(MainGrammarParser.TargetContext ctx) {
-        if (ctx.id() != null) {
+//        if (ctx.id() != null) {
             setOffset(ctx, offset(ctx.id()));
-        } else {
-            setOffset(ctx, offset(ctx.arrayId()));
-        }
+//        } else {
+//            setOffset(ctx, offset(ctx.arrayId()));
+//        }
     }
 
-    @Override
-    public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) {
-        setOffset(ctx, offset(ctx.id()));
-    }
+//    @Override
+//    public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) {
+//        setOffset(ctx, offset(ctx.id()));
+//    }
 
     @Override
     public void exitIdExpr(MainGrammarParser.IdExprContext ctx) {

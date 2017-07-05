@@ -57,27 +57,27 @@ public class CheckerStage2 extends MainGrammarBaseListener {
         setType(ctx.id(), new Type(PrimitiveType.valueOf(ctx.type().primitiveType().getText().toUpperCase())));
     }
 
-    @Override
-    public void exitArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
-        setType(ctx.id(), new Type(Construct.Array, PrimitiveType.valueOf(ctx.type().primitiveType().getText().toUpperCase())));
-        checkType(ctx, type(ctx.expression()));
-    }
+//    @Override
+//    public void exitArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
+//        setType(ctx.id(), new Type(Construct.Array, PrimitiveType.valueOf(ctx.type().primitiveType().getText().toUpperCase())));
+//        checkType(ctx, type(ctx.expression()));
+//    }
 
 
     //--------------------------
     //ID's
     //--------------------------
 
-    @Override
-    public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) {
-        String id = ctx.getText();
-        checkType(ctx.expression(), new Type(PrimitiveType.INTEGER));
-        if (!declarationTable.isDeclared(id)) {
-            errors.add("Array variable is not declared: " + ctx.getText());
-        } else {
-            setType(ctx, new Type(declarationTable.getVariable(id).getType().getPrimitiveType()));
-        }
-    }
+//    @Override
+//    public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) {
+//        String id = ctx.getText();
+//        checkType(ctx.expression(), new Type(PrimitiveType.INTEGER));
+//        if (!declarationTable.isDeclared(id)) {
+//            errors.add("Array variable is not declared: " + ctx.getText());
+//        } else {
+//            setType(ctx, new Type(declarationTable.getVariable(id).getType().getPrimitiveType()));
+//        }
+//    }
 
     @Override
     public void exitId(MainGrammarParser.IdContext ctx) {
@@ -91,11 +91,11 @@ public class CheckerStage2 extends MainGrammarBaseListener {
 
     @Override
     public void exitTarget(MainGrammarParser.TargetContext ctx) {
-        if (ctx.id() != null) {
+//        if (ctx.id() != null) {
             setType(ctx, type(ctx.id()));
-        } else {
-            setType(ctx, new Type(type(ctx.arrayId()).getPrimitiveType()));
-        }
+//        } else {
+//            setType(ctx, new Type(type(ctx.arrayId()).getPrimitiveType()));
+//        }
     }
 
     //--------------------------
@@ -109,10 +109,10 @@ public class CheckerStage2 extends MainGrammarBaseListener {
     }
 
     //Variable expressions
-    @Override
-    public void exitIndexExpr(MainGrammarParser.IndexExprContext ctx) {
-        setType(ctx, type(ctx.arrayId()));
-    }
+//    @Override
+//    public void exitIndexExpr(MainGrammarParser.IndexExprContext ctx) {
+//        setType(ctx, type(ctx.arrayId()));
+//    }
     @Override
     public void exitIdExpr(MainGrammarParser.IdExprContext ctx) {
         setType(ctx, type(ctx.id()));

@@ -51,20 +51,20 @@ public class CheckerStage3 extends MainGrammarBaseListener {
         setEntry(ctx, ctx);
     }
 
-    @Override
-    public void exitArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
-        setEntry(ctx, ctx);
-    }
+//    @Override
+//    public void exitArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
+//        setEntry(ctx, ctx);
+//    }
 
 
     //--------------------------
     //ID's
     //--------------------------
 
-    @Override
-    public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) {
-        setEntry(ctx, ctx.id());
-    }
+//    @Override
+//    public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) {
+//        setEntry(ctx, ctx.id());
+//    }
 
     @Override
     public void exitId(MainGrammarParser.IdContext ctx) {
@@ -73,11 +73,11 @@ public class CheckerStage3 extends MainGrammarBaseListener {
 
     @Override
     public void exitTarget(MainGrammarParser.TargetContext ctx) {
-        if (ctx.id() != null) {
+//        if (ctx.id() != null) {
             setEntry(ctx, ctx.id());
-        } else {
-            setEntry(ctx, entry(ctx.arrayId()));
-        }
+//        } else {
+//            setEntry(ctx, entry(ctx.arrayId()));
+//        }
     }
 
 
@@ -92,10 +92,10 @@ public class CheckerStage3 extends MainGrammarBaseListener {
     }
 
     //Variable expressions
-    @Override
-    public void exitIndexExpr(MainGrammarParser.IndexExprContext ctx) {
-        setEntry(ctx, ctx);
-    }
+//    @Override
+//    public void exitIndexExpr(MainGrammarParser.IndexExprContext ctx) {
+//        setEntry(ctx, ctx);
+//    }
     @Override
     public void exitIdExpr(MainGrammarParser.IdExprContext ctx) {
         setEntry(ctx, ctx);

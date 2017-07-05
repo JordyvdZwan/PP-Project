@@ -164,7 +164,30 @@ public enum OpCode {
 	cout(1, STR),
 	/** Stand-alone program comment; effect = nop.
 	 * Not official ILOC. */
-	comment(COMMENT, 0);
+	comment(COMMENT, 0),
+
+	//Concurrency instructions
+	/** Load (sharedemem(reg0) => reg1). */
+	conload(1, REG, REG),
+	/** Load address + immediate (sharedemem(reg0 + num1) => reg2). */
+	conloadAI(2, REG, NUM, REG),
+	/** Load address + offset (sharedemem(reg0 + reg1) => reg2). */
+	conloadAO(2, REG, REG, REG),
+	/** Store (reg0 => sharedemem(reg1)). */
+	constore(1, REG, REG),
+	/** Store (reg0 => sharedemem(reg1 + num2)). */
+	constoreAI(1, REG, REG, NUM),
+	/** Store (reg0 => sharedemem(reg1 + reg2)). */
+	constoreAO(1, REG, REG, REG),
+
+	/** id of thread and line to skip to*/
+	fork(0, NUM, NUM),
+	/** id of thread to wait for*/
+	join(1, NUM)
+
+	;
+
+
 
 
 	/** The class that this opcode falls into. */

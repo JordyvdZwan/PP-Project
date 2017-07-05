@@ -28,18 +28,6 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayId(MainGrammarParser.ArrayIdContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterProgram(MainGrammarParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -59,18 +47,6 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDeclStat(MainGrammarParser.DeclStatContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -143,30 +119,6 @@ public class MainGrammarBaseListener implements MainGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPrimitiveType(MainGrammarParser.PrimitiveTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArrayType(MainGrammarParser.ArrayTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArrayType(MainGrammarParser.ArrayTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterIndexExpr(MainGrammarParser.IndexExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIndexExpr(MainGrammarParser.IndexExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
