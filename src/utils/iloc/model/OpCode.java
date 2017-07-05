@@ -185,7 +185,9 @@ public enum OpCode {
 	/** id of thread to wait for*/
 	join(1, NUM),
 
-	lock(1, NUM)
+	lock(1, NUM),
+
+	unlock(1, NUM)
 	;
 
 
