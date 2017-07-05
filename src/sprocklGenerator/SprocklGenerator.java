@@ -26,28 +26,49 @@ public class SprocklGenerator {
 
     /** The extra lines Sprockell compared to iloc*/
     private int extraSprockell;
-    //TODO comments
+
+    /**
+     * Constructor
+     * @param program The program
+     */
     public SprocklGenerator(Program program) {
         this.program = program;
     }
-    //TODO comments
+
+    /**
+     * This function generates the sprockell code from the iloc code.
+     * @param debug A boolean which determines whether the program runs with debugger.
+     * @param prettyPrint A boolean which determines whether the program is printed with enters between the codes.
+     * @return The generated sprockell code.
+     * @throws UnsupportedInstructionException When there is an instruction not defined.
+     * @throws TooManyRegistersException
+     */
     public String generate(Boolean debug, Boolean prettyPrint) throws UnsupportedInstructionException, TooManyRegistersException {
+        /** Start of Haskell code. */
         String result = "import Sprockell \n" +
                 "prog :: [Instruction] \n" +
                 "prog = [";
+
+        /** Initialises the used variables. */
         extraSprockell = 0;
         List<Instr> todo = new ArrayList<>();
+
+        /** Loops over every instruction. */
         for (Instr anInstr : program.getInstr()) {
+            /** Splits at every whitespace. */
             String[] line = anInstr.toString().split(" ");
+            /** If the instruction has a label this label gets added to the map with the line and the extra sprockell. */
             if (anInstr.hasLabel()) {
                 jumps.put(anInstr.getLabel(), anInstr.getLine() + extraSprockell);
                 String[] temp = new String[line.length - 1];
+                /** Delete the label from the instruction. */
                 for (int i = 1; i < line.length; i++) {
                     temp[i-1] = line[i];
                 }
                 line = temp;
             }
             Log.addLogItem("Converting following instruction to Sprockl: " + anInstr.toString(), LogType.Dev);
+
             switch (line[0]) {
 
                 case "pop":
@@ -182,6 +203,7 @@ public class SprocklGenerator {
                     result = result + nop() + ", ";
                     break;
 
+                /** The jumps are not possible to generate right now because not all the labels have been added to the map. */
                 case "jump":
                     todo.add(anInstr);
                     result = result + "TODO";
@@ -205,6 +227,8 @@ public class SprocklGenerator {
                 result = result + "\n";
             }
         }
+
+        /** Finishes the jumps. */
         for (Instr anInstr : todo) {
             String[] line = anInstr.toString().split(" ");
             switch(line[0]) {
@@ -222,6 +246,8 @@ public class SprocklGenerator {
                     break;
             }
         }
+
+        /** Finishes the Haskell code. */
         result = result + "EndProg ]";
         if (debug) {
             result = result + "\nmain = runWithDebugger (debuggerSimplePrint showLocalMem) [prog]\n\n" +
@@ -232,6 +258,7 @@ public class SprocklGenerator {
         }
         return result;
     }
+    //TODO runWithDebugger (debuggerSimplePrintAndWait myShow) [prog]
 
     /**
      * This function assigns a number to a register, which has a String name in iloc.
@@ -581,12 +608,12 @@ public class SprocklGenerator {
     }
 
     /**
-     * The function will try to assign a number to the register.
-     * If that succeeds it will convert the input to Sprockell.
-     * @param input The String array containing the iloc code split at whitespaces : [loadI, number, =>, register]
-     * @return The Sprockell code "Load (ImmValue number) register"
-     * @throws TooManyRegistersException
-     */
+    * The function will try to assign a number to the register.
+    * If that succeeds it will convert the input to Sprockell.
+    * @param input The String array containing the iloc code split at whitespaces : [loadI, number, =>, register]
+    * @return The Sprockell code "Load (ImmValue number) register"
+    * @throws TooManyRegistersException
+    */
     private String loadI(String[] input) throws TooManyRegistersException {
         addRegister(input[3]);
         return "Load (ImmValue (" + input[1] + ")) " + registers.get(input[3]);
@@ -595,7 +622,9 @@ public class SprocklGenerator {
     /**
      * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
      * After that it will try to assign a number to the first register (the other one in not necessary because that will happen in the helper function).
-     * //TODO comments
+     * The offset needs to be stored somewhere, we decided to to that in the register containing the address. So the function firstly pushes that value.
+     * After that it adds the offset to the address, saves it in the register, and loads the value from the calculated address.
+     * When it is finished it pops the old value back and adds the extra lines of Sprockell.
      * @param input The String array containing the iloc code split at whitespaces : [loadAI, register,number, =>, register]
      * @return The Sprockell code.
      * @throws TooManyRegistersException
@@ -610,7 +639,17 @@ public class SprocklGenerator {
         extraSprockell += 3;
         return result;
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * After that it will try to assign a number to the first register (the other one in not necessary because that will happen in the helper function).
+     * The offset needs to be stored somewhere, we decided to to that in the register containing the address. So the function firstly pushes that value.
+     * After that it adds the offset to the address, saves it in the register, and loads the value from the calculated address.
+     * When it is finished it pops the old value back and adds the extra lines of Sprockell.
+     * @param input The String array containing the iloc code split at whitespaces : [loadAO, register,number, =>, register]
+     * @return The Sprockell code.
+     * @throws TooManyRegistersException
+     */
     private String loadAO(String[] input) throws TooManyRegistersException {
         String result;
         String[] comma = input[3].split(",");
@@ -621,13 +660,30 @@ public class SprocklGenerator {
         extraSprockell += 3;
         return result;
     }
-    //TODO comments
+
+    /**
+     * The function will try to assign a number to the registers.
+     * If that succeeds it will convert the input to Sprockell.
+     * @param input The String array containing the iloc code split at whitespaces : [store, register, =>, register]
+     * @return The Sprockell code "Store (IndAddr register1) register2"
+     * @throws TooManyRegistersException
+     */
     private String store(String[] input) throws TooManyRegistersException {
         addRegister(input[1]);
         addRegister(input[3]);
         return "Store " + registers.get(input[1]) + " (IndAddr " + registers.get(input[3]) + ")";
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * After that it will try to assign a number to the first register (the other one in not necessary because that will happen in the helper function).
+     * The offset needs to be stored somewhere, we decided to to that in the register containing the address. So the function firstly pushes that value.
+     * After that it adds the offset to the address, saves it in the register, and stores the value at the calculated address.
+     * When it is finished it pops the old value back and adds the extra lines of Sprockell.
+     * @param input The String array containing the iloc code split at whitespaces : [storeAI, register, =>, register,number]
+     * @return The Sprockell code.
+     * @throws TooManyRegistersException
+     */
     private String storeAI(String[] input) throws TooManyRegistersException {
         String result;
         String[] comma = input[3].split(",");
@@ -638,7 +694,17 @@ public class SprocklGenerator {
         extraSprockell += 3;
         return result;
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * After that it will try to assign a number to the first register (the other one in not necessary because that will happen in the helper function).
+     * The offset needs to be stored somewhere, we decided to to that in the register containing the address. So the function firstly pushes that value.
+     * After that it adds the offset to the address, saves it in the register, and stores the value at the calculated address.
+     * When it is finished it pops the old value back and adds the extra lines of Sprockell.
+     * @param input The String array containing the iloc code split at whitespaces : [storeAO, register, =>, register,number]
+     * @return The Sprockell code.
+     * @throws TooManyRegistersException
+     */
     private String storeAO(String[] input) throws TooManyRegistersException {
         String result;
         String[] comma = input[3].split(",");
@@ -649,7 +715,15 @@ public class SprocklGenerator {
         extraSprockell += 3;
         return result;
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * The function will then try to assign a number to the registers.
+     * If that succeeds it will convert the input to Sprockell.
+     * @param input The String array containing the iloc code split at whitespaces : [lshift, register1,register2, =>, register3]
+     * @return The Sprockell code "Compute LShift register1 register2 register3"
+     * @throws TooManyRegistersException
+     */
     private String lshift(String[] input) throws TooManyRegistersException {
         String[] comma = input[1].split(",");
         addRegister(comma[0]);
@@ -657,7 +731,19 @@ public class SprocklGenerator {
         addRegister(input[3]);
         return "Compute LShift " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * The function will then try to assign a number to the registers.
+     * Because the syntax for shifting a number with a register is not defined in Sprockell the function will save the number in a register.
+     * If there are enough registers it will write Sprockell code to put the number in a register and shift registers.
+     * Otherwise the function will choose a register not used in this line of iloc code and push that register to the stack.
+     * It will then store the number in this register, execute the shift and pop the old value back to the register.
+     * When the function is finished it will add the extra lines sprockell compared to the iloc to the global counter.
+     * @param input The String array containing the iloc code split at whitespaces : [lshiftI, register1,number, =>, register2]
+     * @return The Sprockell code
+     * @throws TooManyRegistersException
+     */
     private String lshiftI(String[] input) throws TooManyRegistersException {
         String result;
         addRegister(input[3]);
@@ -690,7 +776,15 @@ public class SprocklGenerator {
         }
         return result;
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * The function will then try to assign a number to the registers.
+     * If that succeeds it will convert the input to Sprockell.
+     * @param input The String array containing the iloc code split at whitespaces : [rshift, register1,register2, =>, register3]
+     * @return The Sprockell code "Compute RShift register1 register2 register3"
+     * @throws TooManyRegistersException
+     */
     private String rshift(String[] input) throws TooManyRegistersException{
         String[] comma = input[1].split(",");
         addRegister(comma[0]);
@@ -698,7 +792,19 @@ public class SprocklGenerator {
         addRegister(input[3]);
         return "Compute RShift " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * The function will then try to assign a number to the registers.
+     * Because the syntax for shifting a number from a register is not defined in Sprockell the function will save the number in a register.
+     * If there are enough registers it will write Sprockell code to put the number in a register and shift the registers.
+     * Otherwise the function will choose a register not used in this line of iloc code and push that register to the stack.
+     * It will then store the number in this register, execute the shift and pop the old value back to the register.
+     * When the function is finished it will add the extra lines sprockell compared to the iloc to the global counter.
+     * @param input The String array containing the iloc code split at whitespaces : [rshiftI, register1,number, =>, register2]
+     * @return The Sprockell code
+     * @throws TooManyRegistersException
+     */
     private String rshiftI(String[] input) throws TooManyRegistersException {
         String result;
         addRegister(input[3]);
@@ -731,7 +837,15 @@ public class SprocklGenerator {
         }
         return result;
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * The function will then try to assign a number to the registers.
+     * If that succeeds it will convert the input to Sprockell.
+     * @param input The String array containing the iloc code split at whitespaces : [or, register1,register2, =>, register3]
+     * @return The Sprockell code "Compute Or register1 register2 register3"
+     * @throws TooManyRegistersException
+     */
     private String or(String[] input) throws TooManyRegistersException {
         String[] comma = input[1].split(",");
         addRegister(comma[0]);
@@ -739,7 +853,19 @@ public class SprocklGenerator {
         addRegister(input[3]);
         return "Compute Or " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * The function will then try to assign a number to the registers.
+     * Because the syntax for computing or on a number and a register is not defined in Sprockell the function will save the number in a register.
+     * If there are enough registers it will write Sprockell code to put the number in a register and compute or.
+     * Otherwise the function will choose a register not used in this line of iloc code and push that register to the stack.
+     * It will then store the number in this register, execute the comparison and pop the old value back to the register.
+     * When the function is finished it will add the extra lines sprockell compared to the iloc to the global counter.
+     * @param input The String array containing the iloc code split at whitespaces : [orI, register1,number, =>, register2]
+     * @return The Sprockell code
+     * @throws TooManyRegistersException
+     */
     private String orI(String[] input) throws TooManyRegistersException {
         String result;
         addRegister(input[3]);
@@ -772,7 +898,15 @@ public class SprocklGenerator {
         }
         return result;
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * The function will then try to assign a number to the registers.
+     * If that succeeds it will convert the input to Sprockell.
+     * @param input The String array containing the iloc code split at whitespaces : [and, register1,register2, =>, register3]
+     * @return The Sprockell code "Compute And register1 register2 register3"
+     * @throws TooManyRegistersException
+     */
     private String and(String[] input) throws TooManyRegistersException {
         String[] comma = input[1].split(",");
         addRegister(comma[0]);
@@ -780,7 +914,19 @@ public class SprocklGenerator {
         addRegister(input[3]);
         return "Compute And " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * The function will then try to assign a number to the registers.
+     * Because the syntax for computing and on a number and a register is not defined in Sprockell the function will save the number in a register.
+     * If there are enough registers it will write Sprockell code to put the number in a register and compute and.
+     * Otherwise the function will choose a register not used in this line of iloc code and push that register to the stack.
+     * It will then store the number in this register, execute the comparison and pop the old value back to the register.
+     * When the function is finished it will add the extra lines sprockell compared to the iloc to the global counter.
+     * @param input The String array containing the iloc code split at whitespaces : [andI, register1,number, =>, register2]
+     * @return The Sprockell code
+     * @throws TooManyRegistersException
+     */
     private String andI(String[] input) throws TooManyRegistersException {
         String result;
         addRegister(input[3]);
@@ -813,7 +959,15 @@ public class SprocklGenerator {
         }
         return result;
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * The function will then try to assign a number to the registers.
+     * If that succeeds it will convert the input to Sprockell.
+     * @param input The String array containing the iloc code split at whitespaces : [xor, register1,register2, =>, register3]
+     * @return The Sprockell code "Compute Xor register1 register2 register3"
+     * @throws TooManyRegistersException
+     */
     private String xor(String[] input) throws TooManyRegistersException {
         String[] comma = input[1].split(",");
         addRegister(comma[0]);
@@ -821,7 +975,19 @@ public class SprocklGenerator {
         addRegister(input[3]);
         return "Compute Xor " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
-    //TODO comments
+
+    /**
+     * Because there are 2 registers contained in input[1] the function firstly splits that string at ",".
+     * The function will then try to assign a number to the registers.
+     * Because the syntax for computing xor on a number and a register is not defined in Sprockell the function will save the number in a register.
+     * If there are enough registers it will write Sprockell code to put the number in a register and compute xor.
+     * Otherwise the function will choose a register not used in this line of iloc code and push that register to the stack.
+     * It will then store the number in this register, execute the comparison and pop the old value back to the register.
+     * When the function is finished it will add the extra lines sprockell compared to the iloc to the global counter.
+     * @param input The String array containing the iloc code split at whitespaces : [xorI, register1,number, =>, register2]
+     * @return The Sprockell code
+     * @throws TooManyRegistersException
+     */
     private String xorI(String[] input) throws TooManyRegistersException {
         String result;
         addRegister(input[3]);
@@ -854,26 +1020,59 @@ public class SprocklGenerator {
         }
         return result;
     }
-    //TODO comments
+
+    /**
+     * To copy a value it is first pushed to the stack and then popped.
+     * And add the extra lines of sprockell.
+     * @param input The String array containing the iloc code split at whitespace : [i2i, register, =>, register]
+     * @return The Sprockell Code.
+     * @throws TooManyRegistersException
+     */
     private String i2i(String[] input) throws TooManyRegistersException {
         addRegister(input[1]);
         addRegister(input[3]);
+        extraSprockell++;
         return "Push " + input[1] + ", Pop " + input[3];
     }
-    //TODO comments
+
+    /**
+     * Just Nop
+     * @return Nop
+     * @throws TooManyRegistersException
+     */
     private String nop() throws  TooManyRegistersException {
         return "Nop";
     }
-    //TODO comments
+
+    /**
+     * Tries to assign a number to the register.
+     * If that succeeds it converts the iloc to sprockell.
+     * @param input The String array containing the iloc code split at whitespace : [jump, ->, register]
+     * @return The sprockell code "Jump (Ind register)"
+     * @throws TooManyRegistersException
+     */
     private String jump(String[] input) throws TooManyRegistersException {
         addRegister(input[2]);
         return "Jump (Ind " + registers.get(input[2]) + ")";
     }
-    //TODO comments
+
+    /**
+     * Gets the line number to jump to from the global map jumps.
+     * Convert the iloc to Sprockell code.
+     * @param input The String array containing the iloc code split at whitespace : [jumpI, ->, label]
+     * @return The sprockell code "Jump (Abs register)"
+     * @throws TooManyRegistersException
+     */
     private String jumpI(String[] input) throws TooManyRegistersException {
         return "Jump (Abs " + (jumps.get(new Label(input[2])) + 1) + ")";
     }
-    //TODO comments
+
+    /**
+     *
+     * @param input The String array containing the iloc code split at whitespace : [cbr, register, =>, label,label]
+     * @return The sprockell code.
+     * @throws TooManyRegistersException
+     */
     private String cbr(String[] input) throws TooManyRegistersException {
         String[] comma = input[3].split(",");
         addRegister(input[1]);
