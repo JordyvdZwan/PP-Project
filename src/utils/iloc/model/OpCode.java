@@ -183,8 +183,9 @@ public enum OpCode {
 	/** id of thread and line to skip to*/
 	fork(0, NUM, NUM),
 	/** id of thread to wait for*/
-	join(1, NUM)
+	join(1, NUM),
 
+	lock(1, NUM)
 	;
 
 
