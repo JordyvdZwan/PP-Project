@@ -347,7 +347,9 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     @Override
     public Op visitForkStat(MainGrammarParser.ForkStatContext ctx) {
         Label end = createLabel(ctx, "ForkEnd");
-        Op result = emit(OpCode.fork, forkId(ctx.forkID()), end);
+        Label start = createLabel(ctx, "ForkStart");
+        Op result = emit(OpCode.fork, forkId(ctx.forkID()), end, start);
+        emit(start, OpCode.nop);
         visit(ctx.statement());
         emit(OpCode.unfork, forkId(ctx.forkID()));
         emit(end, OpCode.nop);

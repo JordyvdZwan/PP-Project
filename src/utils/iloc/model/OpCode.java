@@ -180,8 +180,8 @@ public enum OpCode {
 	/** Store (reg0 => sharedemem(reg1 + reg2)). */
 	constoreAO(1, REG, REG, REG),
 
-	/** id of thread and line to skip to*/
-	fork(0, NUM, LABEL),
+	/** id of thread and line to skip to for main thread and line for new thread*/
+	fork(0, NUM, LABEL, LABEL),
 	unfork(0, NUM),
 	/** id of thread to wait for*/
 	join(1, NUM),
