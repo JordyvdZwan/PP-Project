@@ -43,7 +43,7 @@ public class SprocklGenerator {
      * @param prettyPrint A boolean which determines whether the program is printed with enters between the codes.
      * @return The generated sprockell code.
      * @throws UnsupportedInstructionException When there is an instruction not defined.
-     * @throws TooManyRegistersException
+     * @throws TooManyRegistersException thrown when too many registers are used
      */
     public String generate(Boolean debug, Boolean extendedDebug, Boolean prettyPrint) throws UnsupportedInstructionException, TooManyRegistersException {
         registers.put("reg0", 0);
@@ -308,7 +308,6 @@ public class SprocklGenerator {
                     break;
             }
         }
-        int lines = program.getInstr().size() + extraSprockell + nrOfThreads - 1;
 
         /** Finishes the Haskell code. */
         result = result + "EndProg]";
@@ -318,7 +317,7 @@ public class SprocklGenerator {
         }
         if (debug) {
             if (extendedDebug) {
-                result = result + "\nmain = runWithDebugger (debuggerSimplePrintAndWait showLocalMem) [" + prog + "]\n\n" +
+                result = result + "\nmain = runWithDebugger (debuggerSimplePrint myShow) [" + prog + "]\n\n" +
                         "showLocalMem :: DbgInput -> String\n" +
                         "showLocalMem ( _ , systemState ) = show $ localMem $ head $ sprStates systemState";
             } else {
@@ -466,7 +465,7 @@ public class SprocklGenerator {
         addRegister(comma[0]);
         addRegister(comma[1]);
         addRegister(input[3]);
-        return "Compute Mult " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
+        return "Compute Mul " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     /**
@@ -483,7 +482,7 @@ public class SprocklGenerator {
         String[] comma = input[1].split(",");
         addRegister(comma[0]);
         extraSprockell++;
-        return "Load (ImmValue (" + comma[1] + ")) 7, Compute Mult " + registers.get(comma[0]) + " 7 " + registers.get(input[3]);
+        return "Load (ImmValue (" + comma[1] + ")) 7, Compute Mul " + registers.get(comma[0]) + " 7 " + registers.get(input[3]);
     }
 
     /**
