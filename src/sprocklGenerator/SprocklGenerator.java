@@ -53,10 +53,11 @@ public class SprocklGenerator {
                 "prog :: [Instruction] \n";
 
         /** Loops all the extra threads until they receive an instruction. */
-        result = result + "prog = [Nop, Branch regSprID (Rel (-1)), ";
+        result = result + "prog = [Branch regSprID (Rel 2), Jump (Rel 6), ReadInstr (IndAddr regSprID), Receive regA, " +
+                          "Compute Equal regA reg0 regB, Branch regB (Rel (-3)), WriteInstr regA numberIO, Jump (Ind regA), ";
 
         /** Initialises the used variables. */
-        extraSprockell = 2;
+        extraSprockell = 8;
         List<Instr> todo = new ArrayList<>();
 
         /** Loops over every instruction. */
