@@ -919,7 +919,7 @@ public class SprocklGenerator {
      * @throws TooManyRegistersException thrown when too many registers are used
      */
     private String jumpI(String[] input) throws TooManyRegistersException {
-        return "Jump (Abs " + (jumps.get(new Label(input[2])) + 1) + ")";
+        return "Jump (Abs " + (jumps.get(new Label(input[2])) - 1) + ")";
     }
 
     /**
@@ -931,8 +931,8 @@ public class SprocklGenerator {
     private String cbr(String[] input) throws TooManyRegistersException {
         String[] comma = input[3].split(",");
         addRegister(input[1]);
-        String result = "Branch " + registers.get(input[1]) + "(Abs " + (jumps.get(new Label(comma[0])) + 2) + "), ";
-        result = result + "Jump (Abs " + (jumps.get(new Label(comma[1])) + 1) + ")";
+        String result = "Branch " + registers.get(input[1]) + "(Abs " + (jumps.get(new Label(comma[0])) - 1) + "), ";
+        result = result + "Jump (Abs " + (jumps.get(new Label(comma[1])) - 1) + ")";
         return result;
     }
 
