@@ -1,8 +1,10 @@
 import controller.Compiler;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import exceptions.CheckerException;
+import exceptions.CompilerErrorException;
+import exceptions.SyntaxErrorException;
+import org.junit.*;
+import utils.log.Log;
+import utils.log.LogType;
 
 import java.io.*;
 import java.util.Scanner;
@@ -12,8 +14,6 @@ import java.util.Scanner;
  */
 public class RunTest {
 
-    public static final int timeout = 3000;
-
     @BeforeClass
     public static void initCompiler() {
         Compiler.PRETTYPRINT = false;
@@ -21,18 +21,42 @@ public class RunTest {
         Compiler.EXTENDED = false;
     }
 
-    @Test(timeout=timeout)
-    public void genericTest() {
-        String path = "C:\\Projects\\Project - Programming Paradigms Compiler Project\\PP-Compiler-Project\\resources\\out";
-        String fileName = "output.hs";
+    private Process p = null;
+    private static String projectRootPath = new File("").getAbsolutePath();
 
-        String result = runProgram(path, "output.hs");
+    @After
+    public void after() {
+        System.out.println("Äfter");
+        if (p != null) {
+            p.destroyForcibly();
+            try {
+                Runtime.getRuntime().exec("taskkill /F /IM ghc.exe");
+            } catch (IOException e) {
+                Log.addLogItem("Unable to close ghc, You should close this manually!", LogType.Warning);
+            }
+        }
+    }
+
+    @Test(timeout=10000)
+    public void genericTest() {
+        String inputPath = projectRootPath + "\\testResources\\scs";
+        String inputFileName = "basic1.ppl";
+        String outputPath = "resources\\out";
+        String outputFileName = "output.hs";
+
+        try {
+            Compiler.compileFile(inputPath, inputFileName, outputPath, outputFileName);
+        } catch (IOException | SyntaxErrorException | CompilerErrorException | CheckerException e) {
+            e.printStackTrace();
+            Assert.fail("Exception Thrown: " + e.getMessage());
+        }
+
+        String result = runProgram(outputPath, outputFileName);
         check(result, "[8,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
 
 
     public String runProgram(String path, String fileName) {
-        Process p = null;
         try {
             System.out.println("Starting... ");
             p = Runtime.getRuntime().exec("ghci");
@@ -51,23 +75,28 @@ public class RunTest {
             hugsin.println(":l " + fileName);
             hugsin.flush();
             String next;
-            while (!((next = sc.next()).equals("Ok,"))) {}
+            while (sc.hasNext()) {
+                next = sc.next();
+                if (next.contains("Ok,"))
+                    break;
+                else if (next.contains("Failed"))
+                    Assert.fail("GHCI Code generation failed.");
+            }
 
             System.out.println("main");
             hugsin.println("main");
             hugsin.flush();
             String previousLine = "";
-            while (true) {
+            while (sc.hasNext()) {
                 String nextLine = sc.next();
                 if (previousLine.contains("[") && previousLine.contains("]") && !nextLine.contains("[") && !nextLine.contains(",") && !nextLine.contains("fromList")) {
                     return previousLine;
                 }
                 previousLine = nextLine;
             }
+            Assert.fail("Invalid program execution.");
         } catch(IOException e) {
             e.printStackTrace();
-        } finally {
-            if (p != null) p.destroy();
         }
         return null;
     }

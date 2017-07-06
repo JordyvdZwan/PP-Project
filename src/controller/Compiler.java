@@ -101,7 +101,20 @@ public class Compiler {
         }
     }
 
-    private String compile(String source) throws SyntaxErrorException, CompilerErrorException, CheckerException {
+    public static void compileFile(String path, String fileName, String outputPath, String outputFileName) throws IOException, SyntaxErrorException, CheckerException, CompilerErrorException {
+        Scanner in = new Scanner(new FileReader(path + "\\" + fileName));
+        StringBuilder sb = new StringBuilder();
+        while(in.hasNextLine()) sb.append(in.nextLine()).append("\n");
+        in.close();
+        String result = compile(sb.toString());
+        Writer writer;
+        writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(outputPath + "\\" + outputFileName), "utf-8"));
+        writer.append(result);
+        writer.flush();
+    }
+
+    private static String compile(String source) throws SyntaxErrorException, CompilerErrorException, CheckerException {
 
         //Global Compile Variables
         long mainStageStart;
@@ -428,7 +441,7 @@ public class Compiler {
         return sprocklResult;
     }
 
-    private boolean handleErrors(List<String> errors, String stage) {
+    private static boolean handleErrors(List<String> errors, String stage) {
         if (errors.size() > 0) {
             for (String error : errors) {
                 Log.addLogItem(error, LogType.Error);
