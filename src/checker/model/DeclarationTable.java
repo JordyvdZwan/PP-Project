@@ -20,6 +20,8 @@ public class DeclarationTable {
     private List<Scope> scopes = new ArrayList<>();
     private LinkedList<Scope> queue = new LinkedList<>();
 
+    private static int nextForkId = 0;
+
     public DeclarationTable() {
         root  = new Scope();
         globalScope = new Scope();
@@ -106,6 +108,16 @@ public class DeclarationTable {
         return nextOffset;
     }
 
+    public int addForkId(String text) {
+        if (scope.getForkId(text) != null) return -1;
+        scope.addForkId(text);
+        return scope.getForkId(text).getNumber();
+    }
+
+    public Id getForkId(String text) {
+        return scope.getForkId(text);
+    }
+
     private class Scope {
 
         private List<Scope> children = new ArrayList<>();
@@ -184,6 +196,30 @@ public class DeclarationTable {
                 res += "    " + child;
             }
             return res;
+        }
+
+        private Set<Id> forkIds = new HashSet<>();
+
+
+        public void addForkId(String text) {
+            forkIds.add(new Id(text, genNextForkId()));
+        }
+
+        private int genNextForkId() {
+            return DeclarationTable.nextForkId++;
+        }
+
+        public Id getForkId(String text) {
+            for (Id var : forkIds) {
+                if (var.getName().equals(text)) {
+                    return var;
+                }
+            }
+            if (parent != null) {
+                return parent.getForkId(text);
+            } else {
+                return null;
+            }
         }
     }
 }

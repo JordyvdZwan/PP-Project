@@ -8,8 +8,6 @@ import grammar.MainGrammarParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import utils.log.Log;
-import utils.log.LogType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -252,11 +250,8 @@ public class CheckerStage2 extends MainGrammarBaseListener {
         return checkerRecord.getType(ctx);
     }
 
-
     public List<String> getErrors() {
         return errors;
     }
-
-
 
 }

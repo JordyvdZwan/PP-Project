@@ -176,6 +176,31 @@ public class CheckerStage3 extends MainGrammarBaseListener {
         setEntry(ctx, entry(ctx.statement(0)));
     }
 
+    //--------------------------
+    //Concurrency structures
+    //--------------------------
+
+    @Override
+    public void exitSharedDeclStat(MainGrammarParser.SharedDeclStatContext ctx) {
+        setEntry(ctx, ctx);
+    }
+
+    @Override
+    public void exitLockStat(MainGrammarParser.LockStatContext ctx) {
+        setEntry(ctx, ctx);
+    }
+
+    @Override
+    public void exitForkStat(MainGrammarParser.ForkStatContext ctx) {
+        setEntry(ctx, ctx);
+    }
+
+    @Override
+    public void exitJoinStat(MainGrammarParser.JoinStatContext ctx) {
+        setEntry(ctx, ctx);
+    }
+
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     //                      Helper Functions
     /////////////////////////////////////////////////////////////////////////////////////////////////////

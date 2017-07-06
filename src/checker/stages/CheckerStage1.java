@@ -67,7 +67,7 @@ public class CheckerStage1 extends MainGrammarBaseListener {
         } else {
             Variable var = new Variable(type, ctx.id().getText(), declarationTable.getNextOffset(type));
             var.setGlobal(true);
-            declarationTable.addVariable(var);
+            declarationTable.addGlobalVariable(var);
             setOffset(ctx, var.getOffset());
         }
     }
@@ -107,21 +107,29 @@ public class CheckerStage1 extends MainGrammarBaseListener {
     }
 
     @Override
-    public void enterFork(MainGrammarParser.ForkContext ctx) {
-        super.enterFork(ctx);
+    public void enterForkStat(MainGrammarParser.ForkStatContext ctx) {
+        if (declarationTable.addForkId(ctx.forkID().getText()) == -1) errors.add("ForkID is already declared: " + ctx.forkID().getText());
+        CheckerRecord.nrOfThreads++;
+        setForkId(ctx, declarationTable.getForkId(ctx.forkID().getText()).getNumber());
+        declarationTable.createThread();
     }
 
     @Override
-    public void exitFork(MainGrammarParser.ForkContext ctx) {
-        super.exitFork(ctx);
+    public void exitJoinStat(MainGrammarParser.JoinStatContext ctx) {
+        if (null == declarationTable.getForkId(ctx.forkID().getText())) {
+            errors.add("Threadid not in scope! id: " + ctx.forkID().getText());
+        } else {
+            setForkId(ctx, declarationTable.getForkId(ctx.forkID().getText()).getNumber());
+        }
+        declarationTable.exitThread();
     }
 
     @Override
-    public void exitJoin(MainGrammarParser.JoinContext ctx) {
-        super.exitJoin(ctx);
+    public void exitLockStat(MainGrammarParser.LockStatContext ctx) {
+        setOffset(ctx, offset(ctx.id()));
     }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
     //                      Helper Functions
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -131,6 +139,9 @@ public class CheckerStage1 extends MainGrammarBaseListener {
     private void setGlobal(ParserRuleContext ctx, boolean global) {
         checkerRecord.setGlobal(ctx, global);
     }
+    private void setForkId(ParserRuleContext ctx, Integer forkID) {
+        checkerRecord.setForkId(ctx, forkID);
+    }
     private Integer offset(ParserRuleContext ctx) {
         return checkerRecord.getOffset(ctx);
     }
@@ -138,28 +149,3 @@ public class CheckerStage1 extends MainGrammarBaseListener {
         return errors;
     }
 }
-
-//TODO remove
-
-
-//    @Override
-//    public void enterArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
-//        Type type = new Type(Construct.Array, PrimitiveType.valueOf(ctx.type().getText().toUpperCase()));
-//        if (declarationTable.isDeclaredInScope(ctx.id().getText())) {
-//            errors.add("Array Variable already declared: " + ctx.id().getText());
-//        } else {
-//            Variable var = new Variable(type, ctx.id().getText(), declarationTable.getNextOffset(type));
-//            declarationTable.addVariable(var);
-//            setOffset(ctx, var.getOffset());
-//        }
-//    }
-//        if (ctx.id() != null) {
-
-//        } else {
-//            setOffset(ctx, offset(ctx.arrayId()));
-//        }
-
-//    @Override
-//    public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) {
-//        setOffset(ctx, offset(ctx.id()));
-//    }

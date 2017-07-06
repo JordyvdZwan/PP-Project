@@ -8,9 +8,6 @@ forkID : Letter (Letter | NUMBER)*;
 
 program : (WS)? (statement (WS)?)+ EOF;
 
-fork: Fork WS forkID WS BGN (WS)? program (WS)? END;
-join: Join forkID;
-
 Fork: F O R K;
 Join: J O I N;
 
@@ -43,7 +40,6 @@ expression: prfOp (WS)? expression                                   #prfExpr
           | LPAR (WS)? expression (WS)? RPAR                         #parExpr
           | id                                                       #idExpr
           | num                                                      #numExpr
-          | type (WS)? OpenArray (WS)? expression (WS)? CloseArray   #arrayExpr
           | TRUE                                                     #trueExpr
           | FALSE                                                    #falseExpr
           ;

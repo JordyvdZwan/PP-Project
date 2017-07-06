@@ -12,6 +12,7 @@ import java.util.*;
 
 public class SprocklGenerator {
 
+    private final int nrOfThreads;
     /** Maps the register names from iloc to their corresponding integers in Spril */
     private Map<String, Integer> registers = new LinkedHashMap<>();
 
@@ -31,8 +32,9 @@ public class SprocklGenerator {
      * Constructor
      * @param program The program
      */
-    public SprocklGenerator(Program program) {
+    public SprocklGenerator(Program program, int nrOfThreads) {
         this.program = program;
+        this.nrOfThreads = nrOfThreads;
     }
 
     /**

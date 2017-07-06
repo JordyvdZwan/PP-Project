@@ -6,6 +6,7 @@ import checker.model.PrimitiveType;
 import grammar.MainGrammarBaseVisitor;
 import grammar.MainGrammarParser;
 import ilocGenerator.helperParsers.WrittenNumberParser;
+import jdk.internal.org.objectweb.asm.Opcodes;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -30,6 +31,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
      */
     private final static Num TRUE_VALUE = new Num(1);
 
+    private final static int DEFAULT_VALUE = 0;
     /**
      * The base register.
      */
@@ -154,7 +156,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
                 result = emit(OpCode.loadI, new Num(Simulator.FALSE), reg(ctx));
                 emit(OpCode.storeAI, reg(ctx), arp, offset(ctx.id()));
             } else {
-                result = emit(OpCode.loadI, new Num(0), reg(ctx));//TODO change default values to a final
+                result = emit(OpCode.loadI, new Num(DEFAULT_VALUE), reg(ctx));
                 emit(OpCode.storeAI, reg(ctx), arp, offset(ctx.id()));
             }
         }
@@ -191,7 +193,11 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
 //    }
     @Override
     public Op visitIdExpr(MainGrammarParser.IdExprContext ctx) {
-        return emit(OpCode.loadAI, arp, offset(ctx), reg(ctx));
+        if (global(ctx)) {
+            return emit(OpCode.conloadAI, arp, offset(ctx), reg(ctx));
+        } else {
+            return emit(OpCode.loadAI, arp, offset(ctx), reg(ctx));
+        }
     }
 
 
@@ -306,6 +312,53 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     }
 
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                      Other Structures
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    @Override
+    public Op visitSharedDeclStat(MainGrammarParser.SharedDeclStatContext ctx) {
+        Op result;
+        if (ctx.expression() != null) {
+            result = visit(ctx.expression());
+            emit(OpCode.constoreAI, reg(ctx.expression()), arp, offset(ctx.id()));
+        } else {
+            if (checkResult.getType(ctx.id()).getPrimitiveType() == PrimitiveType.INTEGER) {
+                result = emit(OpCode.loadI, new Num(Simulator.FALSE), reg(ctx));
+                emit(OpCode.constoreAI, reg(ctx), arp, offset(ctx.id()));
+            } else {
+                result = emit(OpCode.loadI, new Num(DEFAULT_VALUE), reg(ctx));
+                emit(OpCode.constoreAI, reg(ctx), arp, offset(ctx.id()));
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Op visitLockStat(MainGrammarParser.LockStatContext ctx) {
+        if (ctx.Lock() != null) {
+            return emit(OpCode.lock, offset(ctx.id()));
+        } else {
+            return emit(OpCode.unlock, offset(ctx.id()));
+        }
+    }
+
+    @Override
+    public Op visitForkStat(MainGrammarParser.ForkStatContext ctx) {
+        Label end = createLabel(ctx, "ForkEnd");
+        Op result = emit(OpCode.fork, forkId(ctx.forkID()), end);
+        visit(ctx.statement());
+        emit(OpCode.unfork, forkId(ctx.forkID()));
+        emit(end, OpCode.nop);
+        return result;
+    }
+
+    @Override
+    public Op visitJoinStat(MainGrammarParser.JoinStatContext ctx) {
+        return emit(OpCode.join, forkId(ctx.forkID()));
+    }
+
     /**
      * Constructs an operation from the parameters
      * and adds it to the program under construction.
@@ -357,6 +410,12 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
      */
     private Num offset(ParseTree node) {
         return new Num(this.checkResult.getOffset((ParserRuleContext) node));
+    }
+    private boolean global(ParseTree node) {
+        return checkResult.getGlobal((ParserRuleContext) node);
+    }
+    private Num forkId(ParseTree node) {
+        return new Num(this.checkResult.getForkId((ParserRuleContext) node));
     }
 
     /**

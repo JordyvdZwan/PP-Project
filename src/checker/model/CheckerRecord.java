@@ -14,6 +14,7 @@ public class CheckerRecord {
     private ParseTreeProperty<Type> types = new ParseTreeProperty<>();
     private ParseTreeProperty<Integer> offsets = new ParseTreeProperty<>();
     private ParseTreeProperty<Boolean> globals = new ParseTreeProperty<>();
+    private ParseTreeProperty<Integer> forkIDs = new ParseTreeProperty<>();
 
     public void setEntry(ParserRuleContext node, ParserRuleContext entry) {
         entries.put(node, entry);
@@ -26,6 +27,9 @@ public class CheckerRecord {
     }
     public void setGlobal(ParserRuleContext ctx, boolean global) {
         globals.put(ctx, global);
+    }
+    public void setForkId(ParserRuleContext ctx, Integer forkID) {
+        forkIDs.put(ctx, forkID);
     }
 
     public ParserRuleContext getEntry(ParserRuleContext node) {
@@ -40,6 +44,9 @@ public class CheckerRecord {
     public Boolean getGlobal(ParserRuleContext node) {
         return globals.get(node);
     }
+    public Integer getForkId(ParserRuleContext node) {
+        return forkIDs.get(node);
+    }
 
     public ParseTreeProperty<ParserRuleContext> getEntries() {
         return entries;
@@ -50,6 +57,9 @@ public class CheckerRecord {
     public ParseTreeProperty<Integer> getOffsets() {
         return offsets;
     }
+
+    public static int nrOfThreads = 0;
+
 
     @Override
     public String toString() {

@@ -38,26 +38,6 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 */
 	void exitProgram(MainGrammarParser.ProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#fork}.
-	 * @param ctx the parse tree
-	 */
-	void enterFork(MainGrammarParser.ForkContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#fork}.
-	 * @param ctx the parse tree
-	 */
-	void exitFork(MainGrammarParser.ForkContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#join}.
-	 * @param ctx the parse tree
-	 */
-	void enterJoin(MainGrammarParser.JoinContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#join}.
-	 * @param ctx the parse tree
-	 */
-	void exitJoin(MainGrammarParser.JoinContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code declStat}
 	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
@@ -207,18 +187,6 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParExpr(MainGrammarParser.ParExprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code arrayExpr}
-	 * labeled alternative in {@link MainGrammarParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterArrayExpr(MainGrammarParser.ArrayExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code arrayExpr}
-	 * labeled alternative in {@link MainGrammarParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitArrayExpr(MainGrammarParser.ArrayExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code trueExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.

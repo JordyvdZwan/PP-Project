@@ -29,18 +29,6 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(MainGrammarParser.ProgramContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MainGrammarParser#fork}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFork(MainGrammarParser.ForkContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MainGrammarParser#join}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJoin(MainGrammarParser.JoinContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code declStat}
 	 * labeled alternative in {@link MainGrammarParser#statement}.
 	 * @param ctx the parse tree
@@ -128,13 +116,6 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitParExpr(MainGrammarParser.ParExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code arrayExpr}
-	 * labeled alternative in {@link MainGrammarParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayExpr(MainGrammarParser.ArrayExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code trueExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.

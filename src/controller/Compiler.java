@@ -388,7 +388,7 @@ public class Compiler {
             subStageStart = System.currentTimeMillis();
             {
                 // ILOC Code Generation Stage 1 Body
-                SprocklGenerator generator = new SprocklGenerator(ilocProgram);
+                SprocklGenerator generator = new SprocklGenerator(ilocProgram, CheckerRecord.nrOfThreads);
                 try {
                     if (ilocProgram != null) sprocklResult = generator.generate(DEBUG, PRETTYPRINT);
                 } catch (UnsupportedInstructionException e) {
