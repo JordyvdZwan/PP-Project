@@ -20,7 +20,7 @@ public class SprockellTest {
     @Before
     public void before() {
         program = new Program();
-        sprockell = new SprocklGenerator(program);
+        sprockell = new SprocklGenerator(program, 1);
     }
 
     @Test

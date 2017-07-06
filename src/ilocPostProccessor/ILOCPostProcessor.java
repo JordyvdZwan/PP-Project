@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class ILOCPostProcessor {
 
-    private final int MAX_SPARE_REGISTERS = 3;
+    private final int MAX_SPARE_REGISTERS = 2;
     private Program original;
     private Program result = new Program();
 

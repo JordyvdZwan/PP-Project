@@ -11,15 +11,15 @@ program : (WS)? (statement (WS)?)+ EOF;
 Fork: F O R K;
 Join: J O I N;
 
-statement: (WS)? (Var WS)? type WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?                                                  #declStat
-         | (WS)? (Var WS)? Shared WS type WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?                                        #sharedDeclStat
-         | (WS)? target WS ASS WS expression (WS)? EndStatement (WS)?                                                                   #assStat
-         | (WS)? IF (WS)? expression (WS)? (THEN)? (WS)? statement ((WS)? ELSE (WS)? statement)? (WS)?                                  #ifStat
-         | (WS)? WHILE (WS)? expression (WS)? (DO)? (WS)? statement (WS)?                                                               #whileStat
-         | (WS)? BGN (WS)? (statement)+ (WS)? END (WS)?                                                                                 #blockStat
-         | (WS)? (Lock | Unlock) (WS)? LPAR (WS)? id (WS)? RPAR (WS)? EndStatement (WS)?                                                #lockStat
-         | (WS)? Fork (WS)? LPAR (WS)? forkID (WS)? RPAR (WS)? statement (WS)?                                                          #forkStat
-         | (WS)? Join (WS)? LPAR (WS)? forkID (WS)? EndStatement                                                                        #joinStat
+statement: (WS)? (Var WS)? type WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?                                       #declStat
+         | (WS)? (Var WS)? Shared WS type WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?                             #sharedDeclStat
+         | (WS)? target WS ASS WS expression (WS)? EndStatement (WS)?                                                        #assStat
+         | (WS)? IF (WS)? expression (WS)? (THEN)? (WS)? statement ((WS)? ELSE (WS)? statement)? (WS)?                       #ifStat
+         | (WS)? WHILE (WS)? expression (WS)? (DO)? (WS)? statement (WS)?                                                    #whileStat
+         | (WS)? BGN (WS)? (statement)+ (WS)? END (WS)?                                                                      #blockStat
+         | (WS)? (Lock | Unlock) (WS)? LPAR (WS)? id (WS)? RPAR (WS)? EndStatement (WS)?                                     #lockStat
+         | (WS)? Fork (WS)? LPAR (WS)? forkID (WS)? RPAR (WS)? statement (WS)?                                               #forkStat
+         | (WS)? Join (WS)? LPAR (WS)? forkID (WS)? RPAR (WS)? EndStatement (WS)?                                            #joinStat
          ;
 
 Shared: S H A R E D;

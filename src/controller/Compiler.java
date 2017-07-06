@@ -45,7 +45,7 @@ public class Compiler {
     private final static boolean ILOC_POSTPROCESSOR_SIMULATOR_RUN = true;
 
     private final static boolean DEBUG = true;
-    private final static boolean PRETTYPRINT = false;
+    private static boolean PRETTYPRINT = true;
 
 
     private static Log log = new Log(PRINT_TO_SCREEN, WRITE_TO_FILE, LOG_TYPE);
@@ -63,6 +63,25 @@ public class Compiler {
             String input = sb.toString();
 
             String result = compiler.compile(input);
+            if (PRETTYPRINT) {
+                try {
+                    Writer writer;
+                    writer = new BufferedWriter(new OutputStreamWriter(
+                            new FileOutputStream("resources\\out\\outputpretty.hs"), "utf-8"));
+                    writer.append(result);
+                    writer.flush();
+                    writer = new BufferedWriter(new OutputStreamWriter(
+                            new FileOutputStream("resources\\out\\archive\\ppl-outputpretty-" + LogItem.sdf.format(new Date()) + ".hs"), "utf-8"));
+                    writer.append(result);
+                    writer.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.addLogItem("Could not write to output file!", LogType.Error);
+                }
+
+                PRETTYPRINT = false;
+                result = compiler.compile(input);
+            }
             try {
                 Writer writer;
                 writer = new BufferedWriter(new OutputStreamWriter(

@@ -110,8 +110,13 @@ public class CheckerStage1 extends MainGrammarBaseListener {
     public void enterForkStat(MainGrammarParser.ForkStatContext ctx) {
         if (declarationTable.addForkId(ctx.forkID().getText()) == -1) errors.add("ForkID is already declared: " + ctx.forkID().getText());
         CheckerRecord.nrOfThreads++;
-        setForkId(ctx, declarationTable.getForkId(ctx.forkID().getText()).getNumber());
+        setForkId(ctx.forkID(), declarationTable.getForkId(ctx.forkID().getText()).getNumber());
         declarationTable.createThread();
+    }
+
+    @Override
+    public void exitForkStat(MainGrammarParser.ForkStatContext ctx) {
+        declarationTable.exitThread();
     }
 
     @Override
@@ -119,9 +124,8 @@ public class CheckerStage1 extends MainGrammarBaseListener {
         if (null == declarationTable.getForkId(ctx.forkID().getText())) {
             errors.add("Threadid not in scope! id: " + ctx.forkID().getText());
         } else {
-            setForkId(ctx, declarationTable.getForkId(ctx.forkID().getText()).getNumber());
+            setForkId(ctx.forkID(), declarationTable.getForkId(ctx.forkID().getText()).getNumber());
         }
-        declarationTable.exitThread();
     }
 
     @Override

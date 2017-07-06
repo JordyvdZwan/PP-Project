@@ -1,13 +1,7 @@
-Var Integer i;
-i = _Two;
-while (i < 5) Do {
-    i = i + 1;
+Integer i = 1;
+Shared Integer test = 0;
+fork (hello) {
+    test = 2;
 }
-if (i == 5) then {
-    Boolean bol = false;
-    bol = true;
-    i = 6;
-} else {
-    i = 5;
-}
-Boolean live;
+join(hello);
+test = 0;

@@ -199,6 +199,14 @@ public class CheckerStage2 extends MainGrammarBaseListener {
     public void exitBlockStat(MainGrammarParser.BlockStatContext ctx) {
         closeScope(ctx);
     }
+    @Override
+    public void enterForkStat(MainGrammarParser.ForkStatContext ctx) {
+        declarationTable.openThread();
+    }
+    @Override
+    public void exitForkStat(MainGrammarParser.ForkStatContext ctx) {
+        declarationTable.closeThread();
+    }
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
