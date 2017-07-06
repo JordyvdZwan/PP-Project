@@ -1,5 +1,6 @@
 package ilocGenerator;
 
+import checker.Checker;
 import checker.model.CheckerRecord;
 import checker.model.DeclarationTable;
 import checker.model.PrimitiveType;
@@ -133,7 +134,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     public Op visitAssStat(MainGrammarParser.AssStatContext ctx) {
         Op result = visit(ctx.expression());
         if (global(ctx.target().id())) {
-            emit(OpCode.constoreAI, reg(ctx.expression()), arp, offset(ctx.target()));
+            emit(OpCode.constoreAI, reg(ctx.expression()), arp, globaloffset(ctx.target()));
         } else {
             emit(OpCode.storeAI, reg(ctx.expression()), arp, offset(ctx.target()));
         }
@@ -174,7 +175,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     @Override
     public Op visitIdExpr(MainGrammarParser.IdExprContext ctx) {
         if (global(ctx.id())) {
-            return emit(OpCode.conloadAI, arp, offset(ctx), reg(ctx));
+            return emit(OpCode.conloadAI, arp, globaloffset(ctx), reg(ctx));
         } else {
             return emit(OpCode.loadAI, arp, offset(ctx), reg(ctx));
         }
@@ -297,14 +298,14 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         Op result;
         if (ctx.expression() != null) {
             result = visit(ctx.expression());
-            emit(OpCode.constoreAI, reg(ctx.expression()), arp, offset(ctx.id()));
+            emit(OpCode.constoreAI, reg(ctx.expression()), arp, globaloffset(ctx.id()));
         } else {
             if (checkResult.getType(ctx.id()).getPrimitiveType() == PrimitiveType.INTEGER) {
                 result = emit(OpCode.loadI, new Num(Simulator.FALSE), reg(ctx));
-                emit(OpCode.constoreAI, reg(ctx), arp, offset(ctx.id()));
+                emit(OpCode.constoreAI, reg(ctx), arp, globaloffset(ctx.id()));
             } else {
                 result = emit(OpCode.loadI, new Num(DEFAULT_VALUE), reg(ctx));
-                emit(OpCode.constoreAI, reg(ctx), arp, offset(ctx.id()));
+                emit(OpCode.constoreAI, reg(ctx), arp, globaloffset(ctx.id()));
             }
         }
         return result;
@@ -387,6 +388,9 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
      */
     private Num offset(ParseTree node) {
         return new Num(this.checkResult.getOffset((ParserRuleContext) node));
+    }
+    private Num globaloffset(ParseTree node) {
+        return new Num(CheckerRecord.nrOfThreads + this.checkResult.getOffset((ParserRuleContext) node));
     }
     private boolean global(ParseTree node) {
         return checkResult.getGlobal((ParserRuleContext) node);
