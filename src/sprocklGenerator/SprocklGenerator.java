@@ -45,7 +45,7 @@ public class SprocklGenerator {
      * @throws UnsupportedInstructionException When there is an instruction not defined.
      * @throws TooManyRegistersException
      */
-    public String generate(Boolean debug, Boolean prettyPrint) throws UnsupportedInstructionException, TooManyRegistersException {
+    public String generate(Boolean debug, Boolean extendedDebug, Boolean prettyPrint) throws UnsupportedInstructionException, TooManyRegistersException {
         registers.put("reg0", 0);
         registers.put("regSprID", 1);
         /** Start of Haskell code. */
@@ -53,7 +53,7 @@ public class SprocklGenerator {
                 "prog :: [Instruction] \n";
 
         /** Loops all the extra threads until they receive an instruction. */
-        result = result + "prog = [Nop, Branch regSprID (Rel -1), ";
+        result = result + "prog = [Nop, Branch regSprID (Rel (-1)), ";
 
         /** Initialises the used variables. */
         extraSprockell = 2;
@@ -251,14 +251,19 @@ public class SprocklGenerator {
                     break;
 
                 case "fork":
-                    result = result + fork(line) + ", ";
+                    extraSprockell += 2;
+                    todo.add(anInstr);
+                    result = result + "TODO";
                     break;
 
                 case "unfork":
-                    result = result + unfork(line) + ", ";
+                    extraSprockell++;
+                    todo.add(anInstr);
+                    result = result + "TODO";
                     break;
 
                 case "join":
+                    extraSprockell += 6;
                     result = result + join(line) + ", ";
                     break;
 
@@ -294,21 +299,43 @@ public class SprocklGenerator {
                 case "cbr":
                     result = result.replaceFirst("TODO", cbr(line) + ", ");
                     break;
+
+                case "fork":
+                    result = result.replaceFirst("TODO", fork(line) + ", ");
+                    break;
+
+                case "unfork":
+                    result = result.replaceFirst("TODO", unfork(line) + ", ");
+                    break;
             }
         }
+        int lines = program.getInstr().size() + extraSprockell + nrOfThreads + 1;
 
         /** Finishes the Haskell code. */
-        result = result + "EndProg ]";
+        result = result + "Load (ImmValue " + lines + ") 7, ";
+        for (int i = 1; i < nrOfThreads; i++) {
+            result = result + "WriteInstr 7 (DirAddr " + i + "), ";
+        }
+        result = result + "EndProg]";
+        String prog = "prog";
+        for (int i = 1; i < nrOfThreads; i++) {
+            prog = prog + ", prog";
+        }
         if (debug) {
-            result = result + "\nmain = runWithDebugger (debuggerSimplePrint showLocalMem) [prog]\n\n" +
-                    "showLocalMem :: DbgInput -> String\n" +
-                    "showLocalMem ( _ , systemState ) = show $ localMem $ head $ sprStates systemState";
+            if (extendedDebug) {
+                result = result + "\nmain = runWithDebugger (debuggerSimplePrintAndWait showLocalMem) [" + prog + "]\n\n" +
+                        "showLocalMem :: DbgInput -> String\n" +
+                        "showLocalMem ( _ , systemState ) = show $ localMem $ head $ sprStates systemState";
+            } else {
+                result = result + "\nmain = runWithDebugger (debuggerSimplePrint showLocalMem) [" + prog + "]\n\n" +
+                        "showLocalMem :: DbgInput -> String\n" +
+                        "showLocalMem ( _ , systemState ) = show $ localMem $ head $ sprStates systemState";
+            }
         } else {
-            result = result + "\nmain = run [prog]";
+            result = result + "\nmain = run [" + prog + "]";
         }
         return result;
     }
-    //TODO runWithDebugger (debuggerSimplePrintAndWait myShow) [prog]
 
     /**
      * This function assigns a number to a register, which has a String name in iloc.
@@ -1023,24 +1050,24 @@ public class SprocklGenerator {
     /**
      * Loads the the address of the label into register 7.
      * Overwrites the programcounter of the right thread to the right line.
-     * @param input The iloc code split at whitespaces : [fork, integer, label]
+     * @param input The iloc code split at whitespaces : [fork, =>, integer,label,label]
      * @return The generated sprockell code.
      * @throws TooManyRegistersException thrown when too many registers are used
      */
     private String fork(String[] input) throws TooManyRegistersException {
-        extraSprockell++;
-        return "Load (ImmValue " + jumps.get(new Label(input[2])) + ") 7, WriteInstr 7 (DirAddr " + input[1];
+        String[] comma = input[2].split(",");
+        return "Load (ImmValue " + (jumps.get(new Label(comma[2])) + 1) + ") 7, WriteInstr 7 (DirAddr " + comma[0] + ")," +
+                " Jump (Abs " + (jumps.get(new Label(comma[1])) + 1) + ") ";
     }
 
     /**
      * Overwrites the programcounter of the right thread to the start of the program.
-     * @param input The iloc code split at whitespaces : [unfork, integer]
+     * @param input The iloc code split at whitespaces : [unfork, =>, integer]
      * @return The generated sprockell code.
      * @throws TooManyRegistersException thrown when too many registers are used
      */
     private String unfork(String[] input) throws TooManyRegistersException {
-        extraSprockell++;
-        return "Load (ImmValue 1) 7, WriteInstr 7 (DirAddr " + input[1] + ")";
+        return "Load (ImmValue 1) 7, WriteInstr 7 (DirAddr " + input[2] + ")";
     }
 
     /**
@@ -1050,8 +1077,7 @@ public class SprocklGenerator {
      * @throws TooManyRegistersException thrown when too many registers are used
      */
     private String join(String[] input) throws TooManyRegistersException {
-        extraSprockell += 6;
-        return "Push 3, ReadInstr " + input[1] +  ", Receive 3, Load (ImmValue 2) 7, Compare Lt 7, Branch 7 (Rel (2), Jump (Rel (-3))";
+        return "Push 3, ReadInstr (DirAddr " + input[1] +  "), Receive 3, Load (ImmValue 2) 7, Compute Lt 7 3 7, Branch 7 (Rel (2)), Jump (Rel (-3))";
     }
 
     /**
