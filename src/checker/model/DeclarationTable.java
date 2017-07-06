@@ -21,7 +21,7 @@ public class DeclarationTable {
     private List<Scope> scopes = new ArrayList<>();
     private LinkedList<Scope> queue = new LinkedList<>();
 
-    private static int nextForkId = 1;
+    private int nextForkId = 1;
 
     public DeclarationTable() {
         root  = new Scope();
@@ -192,7 +192,7 @@ public class DeclarationTable {
         @Override
         public String toString() {
             String res = "";
-            res += variables + "\n";
+            res += variables + ": " + forkIds + "\n";
             for (Scope child : children) {
                 res += "    " + child;
             }
@@ -207,7 +207,7 @@ public class DeclarationTable {
         }
 
         private int genNextForkId() {
-            return DeclarationTable.nextForkId++;
+            return nextForkId++;
         }
 
         public Id getForkId(String text) {

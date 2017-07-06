@@ -44,13 +44,12 @@ public class Compiler {
 
     public static boolean DEBUG = true;
     public static boolean PRETTYPRINT = true;
-    public static boolean EXTENDED = false;
+    public static boolean EXTENDED = true;
 
 
     private static Log log = new Log(PRINT_TO_SCREEN, WRITE_TO_FILE, LOG_TYPE);
 
     public static void main(String[] args) {
-        Compiler compiler = new Compiler();
         try {
             String filePath = new File("").getAbsolutePath();
             Scanner in = new Scanner(new FileReader(filePath + "\\resources\\src\\input.ppl"));
@@ -61,7 +60,7 @@ public class Compiler {
             in.close();
             String input = sb.toString();
 
-            String result = compiler.compile(input);
+            String result = Compiler.compile(input);
             if (PRETTYPRINT) {
                 try {
                     Writer writer;
@@ -79,7 +78,7 @@ public class Compiler {
                 }
 
                 PRETTYPRINT = false;
-                result = compiler.compile(input);
+                result = Compiler.compile(input);
             }
             try {
                 Writer writer;
@@ -322,6 +321,8 @@ public class Compiler {
             }
             Log.addLogItem("Checking Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
         }
+
+        System.out.println(declarationTable);
 
         /*
          * ILOC Pre-processing Phase
