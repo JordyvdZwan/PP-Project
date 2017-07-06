@@ -658,7 +658,7 @@ public class SprocklGenerator {
      * The function will try to assign a number to the registers.
      * If that succeeds it will convert the input to Sprockell.
      * @param input The String array containing the iloc code split at whitespaces : [store, register1, =>, register2]
-     * @return The Sprockell code "Store (IndAddr register1) register2"
+     * @return The Sprockell code "Store register1 (IndAddr register2)"
      * @throws TooManyRegistersException thrown when too many registers are used
      */
     private String store(String[] input) throws TooManyRegistersException {
