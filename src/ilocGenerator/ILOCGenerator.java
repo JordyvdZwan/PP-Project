@@ -193,7 +193,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
 //    }
     @Override
     public Op visitIdExpr(MainGrammarParser.IdExprContext ctx) {
-        if (global(ctx)) {
+        if (global(ctx.id())) {
             return emit(OpCode.conloadAI, arp, offset(ctx), reg(ctx));
         } else {
             return emit(OpCode.loadAI, arp, offset(ctx), reg(ctx));
@@ -296,7 +296,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     public Op visitProgram(MainGrammarParser.ProgramContext ctx) {
         Op res = emit(OpCode.loadI, new Num(declarationTable.getNextOffset()), reg(ctx));
         emit(OpCode.storeAI, reg(ctx), arp, new Num(0));
-        dynamicMemoryPointer = reg(ctx);
+        emit(OpCode.loadI, new Num(CheckerRecord.nrOfThreads * 4), arp);
         for (int i = 0; i < ctx.statement().size(); i++) {
             visit(ctx.statement(i));
         }

@@ -1,7 +1,2 @@
-Integer i = 1;
-Shared Integer test = 0;
-fork (hello) {
-    test = 2;
-}
-join(hello);
-test = 0;
+Integer i = 0;
+i = i + 1;
