@@ -1,7 +1,10 @@
-Integer i = 1;
-Shared Integer test = 0;
-fork (hello) {
-    test = 2;
+Var Integer i;
+i = 4;
+while (i < 5) Do {
+    i = i + 1;
 }
-join(hello);
-test = 0;
+if (i == 5) then {
+    i = 6;
+} else {
+    i = 5;
+}

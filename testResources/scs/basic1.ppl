@@ -1,5 +1,5 @@
 Var Integer i;
-i = 1;
+i = 4;
 while (i < 5) Do {
     i = i + 1;
 }

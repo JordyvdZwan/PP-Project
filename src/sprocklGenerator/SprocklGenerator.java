@@ -931,7 +931,7 @@ public class SprocklGenerator {
     private String cbr(String[] input) throws TooManyRegistersException {
         String[] comma = input[3].split(",");
         addRegister(input[1]);
-        String result = "Branch " + registers.get(input[1]) + "(Abs " + (jumps.get(new Label(comma[0]))) + "), ";
+        String result = "Branch " + registers.get(input[1]) + "(Abs " + (jumps.get(new Label(comma[0])) + 2) + "), ";
         result = result + "Jump (Abs " + (jumps.get(new Label(comma[1])) + 1) + ")";
         return result;
     }

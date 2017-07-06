@@ -38,7 +38,25 @@ public class RunTest {
     }
 
     @Test(timeout=10000)
-    public void genericTest() {
+    public void basic3Test() {
+        String inputPath = projectRootPath + "\\testResources\\scs";
+        String inputFileName = "basic3.ppl";
+        String outputPath = "resources\\out";
+        String outputFileName = "output.hs";
+
+        try {
+            Compiler.compileFile(inputPath, inputFileName, outputPath, outputFileName);
+        } catch (IOException | SyntaxErrorException | CompilerErrorException | CheckerException e) {
+            e.printStackTrace();
+            Assert.fail("Exception Thrown: " + e.getMessage());
+        }
+
+        String result = runProgram(outputPath, outputFileName);
+        check(result, "[2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+    }
+
+    @Test(timeout=10000)
+    public void basic1Test() {
         String inputPath = projectRootPath + "\\testResources\\scs";
         String inputFileName = "basic1.ppl";
         String outputPath = "resources\\out";
@@ -52,7 +70,7 @@ public class RunTest {
         }
 
         String result = runProgram(outputPath, outputFileName);
-        check(result, "[8,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+        check(result, "[2,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
 
 

@@ -15,7 +15,7 @@ public class DeclarationTable {
     private Scope root;
     private Scope scope;
     private Scope globalScope;
-    private Integer nextOffset = 4;
+    private Integer nextOffset = 1;
 
     private int scopePointer = 1;
     private List<Scope> scopes = new ArrayList<>();
