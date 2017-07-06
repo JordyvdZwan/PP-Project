@@ -11,7 +11,6 @@ import ilocPostProccessor.ILOCPostProcessor;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import sprocklGenerator.SprocklGenerator;
-import utils.iloc.Simulator;
 import utils.iloc.model.Program;
 import utils.log.Log;
 import utils.log.LogItem;
@@ -46,6 +45,7 @@ public class Compiler {
 
     private final static boolean DEBUG = true;
     private static boolean PRETTYPRINT = true;
+    private final boolean EXTENDED = false;
 
 
     private static Log log = new Log(PRINT_TO_SCREEN, WRITE_TO_FILE, LOG_TYPE);
@@ -409,7 +409,7 @@ public class Compiler {
                 // ILOC Code Generation Stage 1 Body
                 SprocklGenerator generator = new SprocklGenerator(ilocProgram, CheckerRecord.nrOfThreads);
                 try {
-                    if (ilocProgram != null) sprocklResult = generator.generate(DEBUG, PRETTYPRINT);
+                    if (ilocProgram != null) sprocklResult = generator.generate(DEBUG, EXTENDED, PRETTYPRINT);
                 } catch (UnsupportedInstructionException e) {
                     throw new CompilerErrorException("Unsupported instruction during Sprockl Conversion: " + e.getMessage());
                 } catch (TooManyRegistersException e) {
