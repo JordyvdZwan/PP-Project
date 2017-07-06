@@ -54,7 +54,7 @@ public class SprocklGenerator {
 
         /** Loops all the extra threads until they receive an instruction. */
         result = result + "prog = [Branch regSprID (Rel 2), Jump (Rel 6), ReadInstr (IndAddr regSprID), Receive regA, " +
-                          "Compute Equal regA reg0 regB, Branch regB (Rel (-3)), WriteInstr regA numberIO, Jump (Ind regA), ";
+                          "Compute Equal regA reg0 regB, Branch regB (Rel (-3)), Jump (Ind regA), ";
 
         /** Initialises the used variables. */
         extraSprockell = 8;
@@ -258,7 +258,7 @@ public class SprocklGenerator {
                     break;
 
                 case "unfork":
-                    extraSprockell++;
+                    extraSprockell += 2;
                     todo.add(anInstr);
                     result = result + "TODO";
                     break;
@@ -310,7 +310,7 @@ public class SprocklGenerator {
                     break;
             }
         }
-        int lines = program.getInstr().size() + extraSprockell + nrOfThreads + 1;
+        int lines = program.getInstr().size() + extraSprockell + nrOfThreads - 1;
 
         /** Finishes the Haskell code. */
         result = result + "Load (ImmValue " + lines + ") 7, ";
@@ -1068,7 +1068,7 @@ public class SprocklGenerator {
      * @throws TooManyRegistersException thrown when too many registers are used
      */
     private String unfork(String[] input) throws TooManyRegistersException {
-        return "Load (ImmValue 1) 7, WriteInstr 7 (DirAddr " + input[2] + ")";
+        return "Load (ImmValue 1) 7, WriteInstr 7 (DirAddr " + input[2] + "), Jump (Abs 0)";
     }
 
     /**
