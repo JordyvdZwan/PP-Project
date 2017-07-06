@@ -340,11 +340,6 @@ public class Compiler {
                     ilocProgram.prettyPrint() +
                     "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", LogType.Dev);
 
-            Simulator simulator = new Simulator(ilocProgram);
-            simulator.run();
-            Log.addLogItem("ILOC Simulator execution:\nVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV\n" +
-                    simulator.getVM().toString() + "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", LogType.Dev);
-
         }
         Log.addLogItem("ILOC Code Generation Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
 
@@ -373,11 +368,6 @@ public class Compiler {
             Log.addLogItem("ILOC PROGRAM PRINT:\nVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV\n" +
                     ilocProgram.prettyPrint() +
                     "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", LogType.Dev);
-
-            Simulator simulator = new Simulator(ilocProgram);
-            simulator.run();
-            Log.addLogItem("ILOC Simulator execution:\nVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV\n" +
-                    simulator.getVM().toString() + "\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", LogType.Dev);
         }
 
 

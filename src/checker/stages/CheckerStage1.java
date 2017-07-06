@@ -53,22 +53,24 @@ public class CheckerStage1 extends MainGrammarBaseListener {
             errors.add("Variable already declared: " + ctx.id().getText());
         } else {
             Variable var = new Variable(type, ctx.id().getText(), declarationTable.getNextOffset(type));
+            var.setGlobal(false);
             declarationTable.addVariable(var);
             setOffset(ctx, var.getOffset());
         }
     }
 
-//    @Override
-//    public void enterArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
-//        Type type = new Type(Construct.Array, PrimitiveType.valueOf(ctx.type().getText().toUpperCase()));
-//        if (declarationTable.isDeclaredInScope(ctx.id().getText())) {
-//            errors.add("Array Variable already declared: " + ctx.id().getText());
-//        } else {
-//            Variable var = new Variable(type, ctx.id().getText(), declarationTable.getNextOffset(type));
-//            declarationTable.addVariable(var);
-//            setOffset(ctx, var.getOffset());
-//        }
-//    }
+    @Override
+    public void enterSharedDeclStat(MainGrammarParser.SharedDeclStatContext ctx) {
+        Type type = new Type(PrimitiveType.valueOf(ctx.type().primitiveType().getText().toUpperCase()));
+        if (declarationTable.isDeclaredInGlobal(ctx.id().getText())) {
+            errors.add("Shared variable already declared in Global Scope: " + ctx.id().getText());
+        } else {
+            Variable var = new Variable(type, ctx.id().getText(), declarationTable.getNextOffset(type));
+            var.setGlobal(true);
+            declarationTable.addVariable(var);
+            setOffset(ctx, var.getOffset());
+        }
+    }
 
     @Override
     public void exitId(MainGrammarParser.IdContext ctx) {
@@ -76,22 +78,14 @@ public class CheckerStage1 extends MainGrammarBaseListener {
             errors.add("Variable is not declared: " + ctx.getText());
         } else {
             setOffset(ctx, declarationTable.getVariable(ctx.getText()).getOffset());
+            setGlobal(ctx, declarationTable.getVariable(ctx.getText()).getGlobal());
         }
     }
 
     @Override
     public void exitTarget(MainGrammarParser.TargetContext ctx) {
-//        if (ctx.id() != null) {
-            setOffset(ctx, offset(ctx.id()));
-//        } else {
-//            setOffset(ctx, offset(ctx.arrayId()));
-//        }
+        setOffset(ctx, offset(ctx.id()));
     }
-
-//    @Override
-//    public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) {
-//        setOffset(ctx, offset(ctx.id()));
-//    }
 
     @Override
     public void exitIdExpr(MainGrammarParser.IdExprContext ctx) {
@@ -112,12 +106,30 @@ public class CheckerStage1 extends MainGrammarBaseListener {
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public void enterFork(MainGrammarParser.ForkContext ctx) {
+        super.enterFork(ctx);
+    }
+
+    @Override
+    public void exitFork(MainGrammarParser.ForkContext ctx) {
+        super.exitFork(ctx);
+    }
+
+    @Override
+    public void exitJoin(MainGrammarParser.JoinContext ctx) {
+        super.exitJoin(ctx);
+    }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
     //                      Helper Functions
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void setOffset(ParserRuleContext ctx, Integer offset) {
         checkerRecord.setOffset(ctx, offset);
+    }
+    private void setGlobal(ParserRuleContext ctx, boolean global) {
+        checkerRecord.setGlobal(ctx, global);
     }
     private Integer offset(ParserRuleContext ctx) {
         return checkerRecord.getOffset(ctx);
@@ -126,3 +138,28 @@ public class CheckerStage1 extends MainGrammarBaseListener {
         return errors;
     }
 }
+
+//TODO remove
+
+
+//    @Override
+//    public void enterArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
+//        Type type = new Type(Construct.Array, PrimitiveType.valueOf(ctx.type().getText().toUpperCase()));
+//        if (declarationTable.isDeclaredInScope(ctx.id().getText())) {
+//            errors.add("Array Variable already declared: " + ctx.id().getText());
+//        } else {
+//            Variable var = new Variable(type, ctx.id().getText(), declarationTable.getNextOffset(type));
+//            declarationTable.addVariable(var);
+//            setOffset(ctx, var.getOffset());
+//        }
+//    }
+//        if (ctx.id() != null) {
+
+//        } else {
+//            setOffset(ctx, offset(ctx.arrayId()));
+//        }
+
+//    @Override
+//    public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) {
+//        setOffset(ctx, offset(ctx.id()));
+//    }

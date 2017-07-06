@@ -181,7 +181,8 @@ public enum OpCode {
 	constoreAO(1, REG, REG, REG),
 
 	/** id of thread and line to skip to*/
-	fork(0, NUM, NUM),
+	fork(0, NUM, LABEL),
+	unfork(0, NUM),
 	/** id of thread to wait for*/
 	join(1, NUM),
 

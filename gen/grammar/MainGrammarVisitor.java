@@ -17,11 +17,29 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitId(MainGrammarParser.IdContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MainGrammarParser#forkID}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForkID(MainGrammarParser.ForkIDContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MainGrammarParser#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitProgram(MainGrammarParser.ProgramContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MainGrammarParser#fork}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFork(MainGrammarParser.ForkContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MainGrammarParser#join}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJoin(MainGrammarParser.JoinContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code declStat}
 	 * labeled alternative in {@link MainGrammarParser#statement}.
@@ -29,6 +47,13 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDeclStat(MainGrammarParser.DeclStatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code sharedDeclStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSharedDeclStat(MainGrammarParser.SharedDeclStatContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code assStat}
 	 * labeled alternative in {@link MainGrammarParser#statement}.
@@ -57,6 +82,33 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBlockStat(MainGrammarParser.BlockStatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code lockStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLockStat(MainGrammarParser.LockStatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code forkStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForkStat(MainGrammarParser.ForkStatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code joinStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJoinStat(MainGrammarParser.JoinStatContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MainGrammarParser#target}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTarget(MainGrammarParser.TargetContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MainGrammarParser#type}.
 	 * @param ctx the parse tree
@@ -152,12 +204,6 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNum(MainGrammarParser.NumContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MainGrammarParser#target}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTarget(MainGrammarParser.TargetContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MainGrammarParser#prfOp}.
 	 * @param ctx the parse tree

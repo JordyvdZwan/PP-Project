@@ -18,6 +18,16 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 */
 	void exitId(MainGrammarParser.IdContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#forkID}.
+	 * @param ctx the parse tree
+	 */
+	void enterForkID(MainGrammarParser.ForkIDContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#forkID}.
+	 * @param ctx the parse tree
+	 */
+	void exitForkID(MainGrammarParser.ForkIDContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MainGrammarParser#program}.
 	 * @param ctx the parse tree
 	 */
@@ -27,6 +37,26 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitProgram(MainGrammarParser.ProgramContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#fork}.
+	 * @param ctx the parse tree
+	 */
+	void enterFork(MainGrammarParser.ForkContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#fork}.
+	 * @param ctx the parse tree
+	 */
+	void exitFork(MainGrammarParser.ForkContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#join}.
+	 * @param ctx the parse tree
+	 */
+	void enterJoin(MainGrammarParser.JoinContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#join}.
+	 * @param ctx the parse tree
+	 */
+	void exitJoin(MainGrammarParser.JoinContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code declStat}
 	 * labeled alternative in {@link MainGrammarParser#statement}.
@@ -39,6 +69,18 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDeclStat(MainGrammarParser.DeclStatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code sharedDeclStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterSharedDeclStat(MainGrammarParser.SharedDeclStatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code sharedDeclStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitSharedDeclStat(MainGrammarParser.SharedDeclStatContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code assStat}
 	 * labeled alternative in {@link MainGrammarParser#statement}.
@@ -87,6 +129,52 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBlockStat(MainGrammarParser.BlockStatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code lockStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterLockStat(MainGrammarParser.LockStatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code lockStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitLockStat(MainGrammarParser.LockStatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code forkStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterForkStat(MainGrammarParser.ForkStatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code forkStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitForkStat(MainGrammarParser.ForkStatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code joinStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterJoinStat(MainGrammarParser.JoinStatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code joinStat}
+	 * labeled alternative in {@link MainGrammarParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitJoinStat(MainGrammarParser.JoinStatContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#target}.
+	 * @param ctx the parse tree
+	 */
+	void enterTarget(MainGrammarParser.TargetContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#target}.
+	 * @param ctx the parse tree
+	 */
+	void exitTarget(MainGrammarParser.TargetContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MainGrammarParser#type}.
 	 * @param ctx the parse tree
@@ -249,16 +337,6 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNum(MainGrammarParser.NumContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#target}.
-	 * @param ctx the parse tree
-	 */
-	void enterTarget(MainGrammarParser.TargetContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#target}.
-	 * @param ctx the parse tree
-	 */
-	void exitTarget(MainGrammarParser.TargetContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MainGrammarParser#prfOp}.
 	 * @param ctx the parse tree

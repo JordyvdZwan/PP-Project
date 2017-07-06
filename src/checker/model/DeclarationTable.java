@@ -13,11 +13,39 @@ public class DeclarationTable {
 
     private Scope root;
     private Scope scope;
+    private Scope globalScope;
     private Integer nextOffset = 4;
+
+    private int scopePointer = 1;
+    private List<Scope> scopes = new ArrayList<>();
+    private LinkedList<Scope> queue = new LinkedList<>();
 
     public DeclarationTable() {
         root  = new Scope();
+        globalScope = new Scope();
         scope = root;
+        scopes.add(root);
+        queue.add(root);
+    }
+
+    public void createThread() {
+        Scope newScope = new Scope();
+        scope = newScope;
+        queue.add(newScope);
+        scopes.add(newScope);
+    }
+
+    public void openThread() {
+        scope = scopes.get(scopePointer++);
+    }
+
+    public void exitThread() {
+        scope = queue.pop();
+        scopes.add(scope);
+    }
+
+    public void closeThread() {
+        scope = scopes.get(scopePointer++);
     }
 
     public void createScope() {
@@ -32,16 +60,24 @@ public class DeclarationTable {
         scope = scope.closeScope();
     }
 
+    public void addGlobalVariable(Variable variable) {
+        globalScope.addVariable(variable);
+    }
+
     public void addVariable(Variable variable) {
         scope.addVariable(variable);
     }
 
     public Variable getVariable(String name) {
-        return scope.getVariable(name);
+        return scope.getVariable(name) != null ? scope.getVariable(name) : globalScope.getVariable(name);
     }
 
     public boolean isDeclared(String name) {
-        return scope.isDeclared(name);
+        return scope.isDeclared(name) || globalScope.isDeclared(name);
+    }
+
+    public boolean isDeclaredInGlobal(String name) {
+        return globalScope.isDeclared(name);
     }
 
     public boolean isDeclaredInScope(String name) {
@@ -51,6 +87,8 @@ public class DeclarationTable {
     public void resetScope() {
         scope = root;
         root.resetScopeCounters();
+
+        scopePointer = 1;
     }
 
     public Integer getNextOffset(Type type) {

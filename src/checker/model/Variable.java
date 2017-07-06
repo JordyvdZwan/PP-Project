@@ -9,6 +9,7 @@ public class Variable {
     private Type type;
     private String id;
     private int offset;
+    private boolean global;
 
     public Variable(Type type, String id, int offset) {
         this.id = id;
@@ -40,5 +41,13 @@ public class Variable {
         return type + " " + id;
     }
 
+
+    public boolean getGlobal() {
+        return global;
+    }
+
+    public void setGlobal(boolean global) {
+        this.global = global;
+    }
 
 }

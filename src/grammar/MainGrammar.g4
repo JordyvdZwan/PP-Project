@@ -5,9 +5,8 @@ Letter: A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | 
 
 id: Letter (Letter | NUMBER)*;
 forkID : Letter (Letter | NUMBER)*;
-//arrayId: (id) (WS)? OpenArray (WS)? expression (WS)? CloseArray;
 
-program : ((statement (WS)?)+ (WS)? (fork (WS)? (program (WS)? )+ (WS)? join)?)+ (WS)? EOF;
+program : (WS)? (statement (WS)?)+ EOF;
 
 fork: Fork WS forkID WS BGN (WS)? program (WS)? END;
 join: Join forkID;
@@ -16,19 +15,25 @@ Fork: F O R K;
 Join: J O I N;
 
 statement: (WS)? (Var WS)? type WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?                                                  #declStat
-//         | (WS)? (Var WS)? type OpenArray CloseArray WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?   #arrayDeclStat
+         | (WS)? (Var WS)? Shared WS type WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?                                        #sharedDeclStat
          | (WS)? target WS ASS WS expression (WS)? EndStatement (WS)?                                                                   #assStat
          | (WS)? IF (WS)? expression (WS)? (THEN)? (WS)? statement ((WS)? ELSE (WS)? statement)? (WS)?                                  #ifStat
          | (WS)? WHILE (WS)? expression (WS)? (DO)? (WS)? statement (WS)?                                                               #whileStat
          | (WS)? BGN (WS)? (statement)+ (WS)? END (WS)?                                                                                 #blockStat
+         | (WS)? (Lock | Unlock) (WS)? LPAR (WS)? id (WS)? RPAR (WS)? EndStatement (WS)?                                                #lockStat
+         | (WS)? Fork (WS)? LPAR (WS)? forkID (WS)? RPAR (WS)? statement (WS)?                                                          #forkStat
+         | (WS)? Join (WS)? LPAR (WS)? forkID (WS)? EndStatement                                                                        #joinStat
          ;
 
+Shared: S H A R E D;
+Lock: L O C K;
+Unlock: U N L O C K;
+target: id;
 Var : V A R;
-type: primitiveType ;//| arrayType;
+type: primitiveType ;
 primitiveType: Integer | Boolean;
 Integer: I N T E G E R | I N T;
 Boolean: B O O L E A N | B O O L;
-//arrayType: primitiveType OpenArray CloseArray;
 
 expression: prfOp (WS)? expression                                   #prfExpr
           | expression (WS)? multOp (WS)? expression                 #multExpr
@@ -38,7 +43,6 @@ expression: prfOp (WS)? expression                                   #prfExpr
           | LPAR (WS)? expression (WS)? RPAR                         #parExpr
           | id                                                       #idExpr
           | num                                                      #numExpr
-          //| arrayId                                                  #indexExpr
           | type (WS)? OpenArray (WS)? expression (WS)? CloseArray   #arrayExpr
           | TRUE                                                     #trueExpr
           | FALSE                                                    #falseExpr
@@ -46,7 +50,6 @@ expression: prfOp (WS)? expression                                   #prfExpr
 
 num : ngWrittenNumber | NUMBER;
 NUMBER: ([0-9])+;
-target: id ;//| arrayId;
 
 prfOp: Minus | Not;
 Minus:  '-' | M I N U S;
@@ -94,7 +97,6 @@ CloseArray  : ']';
 
 EndStatement: ';';
 
-
 WS : ([ \t\r\n])+;
 
 fragment A: 'A' | 'a';
@@ -123,4 +125,12 @@ fragment W: 'W' | 'w';
 fragment X: 'X' | 'x';
 fragment Y: 'Y' | 'y';
 fragment Z: 'Z' | 'z';
+
+//         | (WS)? (Var WS)? type OpenArray CloseArray WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?   #arrayDeclStat
+//target: id ;//| arrayId;
+
+//| arrayType;
+//arrayType: primitiveType OpenArray CloseArray;
+          //| arrayId                                                  #indexExpr
+//arrayId: (id) (WS)? OpenArray (WS)? expression (WS)? CloseArray;
 

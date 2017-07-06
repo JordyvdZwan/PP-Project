@@ -13,6 +13,7 @@ public class CheckerRecord {
     private ParseTreeProperty<ParserRuleContext> entries = new ParseTreeProperty<>();
     private ParseTreeProperty<Type> types = new ParseTreeProperty<>();
     private ParseTreeProperty<Integer> offsets = new ParseTreeProperty<>();
+    private ParseTreeProperty<Boolean> globals = new ParseTreeProperty<>();
 
     public void setEntry(ParserRuleContext node, ParserRuleContext entry) {
         entries.put(node, entry);
@@ -23,6 +24,9 @@ public class CheckerRecord {
     public void setOffset(ParserRuleContext node, Integer offset) {
         offsets.put(node, offset);
     }
+    public void setGlobal(ParserRuleContext ctx, boolean global) {
+        globals.put(ctx, global);
+    }
 
     public ParserRuleContext getEntry(ParserRuleContext node) {
         return entries.get(node);
@@ -32,6 +36,9 @@ public class CheckerRecord {
     }
     public Integer getOffset(ParserRuleContext node) {
         return offsets.get(node);
+    }
+    public Boolean getGlobal(ParserRuleContext node) {
+        return globals.get(node);
     }
 
     public ParseTreeProperty<ParserRuleContext> getEntries() {
@@ -76,4 +83,6 @@ public class CheckerRecord {
         }
         return res;
     }
+
+
 }
