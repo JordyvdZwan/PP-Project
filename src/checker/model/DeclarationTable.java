@@ -21,7 +21,7 @@ public class DeclarationTable {
     private List<Scope> scopes = new ArrayList<>();
     private LinkedList<Scope> queue = new LinkedList<>();
 
-    private static int nextForkId = 0;
+    private static int nextForkId = 1;
 
     public DeclarationTable() {
         root  = new Scope();

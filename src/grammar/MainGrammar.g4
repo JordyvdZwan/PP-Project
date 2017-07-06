@@ -29,8 +29,8 @@ target: id;
 Var : V A R;
 type: primitiveType ;
 primitiveType: Integer | Boolean;
-Integer: I N T E G E R | I N T;
-Boolean: B O O L E A N | B O O L;
+Integer: I N T E G E R;
+Boolean: B O O L E A N;
 
 expression: prfOp (WS)? expression                                   #prfExpr
           | expression (WS)? multOp (WS)? expression                 #multExpr

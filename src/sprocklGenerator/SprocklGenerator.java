@@ -10,6 +10,7 @@ import utils.log.LogType;
 
 import java.util.*;
 
+@SuppressWarnings("DanglingJavadoc")
 public class SprocklGenerator {
 
     private final int nrOfThreads;
@@ -352,6 +353,11 @@ public class SprocklGenerator {
     /**
      * A function to assign a number to a register I wrote to piss of my project partner.
      * 22 is the amount of syllables of the song iene miene mutte.
+     *
+     * EDIT (by projectpartner): The project partner finds this an unnecessary idiotic function.
+     * To clarify the author of this function and file starts indices at 1 instead of 0 causing errors.
+     * Just thought you would like to know...
+     *
      * @return The number assigned to a register
      */
     private int ieneMieneMutte() {
@@ -514,7 +520,7 @@ public class SprocklGenerator {
         addRegister(comma[0]);
         addRegister(comma[1]);
         addRegister(input[3]);
-        return "Compute NeQ " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
+        return "Compute NEq " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     /**

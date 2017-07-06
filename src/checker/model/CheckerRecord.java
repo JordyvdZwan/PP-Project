@@ -10,11 +10,40 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
  * This class is to keep track of all the data of the parse tree.
  */
 public class CheckerRecord {
+    /**
+     * Entries is used to determine the entry point of a Node in the parse tree.
+     * This is needed when a node is dependent on another node.
+     */
     private ParseTreeProperty<ParserRuleContext> entries = new ParseTreeProperty<>();
+
+    /**
+     * Types is used to store the types of the parse tree nodes.
+     * This helps with type checking.
+     */
     private ParseTreeProperty<Type> types = new ParseTreeProperty<>();
+
+    /**
+     * Offsets is used to link the offset in the memory to a variable name in the code.
+     * This is done using the DeclarationTable to look up the offsets and storing them here for convenience
+     */
     private ParseTreeProperty<Integer> offsets = new ParseTreeProperty<>();
+
+    /**
+     * Globals is used to determine whether a variable is in the shared memory or in the local memory.
+     * This is mainly used for checking on declaration problems and generation the ILOC code.
+     */
     private ParseTreeProperty<Boolean> globals = new ParseTreeProperty<>();
+
+    /**
+     * ForkIds is used to record the id's used to determine on which fork you want to join.
+     */
     private ParseTreeProperty<Integer> forkIDs = new ParseTreeProperty<>();
+
+    /**
+     * This variable is used to keep track of the amount of threads and is only used to determine how
+     * many progs to use in the sprockel code.
+     */
+    public static int nrOfThreads = 0;
 
     public void setEntry(ParserRuleContext node, ParserRuleContext entry) {
         entries.put(node, entry);
@@ -48,19 +77,6 @@ public class CheckerRecord {
         return forkIDs.get(node);
     }
 
-    public ParseTreeProperty<ParserRuleContext> getEntries() {
-        return entries;
-    }
-    public ParseTreeProperty<Type> getTypes() {
-        return types;
-    }
-    public ParseTreeProperty<Integer> getOffsets() {
-        return offsets;
-    }
-
-    public static int nrOfThreads = 0;
-
-
     @Override
     public String toString() {
         return "CheckerRecord{" +
@@ -69,30 +85,4 @@ public class CheckerRecord {
                 "\n, offsets=" + offsets.toString() +
                 "\n}";
     }
-
-    public String entriesToString(ParseTreeProperty<ParserRuleContext> ptp, ParseTree tree) {
-        String res = ptp.get(tree) != null ? ptp.get(tree).toString() : "";
-        for (int i = 0; i < tree.getChildCount(); i++) {
-            res += entriesToString(ptp, tree.getChild(i)) + ", ";
-        }
-        return res;
-    }
-
-    public String typesToString(ParseTreeProperty<Type> ptp, ParseTree tree) {
-        String res = ptp.get(tree) != null ? ptp.get(tree).toString() : "";
-        for (int i = 0; i < tree.getChildCount(); i++) {
-            res += typesToString(ptp, tree.getChild(i)) + ", ";
-        }
-        return res;
-    }
-
-    public String offsetsToString(ParseTreeProperty<Integer> ptp, ParseTree tree) {
-        String res = ptp.get(tree) != null ? ptp.get(tree).toString() : "";
-        for (int i = 0; i < tree.getChildCount(); i++) {
-            res += offsetsToString(ptp, tree.getChild(i)) + ", ";
-        }
-        return res;
-    }
-
-
 }

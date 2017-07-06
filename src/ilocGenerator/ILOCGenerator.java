@@ -92,7 +92,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
 
         Op result = visit(ctx.expression());
 
-        if (ctx.getChildCount() == 1) {
+        if (ctx.statement().size() == 1) {
             emit(OpCode.cbr, reg(ctx.expression()), ifL, endL);
             visit(ctx.statement(0)).setLabel(ifL);
         } else {
@@ -132,19 +132,14 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     @Override
     public Op visitAssStat(MainGrammarParser.AssStatContext ctx) {
         Op result = visit(ctx.expression());
-        emit(OpCode.storeAI, reg(ctx.expression()), arp, offset(ctx.target()));
+        if (global(ctx.target().id())) {
+            emit(OpCode.constoreAI, reg(ctx.expression()), arp, offset(ctx.target()));
+        } else {
+            emit(OpCode.storeAI, reg(ctx.expression()), arp, offset(ctx.target()));
+        }
         return result;
     }
-//    @Override
-//    public Op visitArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
-//        Op res = visit(ctx.expression());
-//        emit(OpCode.load, dynamicMemoryPointer, reg(ctx.id()));
-//        emit(OpCode.storeAO, arp, dynamicMemoryPointer, reg(ctx.expression()));
-//        emit(OpCode.add, reg(ctx.expression()), new Num(1), reg(ctx.expression()));     //Plus one for the length
-//        emit(OpCode.multI, reg(ctx.expression()), new Num(4), reg(ctx.expression()));   //times 4 for the length of an integer
-//        emit(OpCode.add, dynamicMemoryPointer, reg(ctx.expression()), dynamicMemoryPointer);
-//        return res;
-//    }
+
     @Override
     public Op visitDeclStat(MainGrammarParser.DeclStatContext ctx) {
         Op result;
@@ -162,15 +157,6 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         }
         return result;
     }
-//    @Override
-//    public Op visitArrayId(MainGrammarParser.ArrayIdContext ctx) {
-//        Op res = visit(ctx.expression());
-//        //TODO range checking
-////        emit(OpCode.add, reg(ctx.expression()), new Num(1), reg(ctx.expression()));     //Plus one for the length
-//        emit(OpCode.multI, reg(ctx.expression()), new Num(4), reg(ctx.expression()));   //times 4 for the length of an integer
-//        emit(OpCode.loadAO, arp, reg(ctx.expression()), reg(ctx));
-//        return res;
-//    }
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -185,12 +171,6 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     }
 
 
-//    @Override
-//    public Op visitIndexExpr(MainGrammarParser.IndexExprContext ctx) {
-//        Op res = visit(ctx.arrayId());
-//        setReg(ctx, reg(ctx.arrayId()));
-//        return res;
-//    }
     @Override
     public Op visitIdExpr(MainGrammarParser.IdExprContext ctx) {
         if (global(ctx.id())) {
@@ -243,14 +223,10 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     public Op visitPrfExpr(MainGrammarParser.PrfExprContext ctx) {
         Op res = visit(ctx.expression());
         if (ctx.prfOp().Minus() != null) {
-            //TODO Check if rsubi or subI is needed.
             emit(OpCode.rsubI, reg(ctx.expression()), new Num(0), reg(ctx));
         } else {
-            emit(OpCode.rsubI, reg(ctx.expression()), new Num(0), reg(ctx));
-            emit(OpCode.xorI, reg(ctx), new Num(1), reg(ctx));
-            emit(OpCode.rsubI, reg(ctx), new Num(0), reg(ctx));
+            emit(OpCode.xorI, reg(ctx.expression()), new Num(1), reg(ctx));
         }
-
         return res;
     }
     @Override
@@ -296,7 +272,6 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     public Op visitProgram(MainGrammarParser.ProgramContext ctx) {
         Op res = emit(OpCode.loadI, new Num(declarationTable.getNextOffset()), reg(ctx));
         emit(OpCode.storeAI, reg(ctx), arp, new Num(0));
-//        emit(OpCode.loadI, new Num(CheckerRecord.nrOfThreads * 4), arp);TODO
         for (int i = 0; i < ctx.statement().size(); i++) {
             visit(ctx.statement(i));
         }

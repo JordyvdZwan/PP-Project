@@ -24,19 +24,27 @@ public class RunTest {
     private Process p = null;
     private static String projectRootPath = new File("").getAbsolutePath();
 
-    @After
-    public void after() {
-        System.out.println("Äfter");
-        if (p != null) {
-            p.destroyForcibly();
-            try {
-                Runtime.getRuntime().exec("taskkill /F /IM ghc.exe");
-            } catch (IOException e) {
-                Log.addLogItem("Unable to close ghc, You should close this manually!", LogType.Warning);
-            }
-        }
-    }
 
+
+
+    // Basic Tests
+    @Test(timeout=10000)
+    public void basic1Test() {
+        String inputPath = projectRootPath + "\\testResources\\scs";
+        String inputFileName = "basic1.ppl";
+        String outputPath = "resources\\out";
+        String outputFileName = "output.hs";
+
+        try {
+            Compiler.compileFile(inputPath, inputFileName, outputPath, outputFileName);
+        } catch (IOException | SyntaxErrorException | CompilerErrorException | CheckerException e) {
+            e.printStackTrace();
+            Assert.fail("Exception Thrown: " + e.getMessage());
+        }
+
+        String result = runProgram(outputPath, outputFileName);
+        check(result, "[2,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+    }
     @Test(timeout=10000)
     public void basic3Test() {
         String inputPath = projectRootPath + "\\testResources\\scs";
@@ -74,9 +82,9 @@ public class RunTest {
     }
 
     @Test(timeout=10000)
-    public void basic1Test() {
-        String inputPath = projectRootPath + "\\testResources\\scs";
-        String inputFileName = "basic1.ppl";
+    public void concurrent1Test() {
+        String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
+        String inputFileName = "concurrent1.ppl";
         String outputPath = "resources\\out";
         String outputFileName = "output.hs";
 
@@ -89,6 +97,35 @@ public class RunTest {
 
         String result = runProgram(outputPath, outputFileName);
         check(result, "[2,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+    }
+    @Test(timeout=100000)
+    public void concurrent2Test() {
+        String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
+        String inputFileName = "concurrent2.ppl";
+        String outputPath = "resources\\out";
+        String outputFileName = "output.hs";
+
+        try {
+            Compiler.compileFile(inputPath, inputFileName, outputPath, outputFileName);
+        } catch (IOException | SyntaxErrorException | CompilerErrorException | CheckerException e) {
+            e.printStackTrace();
+            Assert.fail("Exception Thrown: " + e.getMessage());
+        }
+
+        String result = runProgram(outputPath, outputFileName);
+        check(result, "[4,5,0,500,500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+    }
+
+    @After
+    public void after() {
+        if (p != null) {
+            p.destroyForcibly();
+            try {
+                Runtime.getRuntime().exec("taskkill /F /IM ghc.exe");
+            } catch (IOException e) {
+                Log.addLogItem("Unable to close ghc, You should close this manually!", LogType.Warning);
+            }
+        }
     }
 
 
@@ -136,21 +173,10 @@ public class RunTest {
         }
         return null;
     }
-
-
     private void check(String actual, String expected) {
         Assert.assertEquals(expected, actual);
     }
-
     private String getRoot() {
-        File currentDirFile = new File(".");
-        String helper = currentDirFile.getAbsolutePath();
-        String currentDir = null;
-        try {
-            currentDir = helper.substring(0, helper.length() - currentDirFile.getCanonicalPath().length());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return currentDir;
+        return new File(".").getAbsolutePath();
     }
 }

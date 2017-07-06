@@ -8,9 +8,13 @@ import grammar.MainGrammarParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import utils.log.Log;
+import utils.log.LogType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jordy van der Zwan on 24-Jun-17.
@@ -79,6 +83,7 @@ public class CheckerStage1 extends MainGrammarBaseListener {
         } else {
             setOffset(ctx, declarationTable.getVariable(ctx.getText()).getOffset());
             setGlobal(ctx, declarationTable.getVariable(ctx.getText()).getGlobal());
+            Log.addLogItem(declarationTable.getVariable(ctx.getText()).toString(), LogType.Dev);
         }
     }
 
@@ -128,9 +133,22 @@ public class CheckerStage1 extends MainGrammarBaseListener {
         }
     }
 
+    private Map<Integer, Integer> lockMapping = new HashMap<Integer, Integer>();
+
     @Override
     public void exitLockStat(MainGrammarParser.LockStatContext ctx) {
-        setOffset(ctx, offset(ctx.id()));
+        if (!global(ctx.id())) errors.add("Trying to lock on an local variable.");
+        if (ctx.Lock() != null) {
+            if (lockMapping.containsKey(offset(ctx.id()))) {
+                setOffset(ctx, lockMapping.get(offset(ctx.id())));
+            } else {
+                int offset = declarationTable.getNextOffset(new Type(PrimitiveType.INTEGER));
+                lockMapping.put(offset(ctx.id()), offset);
+                setOffset(ctx, offset);
+            }
+        } else {
+            setOffset(ctx, lockMapping.get(offset(ctx.id())));
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -145,6 +163,9 @@ public class CheckerStage1 extends MainGrammarBaseListener {
     }
     private void setForkId(ParserRuleContext ctx, Integer forkID) {
         checkerRecord.setForkId(ctx, forkID);
+    }
+    private boolean global(ParserRuleContext ctx) {
+        return checkerRecord.getGlobal(ctx);
     }
     private Integer offset(ParserRuleContext ctx) {
         return checkerRecord.getOffset(ctx);
