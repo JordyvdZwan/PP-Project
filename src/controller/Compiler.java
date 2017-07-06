@@ -32,20 +32,19 @@ import java.util.Scanner;
  */
 public class Compiler {
 
-    private final static LogType LOG_TYPE = LogType.Dev;
-    private final static boolean PRINT_TO_SCREEN = true;
-    private final static boolean WRITE_TO_FILE = true;
+    public static LogType LOG_TYPE = LogType.Dev;
+    public static boolean PRINT_TO_SCREEN = true;
+    public static boolean WRITE_TO_FILE = true;
 
-    private final static boolean CHECKER_STAGE_1 = true;
-    private final static boolean CHECKER_STAGE_2 = true;
-    private final static boolean CHECKER_STAGE_3 = true;
+    public static boolean CHECKER_STAGE_1 = true;
+    public static boolean CHECKER_STAGE_2 = true;
+    public static boolean CHECKER_STAGE_3 = true;
 
-    private final static boolean ILOC_GENERATOR_SIMULATOR_RUN = true;
-    private final static boolean ILOC_POSTPROCESSOR_SIMULATOR_RUN = true;
+    public static int INTEGER_SIZE_MULTIPLIER = 1;
 
-    private final static boolean DEBUG = true;
-    private static boolean PRETTYPRINT = true;
-    private final boolean EXTENDED = false;
+    public static boolean DEBUG = true;
+    public static boolean PRETTYPRINT = true;
+    public static boolean EXTENDED = false;
 
 
     private static Log log = new Log(PRINT_TO_SCREEN, WRITE_TO_FILE, LOG_TYPE);

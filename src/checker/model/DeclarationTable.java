@@ -3,6 +3,7 @@ package checker.model;
 import exceptions.ScopeOutOfBoundsException;
 
 import java.util.*;
+import controller.Compiler;
 
 /**
  * Created by Jordy van der Zwan on 24-Jun-17.
@@ -95,7 +96,7 @@ public class DeclarationTable {
 
     public Integer getNextOffset(Type type) {
         Integer res = nextOffset;
-        nextOffset += 4;
+        nextOffset += Compiler.INTEGER_SIZE_MULTIPLIER;
         return res;
     }
 

@@ -296,7 +296,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     public Op visitProgram(MainGrammarParser.ProgramContext ctx) {
         Op res = emit(OpCode.loadI, new Num(declarationTable.getNextOffset()), reg(ctx));
         emit(OpCode.storeAI, reg(ctx), arp, new Num(0));
-        emit(OpCode.loadI, new Num(CheckerRecord.nrOfThreads * 4), arp);
+//        emit(OpCode.loadI, new Num(CheckerRecord.nrOfThreads * 4), arp);TODO
         for (int i = 0; i < ctx.statement().size(); i++) {
             visit(ctx.statement(i));
         }
