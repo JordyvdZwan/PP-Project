@@ -44,7 +44,7 @@ public class Compiler {
 
     public static boolean DEBUG = true;
     public static boolean PRETTYPRINT = true;
-    public static boolean EXTENDED = true;
+    public static boolean EXTENDED = false;
 
 
     private static Log log = new Log(PRINT_TO_SCREEN, WRITE_TO_FILE, LOG_TYPE);
