@@ -1092,7 +1092,7 @@ public class SprocklGenerator {
     private String lock(String[] input) throws TooManyRegistersException {
         extraSprockell += 3;
         return "TestAndSet (DirAddr " + input[1] + "), Receive 7"
-                + ", Branch 7 (Rel (2)), Jump (Rel (-4))";
+                + ", Branch 7 (Rel 2), Jump (Rel (-3))";
     }
 
     /**
