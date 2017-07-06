@@ -258,9 +258,7 @@ public class SprocklGenerator {
                     break;
 
                 case "unfork":
-                    extraSprockell += 2;
-                    todo.add(anInstr);
-                    result = result + "TODO";
+                    result = result + unfork(line) + ", ";
                     break;
 
                 case "join":
@@ -313,10 +311,6 @@ public class SprocklGenerator {
         int lines = program.getInstr().size() + extraSprockell + nrOfThreads - 1;
 
         /** Finishes the Haskell code. */
-        result = result + "Load (ImmValue " + lines + ") 7, ";
-        for (int i = 1; i < nrOfThreads; i++) {
-            result = result + "WriteInstr 7 (DirAddr " + i + "), ";
-        }
         result = result + "EndProg]";
         String prog = "prog";
         for (int i = 1; i < nrOfThreads; i++) {
@@ -1058,7 +1052,7 @@ public class SprocklGenerator {
     private String fork(String[] input) throws TooManyRegistersException {
         String[] comma = input[2].split(",");
         return "Load (ImmValue " + (jumps.get(new Label(comma[2])) + 1) + ") 7, WriteInstr 7 (DirAddr " + comma[0] + ")," +
-                " Jump (Abs " + (jumps.get(new Label(comma[1])) + 1) + ") ";
+                " Jump (Abs " + (jumps.get(new Label(comma[1]))) + ") ";
     }
 
     /**
@@ -1068,7 +1062,8 @@ public class SprocklGenerator {
      * @throws TooManyRegistersException thrown when too many registers are used
      */
     private String unfork(String[] input) throws TooManyRegistersException {
-        return "Load (ImmValue 1) 7, WriteInstr 7 (DirAddr " + input[2] + "), Jump (Abs 0)";
+        extraSprockell += 2;
+        return "Load (ImmValue 1) 7, WriteInstr 7 (DirAddr " + input[2] + "), EndProg";
     }
 
     /**
@@ -1078,7 +1073,7 @@ public class SprocklGenerator {
      * @throws TooManyRegistersException thrown when too many registers are used
      */
     private String join(String[] input) throws TooManyRegistersException {
-        return "Push 3, ReadInstr (DirAddr " + input[1] +  "), Receive 3, Load (ImmValue 1) 7, Compute Eq 7 3 7, Branch 7 (Rel (2)), Jump (Rel (-5)), Pop 3";
+        return "Push 3, ReadInstr (DirAddr " + input[1] +  "), Receive 3, Load (ImmValue 1) 7, Compute Equal 7 3 7, Branch 7 (Rel (2)), Jump (Rel (-5)), Pop 3";
     }
 
     /**
