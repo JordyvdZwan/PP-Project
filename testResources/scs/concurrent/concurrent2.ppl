@@ -4,17 +4,21 @@ fork (test) {
     integer i = 0;
     while (i < _fivehundred) {
         i = i + 1;
+        lock(x);
         x = 3;
+        unlock(x);
     }
     x = 5;
 }
 integer i = 0;
 while (i < 500) {
     i = i + 1;
+    lock(x);
     x = 2;
     if (x != 2) {
         t = true;
     }
+    unlock(x);
 }
 x = 5;
 

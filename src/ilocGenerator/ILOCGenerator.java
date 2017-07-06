@@ -92,7 +92,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
 
         Op result = visit(ctx.expression());
 
-        if (ctx.getChildCount() == 1) {
+        if (ctx.statement().size() == 1) {
             emit(OpCode.cbr, reg(ctx.expression()), ifL, endL);
             visit(ctx.statement(0)).setLabel(ifL);
         } else {
@@ -243,14 +243,10 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     public Op visitPrfExpr(MainGrammarParser.PrfExprContext ctx) {
         Op res = visit(ctx.expression());
         if (ctx.prfOp().Minus() != null) {
-            //TODO Check if rsubi or subI is needed.
             emit(OpCode.rsubI, reg(ctx.expression()), new Num(0), reg(ctx));
         } else {
-            emit(OpCode.rsubI, reg(ctx.expression()), new Num(0), reg(ctx));
-            emit(OpCode.xorI, reg(ctx), new Num(1), reg(ctx));
-            emit(OpCode.rsubI, reg(ctx), new Num(0), reg(ctx));
+            emit(OpCode.xorI, reg(ctx.expression()), new Num(1), reg(ctx));
         }
-
         return res;
     }
     @Override
@@ -296,7 +292,6 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     public Op visitProgram(MainGrammarParser.ProgramContext ctx) {
         Op res = emit(OpCode.loadI, new Num(declarationTable.getNextOffset()), reg(ctx));
         emit(OpCode.storeAI, reg(ctx), arp, new Num(0));
-//        emit(OpCode.loadI, new Num(CheckerRecord.nrOfThreads * 4), arp);TODO
         for (int i = 0; i < ctx.statement().size(); i++) {
             visit(ctx.statement(i));
         }
