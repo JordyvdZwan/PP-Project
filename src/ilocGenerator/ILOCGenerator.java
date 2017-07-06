@@ -396,7 +396,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         return checkResult.getGlobal((ParserRuleContext) node);
     }
     private Num forkId(ParseTree node) {
-        return new Num(CheckerRecord.nrOfThreads + this.checkResult.getForkId((ParserRuleContext) node));
+        return new Num(this.checkResult.getForkId((ParserRuleContext) node));
     }
 
     /**

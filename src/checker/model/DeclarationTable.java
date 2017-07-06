@@ -203,6 +203,7 @@ public class DeclarationTable {
 
 
         public void addForkId(String text) {
+            System.out.println(text + " : " + nextForkId);//TODO
             forkIds.add(new Id(text, genNextForkId()));
         }
 
