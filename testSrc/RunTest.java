@@ -82,7 +82,7 @@ public class RunTest {
         String result = runProgram(outputPath, outputFileName);
         check(result, "[2,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
-    @Test(timeout=10000)
+    @Test(timeout=100000)
     public void concurrent2Test() {
         String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
         String inputFileName = "concurrent2.ppl";

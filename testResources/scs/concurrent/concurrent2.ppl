@@ -2,7 +2,7 @@ Shared Integer x = 0;
 boolean t = false;
 fork (test) {
     integer i = 0;
-    while (i < _fivehundred) {
+    while (i < 50) {
         i = i + 1;
         lock(x);
         x = 3;
@@ -11,7 +11,7 @@ fork (test) {
     x = 5;
 }
 integer i = 0;
-while (i < 500) {
+while (i < 50) {
     i = i + 1;
     lock(x);
     x = 2;
@@ -20,5 +20,6 @@ while (i < 500) {
     }
     unlock(x);
 }
+join(test);
 x = 5;
 

@@ -309,7 +309,6 @@ public class SprocklGenerator {
                     break;
             }
         }
-        int lines = program.getInstr().size() + extraSprockell + nrOfThreads - 1;
 
         /** Finishes the Haskell code. */
         result = result + "EndProg]";

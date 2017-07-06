@@ -38,9 +38,13 @@ public class Variable {
 
     @Override
     public String toString() {
-        return type + " " + id;
+        return "Variable{" +
+                "type=" + type +
+                ", id='" + id + '\'' +
+                ", offset=" + offset +
+                ", global=" + global +
+                '}';
     }
-
 
     public boolean getGlobal() {
         return global;
