@@ -515,7 +515,7 @@ public class SprocklGenerator {
         addRegister(comma[0]);
         addRegister(comma[1]);
         addRegister(input[3]);
-        return "Compute Neq " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
+        return "Compute NeQ " + registers.get(comma[0]) + " " + registers.get(comma[1]) + " " + registers.get(input[3]);
     }
 
     /**
@@ -941,7 +941,7 @@ public class SprocklGenerator {
         addRegister(input[1]);
         addRegister(input[3]);
         extraSprockell++;
-        return  "ReadInstr (Ind " + registers.get(input[1]) + "), Receive " + registers.get(input[3]);
+        return  "ReadInstr (IndAddr " + registers.get(input[1]) + "), Receive " + registers.get(input[3]);
     }
 
 
