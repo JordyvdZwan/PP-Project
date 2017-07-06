@@ -264,7 +264,7 @@ public class SprocklGenerator {
                     break;
 
                 case "join":
-                    extraSprockell += 6;
+                    extraSprockell += 7;
                     result = result + join(line) + ", ";
                     break;
 
@@ -1078,7 +1078,7 @@ public class SprocklGenerator {
      * @throws TooManyRegistersException thrown when too many registers are used
      */
     private String join(String[] input) throws TooManyRegistersException {
-        return "Push 3, ReadInstr (DirAddr " + input[1] +  "), Receive 3, Load (ImmValue 2) 7, Compute Lt 7 3 7, Branch 7 (Rel (2)), Jump (Rel (-3))";
+        return "Push 3, ReadInstr (DirAddr " + input[1] +  "), Receive 3, Load (ImmValue 1) 7, Compute Eq 7 3 7, Branch 7 (Rel (2)), Jump (Rel (-5)), Pop 3";
     }
 
     /**
