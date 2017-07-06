@@ -1,0 +1,11 @@
+Var Integer i;
+Boolean yes = true;
+i = 1;
+while (yes) Do {
+    i = i + 1;
+    if (i == 5) then {
+        yes = false;
+    } else {
+        yes = true;
+    }
+}

@@ -63,8 +63,24 @@ public class RunTest {
         check(result, "[2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
 
+    @Test(timeout=10000)
+    public void basic4Test() {
+        String inputPath = projectRootPath + "\\testResources\\scs";
+        String inputFileName = "basic4.ppl";
+        String outputPath = "resources\\out";
+        String outputFileName = "output.hs";
 
-    // Concurrent Tests
+        try {
+            Compiler.compileFile(inputPath, inputFileName, outputPath, outputFileName);
+        } catch (IOException | SyntaxErrorException | CompilerErrorException | CheckerException e) {
+            e.printStackTrace();
+            Assert.fail("Exception Thrown: " + e.getMessage());
+        }
+
+        String result = runProgram(outputPath, outputFileName);
+        check(result, "[3,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+    }
+
     @Test(timeout=10000)
     public void concurrent1Test() {
         String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
