@@ -51,10 +51,11 @@ Nop,
 Load (ImmValue 0) 7, WriteInstr 7 (DirAddr 1), 
 Jump (Abs 86), 
 Nop, 
+Push 3, ReadInstr (DirAddr 2), Receive 3, Load (ImmValue 1) 7, Compute Equal 7 3 7, Branch 7 (Rel (2)), Jump (Rel (-5)), Pop 3, 
 Load (ImmValue (5)) 2, 
 Push 3, Load (ImmValue (2)) 7, Compute Add 3 7 3, WriteInstr 2 (IndAddr 3), Pop 3, 
 EndProg]
-main = runWithDebugger (debuggerSimplePrint showLocalMem) [prog]
+main = runWithDebugger (debuggerSimplePrint myShow) [prog]
 
 showLocalMem :: DbgInput -> String
 showLocalMem ( _ , systemState ) = show $ localMem $ head $ sprStates systemState

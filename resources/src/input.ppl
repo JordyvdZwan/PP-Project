@@ -20,5 +20,6 @@ while (i < 50) {
     }
     unlock(x);
 }
+join(test);
 x = 5;
 

@@ -48,22 +48,30 @@ num : ngWrittenNumber | NUMBER;
 NUMBER: ([0-9])+;
 
 prfOp: Minus | Not;
-Minus:  '-' | M I N U S;
-Not:    '!' | N O T;
+Minus:  (MINUS | MINUS2);
+MINUS: '-';
+MINUS2: M I N U S;
+Not:    '!' | NOT;
+NOT: N O T;
 
 multOp: Mult | Div;
 plusOp: Plus | Minus;
 boolOp: And | Or;
 compOp: EQ | LT | LE | NE | GT | GE;
 
-Mult: '*' | T I M E S;
-Div:  '/' | D I V I D E D WS B Y;
+Mult: '*' | TIMES;
+TIMES: T I M E S;
+Div:  '/' | DIVIDEDBY;
+DIVIDEDBY: D I V I D E D WS B Y;
 
-Plus: '+' | P L U S;
+Plus: '+' | PLUS;
+PLUS: P L U S;
 //MINUS ALREADY DEFINED ABOVE
 
-And: '&' | '&&' | A N D;
-Or:  '|' | '||' | O R;
+And: '&' | '&&' | AND;
+AND: A N D;
+Or:  '|' | '||' | OR;
+OR: O R;
 
 EQ: '==' | E Q U A L S | E Q U A L (WS)? T O;
 GT: '>' | (I S (WS)?)? G R E A T E R (WS)? T H A N;
