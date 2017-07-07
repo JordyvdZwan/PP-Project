@@ -1,0 +1,16 @@
+Shared Integer account = 100;
+fork (bank1) {
+    Integer k;
+    lock(account);
+    k = account + 50;
+    account = k;
+    unlock(account);
+}
+Integer k;
+lock(account);
+k = account + 20;
+account = k;
+unlock(account);
+join(bank1);
+k = account;
+
