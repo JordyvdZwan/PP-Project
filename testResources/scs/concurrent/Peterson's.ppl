@@ -1,0 +1,21 @@
+Shared Boolean flag1 = false;
+Shared Boolean flag2 = false;
+Shared Integer turn = 0;
+fork (thread) {
+    flag2 = true;
+    turn = 1;
+    while (flag1 && (turn == 1)) do {
+    Integer j;
+    }
+    flag2 = false;
+}
+flag1 = true;
+turn = 0;
+Integer k;
+while (flag2 && (turn == 0)) do {
+Integer j;
+}
+k = 5 + 3;
+flag1 = false;
+join(thread);
+

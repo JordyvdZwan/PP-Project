@@ -100,7 +100,25 @@ public class RunTest {
     @Test(timeout=100000)
     public void concurrent2Test() {
         String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
-        String inputFileName = "concurrent2.ppl";
+    String inputFileName = "concurrent2.ppl";
+    String outputPath = "resources\\out";
+    String outputFileName = "output.hs";
+
+    try {
+        Compiler.compileFile(inputPath, inputFileName, outputPath, outputFileName);
+    } catch (IOException | SyntaxErrorException | CompilerErrorException | CheckerException e) {
+        e.printStackTrace();
+        Assert.fail("Exception Thrown: " + e.getMessage());
+    }
+
+        String result = runProgram(outputPath, outputFileName);
+        check(result, "[6,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+    }
+
+    @Test(timeout =100000)
+    public void petersonTest() {
+        String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
+        String inputFileName = "Peterson's.ppl";
         String outputPath = "resources\\out";
         String outputFileName = "output.hs";
 
@@ -112,8 +130,27 @@ public class RunTest {
         }
 
         String result = runProgram(outputPath, outputFileName);
-        check(result, "[6,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+        check(result, "[7,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
+
+    @Test(timeout =100000)
+    public void bankTest() {
+        String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
+        String inputFileName = "BankSystem.ppl";
+        String outputPath = "resources\\out";
+        String outputFileName = "output.hs";
+
+        try {
+            Compiler.compileFile(inputPath, inputFileName, outputPath, outputFileName);
+        } catch (IOException | SyntaxErrorException | CompilerErrorException | CheckerException e) {
+            e.printStackTrace();
+            Assert.fail("Exception Thrown: " + e.getMessage());
+        }
+
+        String result = runProgram(outputPath, outputFileName);
+        check(result, "[7,0,0,0,170,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+    }
+
 
     @After
     public void after() {
