@@ -1,0 +1,5 @@
+Integer y;
+Boolean x;
+if (y == x) {
+    y = x;
+}

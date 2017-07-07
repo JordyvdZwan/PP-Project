@@ -53,6 +53,9 @@ public class CheckerStage2 extends MainGrammarBaseListener {
     @Override
     public void exitDeclStat(MainGrammarParser.DeclStatContext ctx) {
         setType(ctx.id(), new Type(PrimitiveType.valueOf(ctx.type().primitiveType().getText().toUpperCase())));
+        if (ctx.expression() != null) {
+            checkType(ctx.id(), type(ctx.expression()));
+        }
     }
 
 
@@ -222,10 +225,10 @@ public class CheckerStage2 extends MainGrammarBaseListener {
             errors.add("Cannot find type of: " + ctx.getText() + " line: " + ctx.getStart().getLine() + " at: " + ctx.getStart().getCharPositionInLine() + " With: " + ctx.getClass().getSimpleName());
             return false;
         }
+        if (!type(ctx).equals(type)) errors.add("Type check error: " + type(ctx) + " and " + type + "are not equal for variables: " + ctx.getText());
         return type(ctx).equals(type);
     }
 
-    //TODO Check argument and throw exceptions if needed.
     private void setType(ParserRuleContext ctx, Type type) {
         if (type == null) errors.add("Invalid argument! (null)");
         checkerRecord.setType(ctx, type);

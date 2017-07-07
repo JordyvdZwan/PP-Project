@@ -179,6 +179,7 @@ public class Stage1Test {
         parser.addErrorListener(errorListener);
         ParseTree tree = parser.program();
 
+        // Checker Stage
         Checker checker = new Checker();
         CheckerStage1 stage1 = checker.getStage1();
 

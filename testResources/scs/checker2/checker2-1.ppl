@@ -1,0 +1,3 @@
+Integer x;
+x = 2;
+Integer y = x;

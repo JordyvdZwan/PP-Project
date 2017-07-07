@@ -25,9 +25,65 @@ public class Stage2Test {
      * @throws IOException Throws exception when the file is not found. (Test related, not parser related)
      */
     @Test
-    public void testUndeclaredVal() throws IOException {
+    public void testTypingCorrect1() throws IOException {
         try {
             testFile("testResources\\scs\\checker2\\checker2-1.ppl", "[]");
+        } catch (CheckerException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    /**
+     *
+     * @throws IOException Throws exception when the file is not found. (Test related, not parser related)
+     */
+    @Test
+    public void testTypingCorrect2() throws IOException {
+        try {
+            testFile("testResources\\scs\\checker2\\checker2-2.ppl", "[]");
+        } catch (CheckerException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    /**
+     *
+     * @throws IOException Throws exception when the file is not found. (Test related, not parser related)
+     */
+    @Test
+    public void testTypingIncorrect1() throws IOException {
+        try {
+            testFile("testResources\\scs\\checker2\\checker2-3.ppl", "[" +
+                    "Type check error: INTEGER and BOOLEANare not equal for variables: x]");
+        } catch (CheckerException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    /**
+     *
+     * @throws IOException Throws exception when the file is not found. (Test related, not parser related)
+     */
+    @Test
+    public void testTypingIncorrect2() throws IOException {
+        try {
+            testFile("testResources\\scs\\checker2\\checker2-4.ppl", "[" +
+                    "Type check error: BOOLEAN and INTEGERare not equal for variables: x, " +
+                    "Type check error: INTEGER and BOOLEANare not equal for variables: y]");
+        } catch (CheckerException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    /**
+     *
+     * @throws IOException Throws exception when the file is not found. (Test related, not parser related)
+     */
+    @Test
+    public void testTypingIncorrect3() throws IOException {
+        try {
+            testFile("testResources\\scs\\checker2\\checker2-5.ppl", "[" +
+                    "Type check error: BOOLEAN and INTEGERare not equal for variables: y]");
         } catch (CheckerException e) {
             Assert.fail(e.getMessage());
         }
@@ -52,9 +108,10 @@ public class Stage2Test {
         parser.addErrorListener(errorListener);
         ParseTree tree = parser.program();
 
+        // Checker Stage
         Checker checker = new Checker();
         CheckerStage2 stage2 = checker.getStage2();
-
+        checker.getStage1().execute(tree);
         stage2.execute(tree);
 
         // Error handling of Parser Stage
