@@ -289,11 +289,7 @@ public class Compiler {
                     subStageStart = System.currentTimeMillis();
                     {
                         // Checker Stage 1 Body
-                        try {
-                            checker.getStage3().execute(parseTree);
-                        } catch (CheckerException e) {
-                            e.printStackTrace();
-                        }
+                        checker.getStage3().execute(parseTree);
 
                         // Error handling of Checker Stage 1
                         if (handleErrors(checker.getStage3().getErrors(), "Checker Stage 3")) {

@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * Created by Jordy van der Zwan on 24-Jun-17.
+ *
+ * This class is used to store errors which occur during parsing and lexing.
  */
 public class CompilerErrorListener extends BaseErrorListener {
     private List<String> errorMessages;

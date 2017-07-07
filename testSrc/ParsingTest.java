@@ -5,17 +5,16 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Assert;
 import org.junit.Test;
-import utils.log.Log;
-import utils.log.LogType;
 import utils.parsing.CompilerErrorListener;
 
 import java.io.IOException;
 
 /**
  * Created by Jordy van der Zwan on 07-Jul-17.
+ *
+ * Test of the parsing phase.
  */
 public class ParsingTest {
-
 
     /**
      * Test to see if '=' works as equals operator and whether if works without statement

@@ -160,6 +160,14 @@ public class Stage1Test {
         }
     }
 
+    /**
+     * Compiles a file and checks whether the same errors occur as expected.
+     * @param file The file with the ppl code.
+     * @param expected The expected outcome.
+     * @return The checker
+     * @throws IOException thrown when file is not found
+     * @throws CheckerException thrown when error occured.
+     */
     private Checker testFile(String file, String expected) throws IOException, CheckerException {
         CharStream charStream = CharStreams.fromFileName(file);
 

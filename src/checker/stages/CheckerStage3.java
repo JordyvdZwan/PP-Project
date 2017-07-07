@@ -13,6 +13,15 @@ import java.util.List;
 
 /**
  * Created by Jordy van der Zwan on 27-Jun-17.
+ *
+ * This stage sets all entries of the instructions.
+ * This is recorded in the checker record.
+ *
+ * Instead of copying the same javadoc everywhere we will describe the behaviour here.
+ * For all methods count that the entry is either set to itself, or to a node it needs a result of.
+ *
+ * These two are the only options.
+ *
  */
 public class CheckerStage3 extends MainGrammarBaseListener {
     /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +40,11 @@ public class CheckerStage3 extends MainGrammarBaseListener {
         this.checkerRecord = checkerRecord;
     }
 
-    public void execute(ParseTree tree) throws CheckerException {
+    /**
+     * This method will execute this Stage.
+     * @param tree the parse tree we need to check.
+     */
+    public void execute(ParseTree tree) {
         new ParseTreeWalker().walk(this, tree);
     }
 
@@ -184,14 +197,28 @@ public class CheckerStage3 extends MainGrammarBaseListener {
     //                      Helper Functions
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //TODO Check argument and throw exceptions if needed.
+    /**
+     * This method sets the entry of a parse tree node to another node.
+     * @param ctx node for which the entry has been determined.
+     * @param entry entry node.
+     */
     private void setEntry(ParserRuleContext ctx, ParserRuleContext entry) {
         if (entry == null) errors.add("Invalid argument! (null)");
         checkerRecord.setEntry(ctx, entry);
     }
+
+    /**
+     * Returns the entry node of a parsetree node.
+     * @param ctx node of which you want the entry.
+     * @return entry node of ctx.
+     */
     private ParserRuleContext entry(ParserRuleContext ctx) {
         return checkerRecord.getEntry(ctx);
     }
+
+    /**
+     * @return all the errors that have been recorded during execution.
+     */
     public List<String> getErrors() {
         return errors;
     }

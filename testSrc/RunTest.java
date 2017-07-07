@@ -11,6 +11,9 @@ import java.util.Scanner;
 
 /**
  * Created by Jordy van der Zwan on 06-Jul-17.
+ *
+ * This test compiles and executes programs on the commandline using ghci.
+ * It will then compare the final local memory snapshot of the main thread to a expected value.
  */
 public class RunTest {
 

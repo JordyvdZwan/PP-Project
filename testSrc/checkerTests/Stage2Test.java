@@ -15,6 +15,8 @@ import java.io.IOException;
 
 /**
  * Created by Jordy van der Zwan on 06-Jul-17.
+ *
+ * Test used to see if CheckerStage2 behaves as expected.
  */
 @SuppressWarnings("Duplicates")
 public class Stage2Test {
@@ -94,8 +96,8 @@ public class Stage2Test {
      * @param file The file with the ppl code.
      * @param expected The expected outcome.
      * @return The checker
-     * @throws IOException
-     * @throws CheckerException
+     * @throws IOException thrown when file is not found
+     * @throws CheckerException thrown when error occured.
      */
     private Checker testFile(String file, String expected) throws IOException, CheckerException {
         CharStream charStream = CharStreams.fromFileName(file);

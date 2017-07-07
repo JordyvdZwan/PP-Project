@@ -174,13 +174,4 @@ public class NumberTest {
         return parser.ngWrittenNumber();
     }
 
-    //Code to quickly test written values
-//    public static void main(String[] args) {
-//        Scanner in = new Scanner(System.in);
-//        while (true) {
-//            System.out.println("Please enter an written number:");
-//            String next = in.nextLine();
-//            System.out.println("Number = " + visitor.visit(parse(CharStreams.fromString(next))).intValue());
-//        }
-//    }
 }

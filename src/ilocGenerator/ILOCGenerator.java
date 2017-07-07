@@ -63,14 +63,12 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
      * given a pre-computed checker result.
      */
     public Program generate(ParseTree tree) {
-        this.prog = new Program();
-        this.checkResult = checkResult;
-        this.regs = new ParseTreeProperty<>();
-        this.labels = new ParseTreeProperty<>();
-        this.declarationTable = declarationTable;
-        this.regCount = 0;
+        prog = new Program();
+        regs = new ParseTreeProperty<>();
+        labels = new ParseTreeProperty<>();
+        regCount = 0;
         tree.accept(this);
-        return this.prog;
+        return prog;
     }
 
     public ILOCGenerator(CheckerRecord checkResult, DeclarationTable declarationTable) {
@@ -258,7 +256,6 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     public Op visitCompExpr(MainGrammarParser.CompExprContext ctx) {
         Op res = visit(ctx.expression(0));
         visit(ctx.expression(1));
-        //TODO Check what is returned by the cmp THINGY.
         if (ctx.compOp().EQ() != null) {
             emit(OpCode.cmp_EQ, reg(ctx.expression(0)), reg(ctx.expression(1)), reg(ctx));
         } else if (ctx.compOp().GE() != null) {

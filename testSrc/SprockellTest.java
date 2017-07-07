@@ -8,11 +8,13 @@ import utils.iloc.model.*;
 
 /**
  * Created by Reinier2 on 27-6-2017.
+ *
+ * Tests the sprockelgenerator
  */
 public class SprockellTest {
 
-    SprocklGenerator sprockell;
-    Program program;
+    private SprocklGenerator sprockell;
+    private Program program;
 
     private final static boolean DEBUG = false;
     private final static boolean PRETTYPRINT = true;
