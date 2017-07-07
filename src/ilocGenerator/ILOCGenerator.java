@@ -1,13 +1,11 @@
 package ilocGenerator;
 
-import checker.Checker;
 import checker.model.CheckerRecord;
 import checker.model.DeclarationTable;
 import checker.model.PrimitiveType;
 import grammar.MainGrammarBaseVisitor;
 import grammar.MainGrammarParser;
 import ilocGenerator.helperParsers.WrittenNumberParser;
-import jdk.internal.org.objectweb.asm.Opcodes;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -84,6 +82,13 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     //                      Control Structures
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Creates labels for the bodys.
+     * Checks the nodes of the boolean Expression and the bodies.
+     * Adds the labels at the right places.
+     * @param ctx The context of IfStat.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitIfStat(MainGrammarParser.IfStatContext ctx) {
         Label ifL = createLabel(ctx, "if");
@@ -107,6 +112,13 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         emit(endL, OpCode.nop);
         return result;
     }
+
+    /**
+     * Creates labels for the jumps.
+     * Visits the nodes of the Boolean expression and the body and adds the labels at the right place.
+     * @param ctx The context of WhileStat.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitWhileStat(MainGrammarParser.WhileStatContext ctx) {
         Label start = createLabel(ctx, "startWhile");
@@ -130,6 +142,12 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     //                      Declarations and Assignments
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Visits the child.
+     * Adds Iloc code for store or constore to the code of the child.
+     * @param ctx The context of AssStat.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitAssStat(MainGrammarParser.AssStatContext ctx) {
         Op result = visit(ctx.expression());
@@ -141,6 +159,11 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         return result;
     }
 
+    /**
+     * Visits the correct children and adds Iloc code for store to their code.
+     * @param ctx The context of DeclStat.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitDeclStat(MainGrammarParser.DeclStatContext ctx) {
         Op result;
@@ -164,6 +187,11 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     //                      Expressions
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Assigns a register to a expression.
+     * @param ctx The context of ParExpr.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitParExpr(MainGrammarParser.ParExprContext ctx) {
         Op res = visit(ctx.expression());
@@ -171,7 +199,11 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         return res;
     }
 
-
+    /**
+     * Loads the correct id in.
+     * @param ctx The context of IdExpr.
+     * @return The Iloc code,
+     */
     @Override
     public Op visitIdExpr(MainGrammarParser.IdExprContext ctx) {
         if (global(ctx.id())) {
@@ -181,15 +213,31 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         }
     }
 
-
+    /**
+     * Loads the true value in.
+     * @param ctx The context of trueExpr.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitTrueExpr(MainGrammarParser.TrueExprContext ctx) {
         return emit(OpCode.loadI, TRUE_VALUE, reg(ctx));
     }
+
+    /**
+     * Loads the false value in.
+     * @param ctx The context of FalseExpr.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitFalseExpr(MainGrammarParser.FalseExprContext ctx) {
         return emit(OpCode.loadI, FALSE_VALUE, reg(ctx));
     }
+
+    /**
+     * Checks which number is written down.
+     * @param ctx The context of NumExpr.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitNumExpr(MainGrammarParser.NumExprContext ctx) {
         if (ctx.num().ngWrittenNumber() != null) {
@@ -199,7 +247,13 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         }
     }
 
-
+    /**
+     * Visits the expression first.
+     * Checks which operator is used.
+     * Builds the right Iloc code.
+     * @param ctx The context of CompExpr.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitCompExpr(MainGrammarParser.CompExprContext ctx) {
         Op res = visit(ctx.expression(0));
@@ -220,6 +274,13 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         }
         return res;
     }
+
+    /**
+     * Visits the expression first.
+     * Adds the correct prefix to it.
+     * @param ctx The context of PrfExpr
+     * @return The Iloc code.
+     */
     @Override
     public Op visitPrfExpr(MainGrammarParser.PrfExprContext ctx) {
         Op res = visit(ctx.expression());
@@ -230,6 +291,14 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         }
         return res;
     }
+
+    /**
+     * Visits the expressions first.
+     * Checks whether it is an and or an or expression.
+     * Builds the Iloc code.
+     * @param ctx The context of BoolExrp.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitBoolExpr(MainGrammarParser.BoolExprContext ctx) {
         Op res = visit(ctx.expression(0));
@@ -241,6 +310,13 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         }
         return res;
     }
+
+    /**
+     * Visits the expressions first.
+     * Adds that to the iloc code it builds for the multiplication.
+     * @param ctx The context of MultExpr.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitMultExpr(MainGrammarParser.MultExprContext ctx) {
         Op res = visit(ctx.expression(0));
@@ -248,6 +324,14 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         emit(OpCode.mult, reg(ctx.expression(0)), reg(ctx.expression(1)), reg(ctx));
         return res;
     }
+
+    /**
+     * Visits the expressions first.
+     * Checks whether it is adding or subtracting.
+     * Builds the Iloc code with the right operation and the code from the expression.
+     * @param ctx The context from the PlusExpr.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitPlusExpr(MainGrammarParser.PlusExprContext ctx) {
         Op res = visit(ctx.expression(0));
@@ -265,6 +349,11 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     //                      Other Structures
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Visits the nodes of the children and returns their Iloc code.
+     * @param ctx The context of the Program.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitProgram(MainGrammarParser.ProgramContext ctx) {
         Op res = emit(OpCode.loadI, new Num(declarationTable.getNextOffset()), reg(ctx));
@@ -274,6 +363,12 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         }
         return res;
     }
+
+    /**
+     * Visits the tree for every statement inside the block stat and returns their Iloc code.
+     * @param ctx The context of the BlockStat.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitBlockStat(MainGrammarParser.BlockStatContext ctx) {
         Op res = visit(ctx.statement(0));
@@ -288,7 +383,16 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     //                      Other Structures
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+    /**
+     * Generates the correct Iloc code.
+     * Checks if there is an expression.
+     * If that's the case, generate iloc code for that expression and add the constore.
+     * Otherwise checks whether the variable is an Integer.
+     * If that's the case builds the code for this situation.
+     * Otherwise builds the code for the situation where it is a boolean.
+     * @param ctx The context of SharedDeclStat
+     * @return The Iloc code.
+     */
     @Override
     public Op visitSharedDeclStat(MainGrammarParser.SharedDeclStatContext ctx) {
         Op result;
@@ -307,6 +411,12 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         return result;
     }
 
+    /**
+     * Checks if lock or unlock is called.
+     * Gives the right method with the correct register.
+     * @param ctx The context of LockStat.
+     * @return lock or unlock with the right address.
+     */
     @Override
     public Op visitLockStat(MainGrammarParser.LockStatContext ctx) {
         if (ctx.Lock() != null) {
@@ -316,6 +426,13 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         }
     }
 
+    /**
+     * Creates labels for the start and end of the fork body.
+     * Writes iloc code for the fork and the unfork.
+     * Adds the body in between.
+     * @param ctx The context of forkStat.
+     * @return The Iloc code.
+     */
     @Override
     public Op visitForkStat(MainGrammarParser.ForkStatContext ctx) {
         Label end = createLabel(ctx, "ForkEnd");
@@ -328,6 +445,11 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         return result;
     }
 
+    /**
+     * Creates a new Iloc code with join and the correct thread id.
+     * @param ctx The context of JoinStat.
+     * @return join with the right id.
+     */
     @Override
     public Op visitJoinStat(MainGrammarParser.JoinStatContext ctx) {
         return emit(OpCode.join, forkId(ctx.forkID()));
