@@ -21,7 +21,7 @@ public class Stage2Test {
 
 
     /**
-     * Tests to see that you cannot use a value that has not been declared.
+     * Tests to see that it is possible to assign a value to a variable that wasn't declared before..
      * @throws IOException Throws exception when the file is not found. (Test related, not parser related)
      */
     @Test
@@ -34,7 +34,7 @@ public class Stage2Test {
     }
 
     /**
-     *
+     * Tests to see if it all goes correct when there are no errors.
      * @throws IOException Throws exception when the file is not found. (Test related, not parser related)
      */
     @Test
@@ -47,7 +47,7 @@ public class Stage2Test {
     }
 
     /**
-     *
+     * Checks whether the correct error gets thrown when a boolean is assigned to an integer.
      * @throws IOException Throws exception when the file is not found. (Test related, not parser related)
      */
     @Test
@@ -61,7 +61,7 @@ public class Stage2Test {
     }
 
     /**
-     *
+     * Tests whether the correct error gets thrown when a boolean and integer are used wrongly.
      * @throws IOException Throws exception when the file is not found. (Test related, not parser related)
      */
     @Test
@@ -76,7 +76,7 @@ public class Stage2Test {
     }
 
     /**
-     *
+     * Checks whether the correct error gets thrown when a boolean is assigned to an integer.
      * @throws IOException Throws exception when the file is not found. (Test related, not parser related)
      */
     @Test
@@ -89,6 +89,14 @@ public class Stage2Test {
         }
     }
 
+    /**
+     * Compiles a file and checks whether the same errors occur as expected.
+     * @param file The file with the ppl code.
+     * @param expected The expected outcome.
+     * @return The checker
+     * @throws IOException
+     * @throws CheckerException
+     */
     private Checker testFile(String file, String expected) throws IOException, CheckerException {
         CharStream charStream = CharStreams.fromFileName(file);
 
