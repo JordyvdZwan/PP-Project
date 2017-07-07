@@ -30,8 +30,10 @@ public class SprockellTest {
         program.addInstr(op);
         Assert.assertTrue(sprockell.generate(DEBUG, EXTENDED, PRETTYPRINT).equals("import Sprockell \n" +
                 "prog :: [Instruction] \n" +
-                "prog = [Nop, \nEndProg ]" +
-                "\nmain = run [prog]"));
+                "prog = [Branch regSprID (Rel 2), Jump (Rel 6), ReadInstr (IndAddr regSprID), Receive regA, " +
+                "Compute Equal regA reg0 regB, Branch regB (Rel (-3)), Jump (Ind regA), Nop, \n" +
+                "EndProg]\n" +
+                "main = run [prog]"));
     }
 
     @Test
@@ -39,17 +41,21 @@ public class SprockellTest {
         program.addInstr(new Op(OpCode.pop, new Reg("r_1")));
         Assert.assertTrue(sprockell.generate(DEBUG, EXTENDED, PRETTYPRINT).equals("import Sprockell \n" +
                 "prog :: [Instruction] \n" +
-                "prog = [Pop 0, \nEndProg ]" +
-                "\nmain = run [prog]"));
+                "prog = [Branch regSprID (Rel 2), Jump (Rel 6), ReadInstr (IndAddr regSprID), Receive regA, " +
+                "Compute Equal regA reg0 regB, Branch regB (Rel (-3)), Jump (Ind regA), Pop 2, \n" +
+                "EndProg]\n" +
+                "main = run [prog]"));
     }
 
     @Test
     public void testPush() throws UnsupportedInstructionException, TooManyRegistersException {
         program.addInstr(new Op(OpCode.push, new Reg("r_1")));
         Assert.assertTrue(sprockell.generate(DEBUG, EXTENDED, PRETTYPRINT).equals("import Sprockell \n" +
-        "prog :: [Instruction] \n" +
-                "prog = [Push 0, \nEndProg ]" +
-                "\nmain = run [prog]"));
+                "prog :: [Instruction] \n" +
+                "prog = [Branch regSprID (Rel 2), Jump (Rel 6), ReadInstr (IndAddr regSprID), Receive regA, " +
+                "Compute Equal regA reg0 regB, Branch regB (Rel (-3)), Jump (Ind regA), Push 2, \n" +
+                "EndProg]\n" +
+                "main = run [prog]"));
     }
 
     @Test
@@ -57,8 +63,10 @@ public class SprockellTest {
         program.addInstr(new Op(OpCode.add, new Reg("r_1"), new Reg("r_2"), new Reg("r_3")));
         Assert.assertTrue(sprockell.generate(DEBUG, EXTENDED, PRETTYPRINT).equals("import Sprockell \n" +
                 "prog :: [Instruction] \n" +
-                "prog = [Compute Add 0 1 2, \nEndProg ]" +
-                "\nmain = run [prog]"));
+                "prog = [Branch regSprID (Rel 2), Jump (Rel 6), ReadInstr (IndAddr regSprID), Receive regA, " +
+                "Compute Equal regA reg0 regB, Branch regB (Rel (-3)), Jump (Ind regA), Compute Add 2 3 4, \n" +
+                "EndProg]\n" +
+                "main = run [prog]"));
     }
 
     @Test
@@ -66,22 +74,24 @@ public class SprockellTest {
         program.addInstr(new Op(OpCode.addI, new Reg("r_1"), new Num(5), new Reg("r_2")));
         Assert.assertTrue(sprockell.generate(DEBUG, EXTENDED, PRETTYPRINT).equals("import Sprockell \n" +
                 "prog :: [Instruction] \n" +
-                "prog = [Load (ImmValue 5) 2, Compute Add 1 2 0, \nEndProg ]" +
-                "\nmain = run [prog]"));
+                "prog = [Branch regSprID (Rel 2), Jump (Rel 6), ReadInstr (IndAddr regSprID), Receive regA, " +
+                "Compute Equal regA reg0 regB, Branch regB (Rel (-3)), Jump (Ind regA), " +
+                "Load (ImmValue (5)) 7, Compute Add 3 7 2, \n" +
+                "EndProg]\n" +
+                "main = run [prog]"));
         program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_3")));
         program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_4")));
         program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_5")));
-        program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_6")));
         program.addInstr(new Op(OpCode.addI, new Reg("r_1"), new Num(5), new Reg("r_3")));
         Assert.assertTrue(sprockell.generate(DEBUG, EXTENDED, PRETTYPRINT).equals("import Sprockell \n" +
                 "prog :: [Instruction] \n" +
-                "prog = [Load (ImmValue 5) 2, Compute Add 1 2 0, \n" +
-                "Load (ImmValue 6) 2, \n" +
-                "Load (ImmValue 6) 3, \n" +
-                "Load (ImmValue 6) 4, \n" +
-                "Load (ImmValue 6) 5, \n" +
-                "Push 0, Load (ImmValue 5) 0, Compute Add 1 0 2, Pop 0, \nEndProg ]" +
-                "\nmain = run [prog]"));
+                "prog = [Branch regSprID (Rel 2), Jump (Rel 6), ReadInstr (IndAddr regSprID), Receive regA, Compute Equal regA reg0 regB, Branch regB (Rel (-3)), Jump (Ind regA), Load (ImmValue (5)) 7, Compute Add 3 7 2, \n" +
+                "Load (ImmValue (6)) 4, \n" +
+                "Load (ImmValue (6)) 5, \n" +
+                "Load (ImmValue (6)) 6, \n" +
+                "Load (ImmValue (5)) 7, Compute Add 3 7 4, \n" +
+                "EndProg]\n" +
+                "main = run [prog]"));
     }
 
     @Test
@@ -89,7 +99,30 @@ public class SprockellTest {
         program.addInstr(new Op(OpCode.storeAI, new Reg("r_1"), new Reg("r_2"), new Num(4)));
         Assert.assertTrue(sprockell.generate(DEBUG, EXTENDED, PRETTYPRINT).equals("import Sprockell \n" +
                 "prog :: [Instruction] \n" +
-                "prog = [Push 0, Load (ImmValue 4) 1, Compute Add 0 1 0, Store 1 (IndAddr 0), Pop 0, \nEndProg ]" +
-                "\nmain = run [prog]"));
+                "prog = [Branch regSprID (Rel 2), Jump (Rel 6), ReadInstr (IndAddr regSprID), Receive regA, " +
+                "Compute Equal regA reg0 regB, Branch regB (Rel (-3)), Jump (Ind regA), Push 2, Load (ImmValue (4)) 7," +
+                " Compute Add 2 7 2, Store 3 (IndAddr 2), Pop 2, \n" +
+                "EndProg]\n" +
+                "main = run [prog]"));
+    }
+
+    @Test(expected = UnsupportedInstructionException.class)
+    public void testUnsupportedInstruction() throws UnsupportedInstructionException, TooManyRegistersException {
+        program.addInstr(new Op(OpCode.c2i, new Reg("r_1"), new Reg("r_2")));
+        String exceptions = sprockell.generate(DEBUG, EXTENDED, PRETTYPRINT);
+    }
+
+    @Test(expected = TooManyRegistersException.class)
+    public void testTooManyRegister() throws  UnsupportedInstructionException, TooManyRegistersException {
+        program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_1")));
+        program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_2")));
+        program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_3")));
+        program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_4")));
+        program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_5")));
+        program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_6")));
+        program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_7")));
+        program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_8")));
+        program.addInstr(new Op(OpCode.loadI, new Num(6), new Reg("r_9")));
+        String exception = sprockell.generate(DEBUG, EXTENDED, PRETTYPRINT);
     }
 }
