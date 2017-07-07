@@ -3,8 +3,6 @@ package numberTests;
 import grammar.MainGrammarLexer;
 import grammar.MainGrammarParser;
 import ilocGenerator.helperParsers.WrittenNumberParser;
-import grammar.NumberGrammarLexer;
-import grammar.NumberGrammarParser;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Assert;
@@ -31,6 +29,9 @@ public class NumberTest {
     private static Map<String, Integer> allNumbers = new HashMap<>();
     private static Map<String, Integer> millionSafeNumbers = new HashMap<>();
 
+    /**
+     * Initialises the numbers.
+     */
     @BeforeClass
     public static void setupDataStructure() {
         billionSafeNumbers.put("One", 1);
@@ -76,11 +77,17 @@ public class NumberTest {
         millionSafeNumbers.putAll(hundredOnly);
     }
 
+    /**
+     * Tests the value 0.
+     */
     @Test
     public void zeroTest() {
         check("_zero", 0);
     }
 
+    /**
+     * Tests all the numbers in the map 'allNumbers'.
+     */
     @Test
     public void singleTest() {
         for (String key : allNumbers.keySet()) {
@@ -88,6 +95,9 @@ public class NumberTest {
         }
     }
 
+    /**
+     * Tests all the numbers in the map 'allNumbers' but multiplies it with 1000 first.
+     */
     @Test
     public void thousandTest() {
         for (String key : allNumbers.keySet()) {
@@ -96,6 +106,9 @@ public class NumberTest {
         }
     }
 
+    /**
+     * Tests all the numbers in the map 'allNumbers' but multiplies it with millionThousand first.
+     */
     @Test
     public void millionThousandTest() {
         for (String thousand : allNumbers.keySet()) {
@@ -105,6 +118,9 @@ public class NumberTest {
         }
     }
 
+    /**
+     * Tests all the numbers in the map 'allNumbers' but multiplies it with a million first.
+     */
     @Test
     public void millionTest() {
         for (String key : millionSafeNumbers.keySet()) {
@@ -112,6 +128,9 @@ public class NumberTest {
         }
     }
 
+    /**
+     * Tests all the numbers in the map 'allNumbers' but multiplies it with a billion first.
+     */
     @Test
     public void billionTest() {
         for (String key : billionSafeNumbers.keySet()) {
@@ -119,6 +138,11 @@ public class NumberTest {
         }
     }
 
+    /**
+     * Checks if the number in plain texts gets compiled to the correct number.
+     * @param text The number in plain text.
+     * @param integer The number in decimal representation.
+     */
     private void check(String text, int integer) {
         try {
             Assert.assertEquals("Trying to Parse: " + text + " (" + integer + ")", integer, visitor.visit(parse(CharStreams.fromString(text))).intValue());
@@ -129,10 +153,20 @@ public class NumberTest {
         }
     }
 
+    /**
+     * Returns the number.
+     * @param text The number in plain text.
+     * @return The number in decimal representation.
+     */
     int getNumber(String text) {
         return visitor.visit(parse(CharStreams.fromString(text))).intValue();
     }
 
+    /**
+     * Builds the corresponding parseTree with the given characters.
+     * @param chars The number in plain text.
+     * @return The parseTree
+     */
     private static ParseTree parse(CharStream chars) {
         Lexer lexer = new MainGrammarLexer(chars);
         TokenStream tokens = new CommonTokenStream(lexer);

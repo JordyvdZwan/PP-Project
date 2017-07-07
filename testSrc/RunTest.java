@@ -14,6 +14,9 @@ import java.util.Scanner;
  */
 public class RunTest {
 
+    /**
+     * Initialises the booleans.
+     */
     @BeforeClass
     public static void initCompiler() {
         Compiler.PRETTYPRINT = false;
@@ -24,7 +27,10 @@ public class RunTest {
     private Process p = null;
     private static String projectRootPath = new File("").getAbsolutePath();
 
-    // Basic Tests
+    /**
+     * Executes the code from basic1.ppl.
+     * Tests while loops and if statements.
+     */
     @Test(timeout=10000)
     public void basic1Test() {
         String inputPath = projectRootPath + "\\testResources\\scs";
@@ -42,6 +48,11 @@ public class RunTest {
         String result = runProgram(outputPath, outputFileName);
         check(result, "[2,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
+
+    /**
+     * Checks whether the code from basic2.ppl returns the correct values.
+     * Checks while loops and if statements and booleans.
+     */
     @Test(timeout=10000)
     public void basic2Test() {
         String inputPath = projectRootPath + "\\testResources\\scs";
@@ -59,6 +70,11 @@ public class RunTest {
         String result = runProgram(outputPath, outputFileName);
         check(result, "[4,6,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
+
+    /**
+     * Looks to the result of basic3.ppl, if this is as expected returns true.
+     * Checks variable assignments.
+     */
     @Test(timeout=10000)
     public void basic3Test() {
         String inputPath = projectRootPath + "\\testResources\\scs";
@@ -76,6 +92,11 @@ public class RunTest {
         String result = runProgram(outputPath, outputFileName);
         check(result, "[2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
+
+    /**
+     * Checks whether basic4.ppl gets compiled and executed correctly.
+     * Checks if statements inside a while loop.
+     */
     @Test(timeout=10000)
     public void basic4Test() {
         String inputPath = projectRootPath + "\\testResources\\scs";
@@ -94,7 +115,9 @@ public class RunTest {
         check(result, "[3,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
 
-    //Expression Tests
+    /**
+     * Tests whether complex expressions gets executed correctly.
+     */
     @Test(timeout=10000)
     public void expressions1Test() {
         String inputPath = projectRootPath + "\\testResources\\scs\\expressions";
@@ -112,6 +135,10 @@ public class RunTest {
         String result = runProgram(outputPath, outputFileName);
         check(result, "[2,37,2,3,1,3,3,6,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
+
+    /**
+     * Tests whether complex expressions gets executed correctly.
+     */
     @Test(timeout=10000)
     public void expressions2Test() {
         String inputPath = projectRootPath + "\\testResources\\scs\\expressions";
@@ -129,6 +156,10 @@ public class RunTest {
         String result = runProgram(outputPath, outputFileName);
         check(result, "[2,1938,2,4,8,5,13,2,5,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
+
+    /**
+     * Tests whether complex expressions gets executed correctly inside an if statement.
+     */
     @Test(timeout=10000)
     public void expressions3Test() {
         String inputPath = projectRootPath + "\\testResources\\scs\\expressions";
@@ -147,7 +178,9 @@ public class RunTest {
         check(result, "[2,4,8,4,7,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
 
-    //Concurrency Tests
+    /**
+     * Tests whether assigning values to shared variables in different threads goes correctly.
+     */
     @Test(timeout=10000)
     public void concurrent1Test() {
         String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
@@ -165,6 +198,10 @@ public class RunTest {
         String result = runProgram(projectRootPath + "\\" + outputPath, outputFileName);
         check(result, "[3,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
+
+    /**
+     * Checks if the locks are implemented correctly.
+     */
     @Test(timeout=100000)
     public void concurrent2Test() {
         String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
@@ -183,6 +220,9 @@ public class RunTest {
         check(result, "[6,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
 
+    /**
+     * Tests the Peterson's algorithm.
+     */
     @Test(timeout =100000)
     public void petersonTest() {
         String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
@@ -200,6 +240,11 @@ public class RunTest {
         String result = runProgram(outputPath, outputFileName);
         check(result, "[7,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
+
+    /**
+     * Tests a banking system.
+     * Because of the locks there will never be a data race in this program.
+     */
     @Test(timeout =100000)
     public void bankTest() {
         String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
@@ -219,6 +264,10 @@ public class RunTest {
     }
 
 
+    /**
+     * Closes ghic.
+     * @throws InterruptedException
+     */
     @After
     public void after() throws InterruptedException {
         Thread.sleep(200);
@@ -234,6 +283,12 @@ public class RunTest {
     }
 
 
+    /**
+     * Runs the program.
+     * @param path The path to the correct map.
+     * @param fileName The name of the file.
+     * @return The returned text from ghci.
+     */
     private String runProgram(String path, String fileName) {
         try {
             System.out.println("Starting... ");

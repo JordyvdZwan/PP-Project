@@ -2,8 +2,6 @@ package ilocGenerator.helperParsers;
 
 import grammar.MainGrammarBaseVisitor;
 import grammar.MainGrammarParser;
-import grammar.NumberGrammarBaseVisitor;
-import grammar.NumberGrammarParser;
 
 /**
  * Created by Jordy van der Zwan on 14-Jun-17.
@@ -24,6 +22,12 @@ public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
         return (parser.visitNgWrittenNumber(ctx)).intValue();
     }
 
+    /**
+     * Checks which child to visit.
+     * Returns his result of -1 if it is too big.
+     * @param ctx The context of NgWrittenNumber.
+     * @return The Integer
+     */
     @Override
     public Long visitNgWrittenNumber(MainGrammarParser.NgWrittenNumberContext ctx) {
         Long result = 0L;
@@ -48,6 +52,12 @@ public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
         return result;
     }
 
+    /**
+     * Visits the right child nodes.
+     * Adds or multiplies 100 to the result.
+     * @param ctx The context of Ngsingle.
+     * @return The integer.
+     */
     @Override
     public Long visitNgsingle(MainGrammarParser.NgsingleContext ctx) {
         if (ctx.nghundred() != null) {
@@ -69,6 +79,11 @@ public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
         }
     }
 
+    /**
+     * Chekcs which child to call and return that value.
+     * @param ctx The context of Ngonly.
+     * @return The Integer.
+     */
     @Override
     public Long visitNgonly(MainGrammarParser.NgonlyContext ctx) {
         if (ctx.ngsingles() != null) {
@@ -80,6 +95,11 @@ public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
         }
     }
 
+    /**
+     * Checks the first digit.
+     * @param ctx The context of Ngsingles.
+     * @return the first digit.
+     */
     @SuppressWarnings("Duplicates")
     @Override
     public Long visitNgsingles(MainGrammarParser.NgsinglesContext ctx) {
@@ -106,6 +126,11 @@ public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
         }
     }
 
+    /**
+     * Checks whether to return 11, 12, 18 or 10 + the first digit.
+     * @param ctx The context of Ngmain1.
+     * @return The Integer.
+     */
     @Override
     public Long visitNgmain1(MainGrammarParser.Ngmain1Context ctx) {
         if (ctx.NGEleven() != null) {
@@ -119,6 +144,11 @@ public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
         }
     }
 
+    /**
+     * adds the correct first and second digit.
+     * @param ctx The context of Nhmain2.
+     * @return the integer.
+     */
     @Override
     public Long visitNgmain2(MainGrammarParser.Ngmain2Context ctx) {
         Long result = 0L;
@@ -129,12 +159,22 @@ public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
         return result;
     }
 
+    /**
+     * Checks the prefix.
+     * @param ctx The context of Nghprefix
+     * @return the Integer
+     */
     @SuppressWarnings("Duplicates")
     @Override
     public Long visitNghprefix(MainGrammarParser.NghprefixContext ctx) {
         return visit(ctx.ngonly());
     }
 
+    /**
+     * Returns the first digit.
+     * @param ctx The context of Ngseconds
+     * @return The first digit.
+     */
     @SuppressWarnings("Duplicates")
     @Override
     public Long visitNgseconds(MainGrammarParser.NgsecondsContext ctx) {
@@ -159,6 +199,11 @@ public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
         }
     }
 
+    /**
+     * Returns the first digit.
+     * @param ctx The context of Ngfirst
+     * @return The first digit.
+     */
     @Override
     public Long visitNgfirst(MainGrammarParser.NgfirstContext ctx) {
         if (ctx.NGThir() != null) {
@@ -176,6 +221,11 @@ public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
         }
     }
 
+    /**
+     * Returns the correct decimal value.
+     * @param ctx The context of Ngdoubles.
+     * @return The second digit
+     */
     @Override
     public Long visitNgdoubles(MainGrammarParser.NgdoublesContext ctx) {
         if (ctx.NGTwenty() != null) {
@@ -197,6 +247,11 @@ public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
         }
     }
 
+    /**
+     * Chekcs the first number and multiplies it with a thousand.
+     * @param ctx The context of Ngthousand.
+     * @return The integer
+     */
     @Override
     public Long visitNgthousand(MainGrammarParser.NgthousandContext ctx) {
         if (ctx.ngsingle() != null) {
@@ -206,6 +261,11 @@ public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
         }
     }
 
+    /**
+     * Chekcs the first number and multiplies it with a million.
+     * @param ctx The context of Ngmillion.
+     * @return The integer
+     */
     @Override
     public Long visitNgmillion(MainGrammarParser.NgmillionContext ctx) {
         if (ctx.ngsingle() != null) {
@@ -215,6 +275,11 @@ public class WrittenNumberParser extends MainGrammarBaseVisitor<Long> {
         }
     }
 
+    /**
+     * Chekcs the first number and multiplies it with a billion.
+     * @param ctx The context of Ngbillion.
+     * @return The integer
+     */
     @Override
     public Long visitNgbillion(MainGrammarParser.NgbillionContext ctx) {
         if (ctx.ngsingle() != null) {
