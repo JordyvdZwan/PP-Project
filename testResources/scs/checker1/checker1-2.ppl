@@ -1,0 +1,4 @@
+Integer x;
+fork (test) {
+    Integer x;
+}

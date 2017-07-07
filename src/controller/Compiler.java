@@ -323,30 +323,6 @@ public class Compiler {
             Log.addLogItem("Checking Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
         }
 
-        System.out.println(declarationTable);
-
-        /*
-         * ILOC Pre-processing Phase
-         *
-         * In this stage there will be some pre processing of the data.
-         * This includes register allocation.
-         */
-
-        Log.addLogItem("Starting ILOC Pre-processing Phase", LogType.Info);
-        mainStageStart = System.currentTimeMillis();
-        {
-            Log.addLogItem("Starting ILOC Pre-processing Stage 1", LogType.Dev);
-            subStageStart = System.currentTimeMillis();
-            {
-                // ILOC Pre-processing Stage 1 Body
-
-                // Error handling of ILOC Pre-processing Stage 1
-
-            }
-            Log.addLogItem("ILOC Pre-processing Stage 1 Finished (time: " + (System.currentTimeMillis() - subStageStart) + "ms)", LogType.Dev);
-        }
-        Log.addLogItem("ILOC Pre-processing Phase Finished (time: " + (System.currentTimeMillis() - mainStageStart) + "ms)", LogType.Info);
-
         /*
          * Generation of ILOC Code Generation Phase
          *

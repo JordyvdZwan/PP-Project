@@ -1,0 +1,15 @@
+Integer x;
+Boolean y;
+Shared Integer l;
+fork (x) {
+    Integer x;
+    Integer y;
+    while (true) {
+        boolean p;
+    }
+    Shared Integer f;
+}
+If (True) {
+    Integer p;
+}
+join(x);

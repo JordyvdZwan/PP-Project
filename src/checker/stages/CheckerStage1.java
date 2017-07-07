@@ -8,8 +8,6 @@ import grammar.MainGrammarParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import utils.log.Log;
-import utils.log.LogType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,7 +81,6 @@ public class CheckerStage1 extends MainGrammarBaseListener {
         } else {
             setOffset(ctx, declarationTable.getVariable(ctx.getText()).getOffset());
             setGlobal(ctx, declarationTable.getVariable(ctx.getText()).getGlobal());
-            Log.addLogItem(declarationTable.getVariable(ctx.getText()).toString(), LogType.Dev);
         }
     }
 
@@ -145,7 +142,6 @@ public class CheckerStage1 extends MainGrammarBaseListener {
                 int offset = declarationTable.getNextOffset(new Type(PrimitiveType.INTEGER));
                 lockMapping.put(offset(ctx.id()), offset);
                 setOffset(ctx, offset);
-                System.out.println(lockMapping);
             }
         } else {
             setOffset(ctx, lockMapping.get(offset(ctx.id())));
@@ -157,12 +153,14 @@ public class CheckerStage1 extends MainGrammarBaseListener {
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void setOffset(ParserRuleContext ctx, Integer offset) {
+        if (offset == null) errors.add("Invalid argument! (null)");
         checkerRecord.setOffset(ctx, offset);
     }
     private void setGlobal(ParserRuleContext ctx, boolean global) {
         checkerRecord.setGlobal(ctx, global);
     }
     private void setForkId(ParserRuleContext ctx, Integer forkID) {
+        if (forkID == null) errors.add("Invalid argument! (null)");
         checkerRecord.setForkId(ctx, forkID);
     }
     private boolean global(ParserRuleContext ctx) {

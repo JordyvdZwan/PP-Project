@@ -1056,7 +1056,7 @@ public class SprocklGenerator {
      */
     private String fork(String[] input) throws TooManyRegistersException {
         String[] comma = input[2].split(",");
-        return "Load (ImmValue " + (jumps.get(new Label(comma[2])) + 1) + ") 7, WriteInstr 7 (DirAddr " + comma[0] + ")," +
+        return "Load (ImmValue " + (jumps.get(new Label(comma[2]))) + ") 7, WriteInstr 7 (DirAddr " + comma[0] + ")," +
                 " Jump (Abs " + (jumps.get(new Label(comma[1]))) + ") ";
     }
 

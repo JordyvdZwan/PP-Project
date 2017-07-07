@@ -19,8 +19,6 @@ public class CheckerStage3 extends MainGrammarBaseListener {
     //                      Variables
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private DeclarationTable declarationTable;
-
     private CheckerRecord checkerRecord;
 
     private List<String> errors = new ArrayList<>();
@@ -29,8 +27,7 @@ public class CheckerStage3 extends MainGrammarBaseListener {
     //                      General Functions
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public CheckerStage3(DeclarationTable declarationTable, CheckerRecord checkerRecord) {
-        this.declarationTable = declarationTable;
+    public CheckerStage3(CheckerRecord checkerRecord) {
         this.checkerRecord = checkerRecord;
     }
 
@@ -51,20 +48,10 @@ public class CheckerStage3 extends MainGrammarBaseListener {
         setEntry(ctx, ctx);
     }
 
-//    @Override
-//    public void exitArrayDeclStat(MainGrammarParser.ArrayDeclStatContext ctx) {
-//        setEntry(ctx, ctx);
-//    }
-
 
     //--------------------------
     //ID's
     //--------------------------
-
-//    @Override
-//    public void exitArrayId(MainGrammarParser.ArrayIdContext ctx) {
-//        setEntry(ctx, ctx.id());
-//    }
 
     @Override
     public void exitId(MainGrammarParser.IdContext ctx) {
@@ -73,11 +60,7 @@ public class CheckerStage3 extends MainGrammarBaseListener {
 
     @Override
     public void exitTarget(MainGrammarParser.TargetContext ctx) {
-//        if (ctx.id() != null) {
             setEntry(ctx, ctx.id());
-//        } else {
-//            setEntry(ctx, entry(ctx.arrayId()));
-//        }
     }
 
 
@@ -92,10 +75,6 @@ public class CheckerStage3 extends MainGrammarBaseListener {
     }
 
     //Variable expressions
-//    @Override
-//    public void exitIndexExpr(MainGrammarParser.IndexExprContext ctx) {
-//        setEntry(ctx, ctx);
-//    }
     @Override
     public void exitIdExpr(MainGrammarParser.IdExprContext ctx) {
         setEntry(ctx, ctx);
@@ -207,14 +186,13 @@ public class CheckerStage3 extends MainGrammarBaseListener {
 
     //TODO Check argument and throw exceptions if needed.
     private void setEntry(ParserRuleContext ctx, ParserRuleContext entry) {
+        if (entry == null) errors.add("Invalid argument! (null)");
         checkerRecord.setEntry(ctx, entry);
     }
     private ParserRuleContext entry(ParserRuleContext ctx) {
         return checkerRecord.getEntry(ctx);
     }
-
     public List<String> getErrors() {
         return errors;
     }
-
 }

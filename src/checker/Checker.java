@@ -18,7 +18,7 @@ public class Checker {
 
     private CheckerStage1 stage1 = new CheckerStage1(declarationTable, checkerRecord);
     private CheckerStage2 stage2 = new CheckerStage2(declarationTable, checkerRecord);
-    private CheckerStage3 stage3 = new CheckerStage3(declarationTable, checkerRecord);
+    private CheckerStage3 stage3 = new CheckerStage3(checkerRecord);
 
     public CheckerStage1 getStage1() {
         return stage1;

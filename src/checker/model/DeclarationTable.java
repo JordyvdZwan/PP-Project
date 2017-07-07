@@ -90,7 +90,6 @@ public class DeclarationTable {
     public void resetScope() {
         scope = root;
         root.resetScopeCounters();
-
         scopePointer = 1;
     }
 
@@ -102,7 +101,10 @@ public class DeclarationTable {
 
     @Override
     public String toString() {
-        return "Declaration Table {\n" + root + "\n}";
+        return "DeclarationTable{" +
+                "\nglobalScope=" + globalScope +
+                "\n, scopes=" + scopes +
+                "\n}";
     }
 
     public int getNextOffset() {
@@ -123,7 +125,7 @@ public class DeclarationTable {
 
         private List<Scope> children = new ArrayList<>();
         private Scope parent;
-        private Set<Variable> variables = new HashSet<>();
+        private List<Variable> variables = new ArrayList<>();
         private int nextScope = 0;
 
         private Scope(Scope parent) {
@@ -191,19 +193,18 @@ public class DeclarationTable {
 
         @Override
         public String toString() {
-            String res = "";
-            res += variables + ": " + forkIds + "\n";
-            for (Scope child : children) {
-                res += "    " + child;
-            }
-            return res;
+            return "Scope{" +
+                    "\nchildren=" + children +
+                    "\n, variables=" + variables +
+                    "\n, nextScope=" + nextScope +
+                    "\n, forkIds=" + forkIds +
+                    "\n}";
         }
 
         private Set<Id> forkIds = new HashSet<>();
 
 
         public void addForkId(String text) {
-            System.out.println(text + " : " + nextForkId);//TODO
             forkIds.add(new Id(text, genNextForkId()));
         }
 

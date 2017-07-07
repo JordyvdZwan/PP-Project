@@ -148,12 +148,13 @@ public class RunTest {
         }
 
         String result = runProgram(outputPath, outputFileName);
-        check(result, "[7,0,0,0,170,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+        check(result, "[5,0,0,0,170,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
 
 
     @After
-    public void after() {
+    public void after() throws InterruptedException {
+        Thread.sleep(200);
         if (p != null) {
             p.destroyForcibly();
             try {
@@ -162,6 +163,7 @@ public class RunTest {
                 Log.addLogItem("Unable to close ghc, You should close this manually!", LogType.Warning);
             }
         }
+        Thread.sleep(200);
     }
 
 
