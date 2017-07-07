@@ -62,7 +62,6 @@ public class RunTest {
         String result = runProgram(outputPath, outputFileName);
         check(result, "[2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
-
     @Test(timeout=10000)
     public void basic4Test() {
         String inputPath = projectRootPath + "\\testResources\\scs";
@@ -95,7 +94,7 @@ public class RunTest {
             Assert.fail("Exception Thrown: " + e.getMessage());
         }
 
-        String result = runProgram(outputPath, outputFileName);
+        String result = runProgram(projectRootPath + "\\" + outputPath, outputFileName);
         check(result, "[2,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
     @Test(timeout=100000)
@@ -162,6 +161,7 @@ public class RunTest {
             String previousLine = "";
             while (sc.hasNext()) {
                 String nextLine = sc.next();
+                System.out.println(nextLine);
                 if (previousLine.contains("[") && previousLine.contains("]") && !nextLine.contains("[") && !nextLine.contains(",") && !nextLine.contains("fromList")) {
                     return previousLine;
                 }

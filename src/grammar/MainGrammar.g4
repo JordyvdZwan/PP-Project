@@ -3,6 +3,10 @@ import NumberGrammar;
 
 Letter: A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z;
 
+StartComment: '%';
+EndComent: '%';
+Comment: (StartComment ((Letter | NUMBER | WS)*) EndComent) -> skip;
+
 id: Letter (Letter | NUMBER)*;
 forkID : Letter (Letter | NUMBER)*;
 
@@ -54,15 +58,13 @@ MINUS2: M I N U S;
 Not:    '!' | NOT;
 NOT: N O T;
 
-multOp: Mult | Div;
+multOp: Mult;
 plusOp: Plus | Minus;
 boolOp: And | Or;
 compOp: EQ | LT | LE | NE | GT | GE;
 
 Mult: '*' | TIMES;
 TIMES: T I M E S;
-Div:  '/' | DIVIDEDBY;
-DIVIDEDBY: D I V I D E D WS B Y;
 
 Plus: '+' | PLUS;
 PLUS: P L U S;
@@ -100,6 +102,8 @@ OpenArray   : '[';
 CloseArray  : ']';
 
 EndStatement: ';';
+
+
 
 WS : ([ \t\r\n])+;
 

@@ -44,7 +44,7 @@ public class Compiler {
 
     public static boolean DEBUG = true;
     public static boolean PRETTYPRINT = true;
-    public static boolean EXTENDED = true;
+    public static boolean EXTENDED = false;
 
 
     private static Log log = new Log(PRINT_TO_SCREEN, WRITE_TO_FILE, LOG_TYPE);
@@ -388,7 +388,7 @@ public class Compiler {
             subStageStart = System.currentTimeMillis();
             {
                 // ILOC Post-processing Stage 1 Body
-                ILOCPostProcessor postProcessor = new ILOCPostProcessor(ilocProgram);
+                ILOCPostProcessor postProcessor = new ILOCPostProcessor(ilocProgram, declarationTable);
 
                 ilocProgram = postProcessor.execute();
 

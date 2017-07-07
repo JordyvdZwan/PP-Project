@@ -245,11 +245,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     public Op visitMultExpr(MainGrammarParser.MultExprContext ctx) {
         Op res = visit(ctx.expression(0));
         visit(ctx.expression(1));
-        if (ctx.multOp().Mult() != null) {
-            emit(OpCode.mult, reg(ctx.expression(0)), reg(ctx.expression(1)), reg(ctx));
-        } else {
-            emit(OpCode.div, reg(ctx.expression(0)), reg(ctx.expression(1)), reg(ctx));
-        }
+        emit(OpCode.mult, reg(ctx.expression(0)), reg(ctx.expression(1)), reg(ctx));
         return res;
     }
     @Override
@@ -314,9 +310,9 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     @Override
     public Op visitLockStat(MainGrammarParser.LockStatContext ctx) {
         if (ctx.Lock() != null) {
-            return emit(OpCode.lock, offset(ctx.id()));
+            return emit(OpCode.lock, globaloffset(ctx.id()));
         } else {
-            return emit(OpCode.unlock, offset(ctx.id()));
+            return emit(OpCode.unlock, globaloffset(ctx.id()));
         }
     }
 

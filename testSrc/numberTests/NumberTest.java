@@ -1,5 +1,7 @@
 package numberTests;
 
+import grammar.MainGrammarLexer;
+import grammar.MainGrammarParser;
 import ilocGenerator.helperParsers.WrittenNumberParser;
 import grammar.NumberGrammarLexer;
 import grammar.NumberGrammarParser;
@@ -76,22 +78,21 @@ public class NumberTest {
 
     @Test
     public void zeroTest() {
-        check("zero", 0);
+        check("_zero", 0);
     }
 
     @Test
     public void singleTest() {
         for (String key : allNumbers.keySet()) {
-            check(key, allNumbers.get(key));
+            check("_" + key, allNumbers.get(key));
         }
     }
 
     @Test
     public void thousandTest() {
         for (String key : allNumbers.keySet()) {
-            check(key + "Thousand", allNumbers.get(key) * 1000);
-            check("ThousandAnd" + key, allNumbers.get(key) + 1000);
-            check("Thousand" + key, allNumbers.get(key) + 1000);
+            check("_" + key + "Thousand", allNumbers.get(key) * 1000);
+            check("_" + "Thousand" + key, allNumbers.get(key) + 1000);
         }
     }
 
@@ -99,7 +100,7 @@ public class NumberTest {
     public void millionThousandTest() {
         for (String thousand : allNumbers.keySet()) {
             for (String million : millionSafeNumbers.keySet()) {
-                check(million + "Million" + thousand + "Thousand", (millionSafeNumbers.get(million) * 1000000) + (allNumbers.get(thousand) * 1000));
+                check("_" + million + "Million" + thousand + "Thousand", (millionSafeNumbers.get(million) * 1000000) + (allNumbers.get(thousand) * 1000));
             }
         }
     }
@@ -107,14 +108,14 @@ public class NumberTest {
     @Test
     public void millionTest() {
         for (String key : millionSafeNumbers.keySet()) {
-            check(key + "Million", millionSafeNumbers.get(key) * 1000000);
+            check("_" + key + "Million", millionSafeNumbers.get(key) * 1000000);
         }
     }
 
     @Test
     public void billionTest() {
         for (String key : billionSafeNumbers.keySet()) {
-            check(key + "Billion", billionSafeNumbers.get(key) * 1000000000);
+            check("_" + key + "Billion", billionSafeNumbers.get(key) * 1000000000);
         }
     }
 
@@ -124,6 +125,7 @@ public class NumberTest {
         } catch (Exception e) {
             System.out.println(text + "  :  " + integer);
             e.printStackTrace();
+            Assert.fail();
         }
     }
 
@@ -132,9 +134,9 @@ public class NumberTest {
     }
 
     private static ParseTree parse(CharStream chars) {
-        Lexer lexer = new NumberGrammarLexer(chars);
+        Lexer lexer = new MainGrammarLexer(chars);
         TokenStream tokens = new CommonTokenStream(lexer);
-        NumberGrammarParser parser = new NumberGrammarParser(tokens);
+        MainGrammarParser parser = new MainGrammarParser(tokens);
         return parser.ngWrittenNumber();
     }
 
