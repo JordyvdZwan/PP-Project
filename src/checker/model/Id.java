@@ -17,18 +17,32 @@ public class Id {
         this.name = name;
     }
 
+    /**
+     * @return The name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name.
+     * @param name The new name.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return The ID number.
+     */
     public int getNumber() {
         return number;
     }
 
+    /**
+     * Sets the ID
+     * @param number The new ID.
+     */
     public void setNumber(int number) {
         this.number = number;
     }
