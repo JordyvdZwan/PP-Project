@@ -24,9 +24,6 @@ public class RunTest {
     private Process p = null;
     private static String projectRootPath = new File("").getAbsolutePath();
 
-
-
-
     // Basic Tests
     @Test(timeout=10000)
     public void basic1Test() {
@@ -44,6 +41,23 @@ public class RunTest {
 
         String result = runProgram(outputPath, outputFileName);
         check(result, "[2,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+    }
+    @Test(timeout=10000)
+    public void basic2Test() {
+        String inputPath = projectRootPath + "\\testResources\\scs";
+        String inputFileName = "basic2.ppl";
+        String outputPath = "resources\\out";
+        String outputFileName = "output.hs";
+
+        try {
+            Compiler.compileFile(inputPath, inputFileName, outputPath, outputFileName);
+        } catch (IOException | SyntaxErrorException | CompilerErrorException | CheckerException e) {
+            e.printStackTrace();
+            Assert.fail("Exception Thrown: " + e.getMessage());
+        }
+
+        String result = runProgram(outputPath, outputFileName);
+        check(result, "[4,6,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
     @Test(timeout=10000)
     public void basic3Test() {
@@ -80,10 +94,28 @@ public class RunTest {
         check(result, "[3,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
 
+    //Expression Tests
     @Test(timeout=10000)
-    public void basic5Test() {
-        String inputPath = projectRootPath + "\\testResources\\scs";
-        String inputFileName = "basic5.ppl";
+    public void expressions1Test() {
+        String inputPath = projectRootPath + "\\testResources\\scs\\expressions";
+        String inputFileName = "expressions1.ppl";
+        String outputPath = "resources\\out";
+        String outputFileName = "output.hs";
+
+        try {
+            Compiler.compileFile(inputPath, inputFileName, outputPath, outputFileName);
+        } catch (IOException | SyntaxErrorException | CompilerErrorException | CheckerException e) {
+            e.printStackTrace();
+            Assert.fail("Exception Thrown: " + e.getMessage());
+        }
+
+        String result = runProgram(outputPath, outputFileName);
+        check(result, "[2,37,2,3,1,3,3,6,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+    }
+    @Test(timeout=10000)
+    public void expressions2Test() {
+        String inputPath = projectRootPath + "\\testResources\\scs\\expressions";
+        String inputFileName = "expressions2.ppl";
         String outputPath = "resources\\out";
         String outputFileName = "output.hs";
 
@@ -97,11 +129,10 @@ public class RunTest {
         String result = runProgram(outputPath, outputFileName);
         check(result, "[2,1938,2,4,8,5,13,2,5,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
-
     @Test(timeout=10000)
-    public void basic6Test() {
-        String inputPath = projectRootPath + "\\testResources\\scs";
-        String inputFileName = "basic6.ppl";
+    public void expressions3Test() {
+        String inputPath = projectRootPath + "\\testResources\\scs\\expressions";
+        String inputFileName = "expressions3.ppl";
         String outputPath = "resources\\out";
         String outputFileName = "output.hs";
 
@@ -116,6 +147,7 @@ public class RunTest {
         check(result, "[2,4,8,4,7,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
 
+    //Concurrency Tests
     @Test(timeout=10000)
     public void concurrent1Test() {
         String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
@@ -168,7 +200,6 @@ public class RunTest {
         String result = runProgram(outputPath, outputFileName);
         check(result, "[7,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
-
     @Test(timeout =100000)
     public void bankTest() {
         String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
@@ -203,7 +234,7 @@ public class RunTest {
     }
 
 
-    public String runProgram(String path, String fileName) {
+    private String runProgram(String path, String fileName) {
         try {
             System.out.println("Starting... ");
             p = Runtime.getRuntime().exec("ghci");
@@ -249,8 +280,5 @@ public class RunTest {
     }
     private void check(String actual, String expected) {
         Assert.assertEquals(expected, actual);
-    }
-    private String getRoot() {
-        return new File(".").getAbsolutePath();
     }
 }
