@@ -145,6 +145,7 @@ public class CheckerStage1 extends MainGrammarBaseListener {
                 int offset = declarationTable.getNextOffset(new Type(PrimitiveType.INTEGER));
                 lockMapping.put(offset(ctx.id()), offset);
                 setOffset(ctx, offset);
+                System.out.println(lockMapping);
             }
         } else {
             setOffset(ctx, lockMapping.get(offset(ctx.id())));

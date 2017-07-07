@@ -1,19 +1,7 @@
 grammar MainGrammar;
 import NumberGrammar;
 
-Letter: A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z;
-
-StartComment: '%';
-EndComent: '%';
-Comment: (StartComment ((Letter | NUMBER | WS)*) EndComent) -> skip;
-
-id: Letter (Letter | NUMBER)*;
-forkID : Letter (Letter | NUMBER)*;
-
 program : (WS)? (statement (WS)?)+ EOF;
-
-Fork: F O R K;
-Join: J O I N;
 
 statement: (WS)? (Var WS)? type WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?                                       #declStat
          | (WS)? (Var WS)? Shared WS type WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?                             #sharedDeclStat
@@ -25,16 +13,6 @@ statement: (WS)? (Var WS)? type WS id (WS ASS WS expression)? (WS)? EndStatement
          | (WS)? Fork (WS)? LPAR (WS)? forkID (WS)? RPAR (WS)? statement (WS)?                                               #forkStat
          | (WS)? Join (WS)? LPAR (WS)? forkID (WS)? RPAR (WS)? EndStatement (WS)?                                            #joinStat
          ;
-
-Shared: S H A R E D;
-Lock: L O C K;
-Unlock: U N L O C K;
-target: id;
-Var : V A R;
-type: primitiveType ;
-primitiveType: Integer | Boolean;
-Integer: I N T E G E R;
-Boolean: B O O L E A N;
 
 expression: prfOp (WS)? expression                                   #prfExpr
           | expression (WS)? multOp (WS)? expression                 #multExpr
@@ -48,21 +26,38 @@ expression: prfOp (WS)? expression                                   #prfExpr
           | FALSE                                                    #falseExpr
           ;
 
+id: Letter (Letter | NUMBER)*;
+forkID : Letter (Letter | NUMBER)*;
+target: id;
+
+type: primitiveType ;
+primitiveType: Integer | Boolean;
+
 num : ngWrittenNumber | NUMBER;
-NUMBER: ([0-9])+;
 
 prfOp: Minus | Not;
-Minus:  (MINUS | MINUS2);
-MINUS: '-';
-MINUS2: M I N U S;
-Not:    '!' | NOT;
-NOT: N O T;
-
 multOp: Mult;
 plusOp: Plus | Minus;
 boolOp: And | Or;
 compOp: EQ | LT | LE | NE | GT | GE;
 
+NUMBER: ([0-9])+;
+
+Var : V A R;
+Fork: F O R K;
+Join: J O I N;
+Shared: S H A R E D;
+Lock: L O C K;
+Unlock: U N L O C K;
+Integer: I N T E G E R;
+Boolean: B O O L E A N;
+StartComment: '%';
+EndComent: '%';
+Minus:  (MINUS | MINUS2);
+MINUS: '-';
+MINUS2: M I N U S;
+Not:    '!' | NOT;
+NOT: N O T;
 Mult: '*' | TIMES;
 TIMES: T I M E S;
 
@@ -92,20 +87,21 @@ ASS: '=' | S E T WS T O;
 TRUE: T R U E;
 FALSE: F A L S E;
 
+//Basic characters
 BGN: '{';
 END: '}';
 SEMI: ',';
 LPAR: '(';
 RPAR: ')';
-
 OpenArray   : '[';
 CloseArray  : ']';
-
 EndStatement: ';';
 
 
-
 WS : ([ \t\r\n])+;
+Comment: (StartComment ((Letter | NUMBER | WS)*) EndComent) -> skip;
+
+Letter: A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z;
 
 fragment A: 'A' | 'a';
 fragment B: 'B' | 'b';

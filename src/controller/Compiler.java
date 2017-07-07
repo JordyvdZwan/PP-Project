@@ -36,6 +36,7 @@ public class Compiler {
     public static boolean PRINT_TO_SCREEN = true;
     public static boolean WRITE_TO_FILE = true;
 
+    //DEV PURPOSES ONLY - DO NO CHANGE
     public static boolean CHECKER_STAGE_1 = true;
     public static boolean CHECKER_STAGE_2 = true;
     public static boolean CHECKER_STAGE_3 = true;

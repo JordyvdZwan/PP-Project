@@ -310,9 +310,9 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
     @Override
     public Op visitLockStat(MainGrammarParser.LockStatContext ctx) {
         if (ctx.Lock() != null) {
-            return emit(OpCode.lock, globaloffset(ctx.id()));
+            return emit(OpCode.lock, globaloffset(ctx));
         } else {
-            return emit(OpCode.unlock, globaloffset(ctx.id()));
+            return emit(OpCode.unlock, globaloffset(ctx));
         }
     }
 
