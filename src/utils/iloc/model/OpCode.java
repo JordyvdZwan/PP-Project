@@ -1,19 +1,9 @@
 package utils.iloc.model;
 
-import static utils.iloc.model.OpClaz.COMMENT;
-import static utils.iloc.model.OpClaz.CONTROL;
-import static utils.iloc.model.OpClaz.NORMAL;
-import static utils.iloc.model.Operand.Type.LABEL;
-import static utils.iloc.model.Operand.Type.NUM;
-import static utils.iloc.model.Operand.Type.REG;
-import static utils.iloc.model.Operand.Type.STR;
-import static utils.iloc.model.Operand.Type.REG;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static utils.iloc.model.OpClaz.*;
+import static utils.iloc.model.Operand.Type.*;
 
 /**
  * Code defining the type of a (non-control flow) operation.
@@ -182,12 +172,13 @@ public enum OpCode {
 
 	/** id of thread and line to skip to for main thread and line for new thread*/
 	fork(0, NUM, LABEL, LABEL),
+	/** End the fork */
 	unfork(0, NUM),
 	/** id of thread to wait for*/
 	join(1, NUM),
-
+	/** address of what to lock */
 	lock(1, NUM),
-
+	/** Address of what to unlock */
 	unlock(1, NUM)
 	;
 
