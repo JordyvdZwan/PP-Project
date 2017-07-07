@@ -81,6 +81,42 @@ public class RunTest {
     }
 
     @Test(timeout=10000)
+    public void basic5Test() {
+        String inputPath = projectRootPath + "\\testResources\\scs";
+        String inputFileName = "basic5.ppl";
+        String outputPath = "resources\\out";
+        String outputFileName = "output.hs";
+
+        try {
+            Compiler.compileFile(inputPath, inputFileName, outputPath, outputFileName);
+        } catch (IOException | SyntaxErrorException | CompilerErrorException | CheckerException e) {
+            e.printStackTrace();
+            Assert.fail("Exception Thrown: " + e.getMessage());
+        }
+
+        String result = runProgram(outputPath, outputFileName);
+        check(result, "[2,1938,2,4,8,5,13,2,5,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+    }
+
+    @Test(timeout=10000)
+    public void basic6Test() {
+        String inputPath = projectRootPath + "\\testResources\\scs";
+        String inputFileName = "basic6.ppl";
+        String outputPath = "resources\\out";
+        String outputFileName = "output.hs";
+
+        try {
+            Compiler.compileFile(inputPath, inputFileName, outputPath, outputFileName);
+        } catch (IOException | SyntaxErrorException | CompilerErrorException | CheckerException e) {
+            e.printStackTrace();
+            Assert.fail("Exception Thrown: " + e.getMessage());
+        }
+
+        String result = runProgram(outputPath, outputFileName);
+        check(result, "[2,4,8,4,7,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+    }
+
+    @Test(timeout=10000)
     public void concurrent1Test() {
         String inputPath = projectRootPath + "\\testResources\\scs\\concurrent";
         String inputFileName = "concurrent1.ppl";
