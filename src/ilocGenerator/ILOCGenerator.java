@@ -386,7 +386,7 @@ public class ILOCGenerator extends MainGrammarBaseVisitor<Op> {
         return new Num(this.checkResult.getOffset((ParserRuleContext) node));
     }
     private Num globaloffset(ParseTree node) {
-        return new Num(CheckerRecord.nrOfThreads + this.checkResult.getOffset((ParserRuleContext) node));
+        return new Num(checkResult.nrOfThreads + this.checkResult.getOffset((ParserRuleContext) node));
     }
     private boolean global(ParseTree node) {
         return checkResult.getGlobal((ParserRuleContext) node);

@@ -11,18 +11,6 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link MainGrammarParser#id}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitId(MainGrammarParser.IdContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MainGrammarParser#forkID}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitForkID(MainGrammarParser.ForkIDContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link MainGrammarParser#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -91,24 +79,6 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitJoinStat(MainGrammarParser.JoinStatContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MainGrammarParser#target}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTarget(MainGrammarParser.TargetContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MainGrammarParser#type}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitType(MainGrammarParser.TypeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MainGrammarParser#primitiveType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPrimitiveType(MainGrammarParser.PrimitiveTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code parExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
@@ -179,6 +149,36 @@ public interface MainGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIdExpr(MainGrammarParser.IdExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MainGrammarParser#id}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitId(MainGrammarParser.IdContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MainGrammarParser#forkID}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForkID(MainGrammarParser.ForkIDContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MainGrammarParser#target}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTarget(MainGrammarParser.TargetContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MainGrammarParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitType(MainGrammarParser.TypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MainGrammarParser#primitiveType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimitiveType(MainGrammarParser.PrimitiveTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MainGrammarParser#num}.
 	 * @param ctx the parse tree

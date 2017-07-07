@@ -95,7 +95,7 @@ public class RunTest {
         }
 
         String result = runProgram(projectRootPath + "\\" + outputPath, outputFileName);
-        check(result, "[2,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+        check(result, "[3,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
     @Test(timeout=100000)
     public void concurrent2Test() {
@@ -112,7 +112,7 @@ public class RunTest {
         }
 
         String result = runProgram(outputPath, outputFileName);
-        check(result, "[4,5,0,500,500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
+        check(result, "[6,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
     }
 
     @After
@@ -161,7 +161,6 @@ public class RunTest {
             String previousLine = "";
             while (sc.hasNext()) {
                 String nextLine = sc.next();
-                System.out.println(nextLine);
                 if (previousLine.contains("[") && previousLine.contains("]") && !nextLine.contains("[") && !nextLine.contains(",") && !nextLine.contains("fromList")) {
                     return previousLine;
                 }

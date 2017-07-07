@@ -43,7 +43,7 @@ public class CheckerRecord {
      * This variable is used to keep track of the amount of threads and is only used to determine how
      * many progs to use in the sprockel code.
      */
-    public static int nrOfThreads = 0;
+    public int nrOfThreads = 1;
 
     public void setEntry(ParserRuleContext node, ParserRuleContext entry) {
         entries.put(node, entry);

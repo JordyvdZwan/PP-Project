@@ -4,4 +4,4 @@ fork (hello) {
     test = 2;
 }
 join(hello);
-test = 0;
+i = test;

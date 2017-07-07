@@ -23,7 +23,7 @@ public class ParsingTest {
      */
     @Test
     public void testParsing1() throws IOException {
-        testFile("testResources\\scs\\parsing\\parsing1.ppl", "[Error: [@5,6:6='=',<38>,1:6] at line: 1 at pos: 6 Msg: mismatched input '=' expecting ')']");
+        testFile("testResources\\scs\\parsing\\parsing1.ppl", "[Error: [@5,6:6='=',<7>,1:6] at line: 1 at pos: 6 Msg: mismatched input '=' expecting ')']");
     }
 
     /**
@@ -32,10 +32,10 @@ public class ParsingTest {
      */
     @Test
     public void testParsing2() throws IOException {
-        testFile("testResources\\scs\\parsing\\parsing2.ppl", "[" +
-                "Error: [@14,32:32='}',<42>,3:4] at line: 3 at pos: 4 Msg: no viable alternative at input '\\r\\n    }', " +
-                "Error: [@14,32:32='}',<42>,3:4] at line: 3 at pos: 4 Msg: extraneous input '}' expecting {<EOF>, Letter, Fork, Join, Shared, Lock, Unlock, Var, Integer, Boolean, IF, WHILE, '{', WS}, " +
-                "Error: [@16,34:37='else',<35>,3:6] at line: 3 at pos: 6 Msg: no viable alternative at input ' else']");
+        testFile("testResources\\scs\\parsing\\parsing2.ppl", "" +
+                "[Error: [@14,32:32='}',<47>,3:4] at line: 3 at pos: 4 Msg: no viable alternative at input '\\r\\n    }', " +
+                "Error: [@14,32:32='}',<47>,3:4] at line: 3 at pos: 4 Msg: extraneous input '}' expecting {<EOF>, Var, Integer, Boolean, Fork, Join, Shared, Lock, Unlock, IF, WHILE, '{', WS, Letter}, " +
+                "Error: [@16,34:37='else',<43>,3:6] at line: 3 at pos: 6 Msg: no viable alternative at input ' else']");
     }
 
     /**

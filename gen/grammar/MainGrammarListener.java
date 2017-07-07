@@ -8,26 +8,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface MainGrammarListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#id}.
-	 * @param ctx the parse tree
-	 */
-	void enterId(MainGrammarParser.IdContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#id}.
-	 * @param ctx the parse tree
-	 */
-	void exitId(MainGrammarParser.IdContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#forkID}.
-	 * @param ctx the parse tree
-	 */
-	void enterForkID(MainGrammarParser.ForkIDContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#forkID}.
-	 * @param ctx the parse tree
-	 */
-	void exitForkID(MainGrammarParser.ForkIDContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link MainGrammarParser#program}.
 	 * @param ctx the parse tree
 	 */
@@ -145,36 +125,6 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitJoinStat(MainGrammarParser.JoinStatContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#target}.
-	 * @param ctx the parse tree
-	 */
-	void enterTarget(MainGrammarParser.TargetContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#target}.
-	 * @param ctx the parse tree
-	 */
-	void exitTarget(MainGrammarParser.TargetContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#type}.
-	 * @param ctx the parse tree
-	 */
-	void enterType(MainGrammarParser.TypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#type}.
-	 * @param ctx the parse tree
-	 */
-	void exitType(MainGrammarParser.TypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MainGrammarParser#primitiveType}.
-	 * @param ctx the parse tree
-	 */
-	void enterPrimitiveType(MainGrammarParser.PrimitiveTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MainGrammarParser#primitiveType}.
-	 * @param ctx the parse tree
-	 */
-	void exitPrimitiveType(MainGrammarParser.PrimitiveTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code parExpr}
 	 * labeled alternative in {@link MainGrammarParser#expression}.
@@ -295,6 +245,56 @@ public interface MainGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIdExpr(MainGrammarParser.IdExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#id}.
+	 * @param ctx the parse tree
+	 */
+	void enterId(MainGrammarParser.IdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#id}.
+	 * @param ctx the parse tree
+	 */
+	void exitId(MainGrammarParser.IdContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#forkID}.
+	 * @param ctx the parse tree
+	 */
+	void enterForkID(MainGrammarParser.ForkIDContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#forkID}.
+	 * @param ctx the parse tree
+	 */
+	void exitForkID(MainGrammarParser.ForkIDContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#target}.
+	 * @param ctx the parse tree
+	 */
+	void enterTarget(MainGrammarParser.TargetContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#target}.
+	 * @param ctx the parse tree
+	 */
+	void exitTarget(MainGrammarParser.TargetContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterType(MainGrammarParser.TypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitType(MainGrammarParser.TypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainGrammarParser#primitiveType}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimitiveType(MainGrammarParser.PrimitiveTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainGrammarParser#primitiveType}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimitiveType(MainGrammarParser.PrimitiveTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MainGrammarParser#num}.
 	 * @param ctx the parse tree

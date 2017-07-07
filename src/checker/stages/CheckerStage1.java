@@ -114,7 +114,7 @@ public class CheckerStage1 extends MainGrammarBaseListener {
     @Override
     public void enterForkStat(MainGrammarParser.ForkStatContext ctx) {
         if (declarationTable.addForkId(ctx.forkID().getText()) == -1) errors.add("ForkID is already declared: " + ctx.forkID().getText());
-        CheckerRecord.nrOfThreads++;
+        checkerRecord.nrOfThreads++;
         setForkId(ctx.forkID(), declarationTable.getForkId(ctx.forkID().getText()).getNumber());
         declarationTable.createThread();
     }

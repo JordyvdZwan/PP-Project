@@ -26,66 +26,89 @@ expression: prfOp (WS)? expression                                   #prfExpr
           | FALSE                                                    #falseExpr
           ;
 
+//Identifiers
 id: Letter (Letter | NUMBER)*;
 forkID : Letter (Letter | NUMBER)*;
 target: id;
 
+//Types
 type: primitiveType ;
 primitiveType: Integer | Boolean;
 
+//Primitive values
 num : ngWrittenNumber | NUMBER;
 
+//Operator classes
 prfOp: Minus | Not;
 multOp: Mult;
 plusOp: Plus | Minus;
 boolOp: And | Or;
 compOp: EQ | LT | LE | NE | GT | GE;
 
+//primitive values
 NUMBER: ([0-9])+;
+TRUE: T R U E;
+FALSE: F A L S E;
 
+//KeyWords
+//Declaration Keywords
 Var : V A R;
+Integer: I N T E G E R;
+Boolean: B O O L E A N;
+ASS: '=' | S E T WS T O;
+
+//Concurrency Keywords
 Fork: F O R K;
 Join: J O I N;
 Shared: S H A R E D;
 Lock: L O C K;
 Unlock: U N L O C K;
-Integer: I N T E G E R;
-Boolean: B O O L E A N;
+
+//Other Keywords
 StartComment: '%';
 EndComent: '%';
+
+//Mathematical Operator Keywords
 Minus:  (MINUS | MINUS2);
 MINUS: '-';
-MINUS2: M I N U S;
-Not:    '!' | NOT;
-NOT: N O T;
 Mult: '*' | TIMES;
-TIMES: T I M E S;
-
+Not:    '!' | NOT;
 Plus: '+' | PLUS;
-PLUS: P L U S;
-//MINUS ALREADY DEFINED ABOVE
 
+
+MINUS2: M I N U S;
+NOT: N O T;
+TIMES: T I M E S;
+PLUS: P L U S;
+
+//Boolean Operator Keywords
 And: '&' | '&&' | AND;
-AND: A N D;
 Or:  '|' | '||' | OR;
+AND: A N D;
 OR: O R;
 
-EQ: '==' | E Q U A L S | E Q U A L (WS)? T O;
-GT: '>' | (I S (WS)?)? G R E A T E R (WS)? T H A N;
-GE: '>=' | (I S (WS)?)? G R E A T E R (WS)? T H A N (WS)? O R (WS)? E Q U A L S;
-LT: '<' | (I S (WS)?)? L O W E R (WS)? T H A N;
-LE: '<=' | (I S (WS)?)? L O W E R (WS)? T H A N (WS)? O R (WS)? E Q U A L S;
-NE: '!=' | N O T (WS)? E Q U A L (WS)? T O;
+//Relational Operator Keywords
+EQ: '==' | EQUALS | EQUALTO;
+GT: '>' | ISGREATERTHAN;
+GE: '>=' | GREATEROREQUAL;
+LT: '<' | LOWERTHAN;
+LE: '<=' | LOWEROREQUAL;
+NE: '!=' | NOTEQUAL;
 
+EQUALS:E Q U A L S;
+EQUALTO:E Q U A L (WS)? T O;
+ISGREATERTHAN:(I S (WS)?)? G R E A T E R (WS)? T H A N;
+GREATEROREQUAL:(I S (WS)?)? G R E A T E R (WS)? T H A N (WS)? O R (WS)? E Q U A L S;
+LOWERTHAN:(I S (WS)?)? L O W E R (WS)? T H A N;
+LOWEROREQUAL:(I S (WS)?)? L O W E R (WS)? T H A N (WS)? O R (WS)? E Q U A L S;
+NOTEQUAL: N O T (WS)? E Q U A L (WS)? T O;
+
+//Control structures Keywords
 IF: I F;
 THEN: T H E N;
 ELSE: E L S E;
 WHILE: W H I L E;
 DO: D O;
-ASS: '=' | S E T WS T O;
-
-TRUE: T R U E;
-FALSE: F A L S E;
 
 //Basic characters
 BGN: '{';
@@ -97,7 +120,7 @@ OpenArray   : '[';
 CloseArray  : ']';
 EndStatement: ';';
 
-
+//Utility
 WS : ([ \t\r\n])+;
 Comment: (StartComment ((Letter | NUMBER | WS)*) EndComent) -> skip;
 
@@ -129,12 +152,4 @@ fragment W: 'W' | 'w';
 fragment X: 'X' | 'x';
 fragment Y: 'Y' | 'y';
 fragment Z: 'Z' | 'z';
-
-//         | (WS)? (Var WS)? type OpenArray CloseArray WS id (WS ASS WS expression)? (WS)? EndStatement (WS)?   #arrayDeclStat
-//target: id ;//| arrayId;
-
-//| arrayType;
-//arrayType: primitiveType OpenArray CloseArray;
-          //| arrayId                                                  #indexExpr
-//arrayId: (id) (WS)? OpenArray (WS)? expression (WS)? CloseArray;
 

@@ -32,23 +32,23 @@ import java.util.Scanner;
  */
 public class Compiler {
 
-    public static LogType LOG_TYPE = LogType.Dev;
-    public static boolean PRINT_TO_SCREEN = true;
-    public static boolean WRITE_TO_FILE = true;
+    //Log attributes
+    private static LogType MIN_LOG_TYPE = LogType.Dev;
+    private static boolean PRINT_TO_SCREEN = true;
+    private static boolean WRITE_TO_FILE = true;
 
     //DEV PURPOSES ONLY - DO NO CHANGE
-    public static boolean CHECKER_STAGE_1 = true;
-    public static boolean CHECKER_STAGE_2 = true;
-    public static boolean CHECKER_STAGE_3 = true;
+    private static boolean CHECKER_STAGE_1 = true;
+    private static boolean CHECKER_STAGE_2 = true;
+    private static boolean CHECKER_STAGE_3 = true;
 
     public static int INTEGER_SIZE_MULTIPLIER = 1;
 
     public static boolean DEBUG = true;
     public static boolean PRETTYPRINT = true;
-    public static boolean EXTENDED = false;
+    public static boolean EXTENDED = true;
 
-
-    private static Log log = new Log(PRINT_TO_SCREEN, WRITE_TO_FILE, LOG_TYPE);
+    private static Log log = new Log(PRINT_TO_SCREEN, WRITE_TO_FILE, MIN_LOG_TYPE);
 
     public static void main(String[] args) {
         try {
@@ -129,9 +129,9 @@ public class Compiler {
         Program ilocProgram = null;
         String sprocklResult = null;
 
-
         Log.addLogItem("Starting compilation...", LogType.Info);
         compileStart = System.currentTimeMillis();
+
         /*
          * Parsing Phase
          *
@@ -421,7 +421,7 @@ public class Compiler {
             subStageStart = System.currentTimeMillis();
             {
                 // ILOC Code Generation Stage 1 Body
-                SprocklGenerator generator = new SprocklGenerator(ilocProgram, CheckerRecord.nrOfThreads);
+                SprocklGenerator generator = new SprocklGenerator(ilocProgram, checkerRecord.nrOfThreads);
                 try {
                     if (ilocProgram != null) sprocklResult = generator.generate(DEBUG, EXTENDED, PRETTYPRINT);
                 } catch (UnsupportedInstructionException e) {
